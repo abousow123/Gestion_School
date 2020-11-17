@@ -64,7 +64,6 @@ public class SchoolApplication implements CommandLineRunner {
 		programme.setDate_created(new Date());
 		programme.setLibelle("test1");
 		programme.setTypeProgramme("type 1");
-		programme.setTuition(tuitionRepository.getOne(tuition.getId()));
 		programmeRepository.save(programme);
 
 		Classe classe = new Classe();

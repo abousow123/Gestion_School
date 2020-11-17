@@ -19,8 +19,6 @@ public class Programme implements Serializable {
 
     //Relation
     @ManyToOne
-    private Tuition tuition;
-    @ManyToOne
     private User user ;
 
     public Programme() {
@@ -67,11 +65,4 @@ public class Programme implements Serializable {
         this.date_created = date_created;
     }
 
-    public Tuition getTuition() {
-        return tuition;
-    }
-
-    public void setTuition(Tuition tuition) {
-        this.tuition = tuition;
-    }
 }

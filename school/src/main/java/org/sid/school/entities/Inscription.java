@@ -22,11 +22,15 @@ public class Inscription implements Serializable {
     private Classe classe;
     @ManyToOne
     private Tuition tuition;
+    @ManyToOne
     private Programme programme;
+    @ManyToOne
     private Etudiant etudiant;
+    @ManyToOne
     private ModePaiement paiement ;
-
+    @ManyToOne
     private User user;
+
 
     public Inscription() {
     }
