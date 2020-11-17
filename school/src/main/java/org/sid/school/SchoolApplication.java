@@ -61,6 +61,8 @@ public class SchoolApplication implements CommandLineRunner {
 		classeRepository.save(classe);
 
 
+
+		//test
 		Etudiant etudiant = new Etudiant();
 		etudiant.setAddress("New York");
 		etudiant.setFirstName("Amina");
