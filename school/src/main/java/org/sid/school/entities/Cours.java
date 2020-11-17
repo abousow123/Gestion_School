@@ -23,9 +23,10 @@ public class Cours implements Serializable {
     private String libelle;
 
     @ManyToOne
-    private User user ;
-    @ManyToOne
     private Classe classe;
+    @ManyToOne
+    private User user ;
+
 
     public Cours() {
     }
