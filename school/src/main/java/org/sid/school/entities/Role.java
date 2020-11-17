@@ -1,8 +1,6 @@
 package org.sid.school.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -10,26 +8,26 @@ import java.util.UUID;
 public class Role implements Serializable {
 
     @Id
-    @Column(name = "id", unique = true, nullable = false, length = 254)
-    private String id = UUID.randomUUID().toString();
-    private String libelle;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String authority;
 
     public Role() {
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getLibelle() {
-        return libelle;
+    public String getAuthority() {
+        return authority;
     }
 
-    public void setLibelle(String libelle) {
-        this.libelle = libelle;
+    public void setAuthority(String authority) {
+        this.authority = authority;
     }
 }

@@ -1,8 +1,6 @@
 package org.sid.school.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
@@ -11,22 +9,26 @@ import java.util.UUID;
 public class Tuition implements Serializable {
 
     @Id
-    @Column(name = "id", unique = true, nullable = false, length = 254)
-    private String id = UUID.randomUUID().toString();;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id ;
 
     private String code;
     private String libelle;
     private double prix;
+    private int dropOff;
     private Date date_created;
+
+    @ManyToOne
+    private User user ;
 
     public Tuition() {
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -60,5 +62,21 @@ public class Tuition implements Serializable {
 
     public void setDate_created(Date date_created) {
         this.date_created = date_created;
+    }
+
+    public int getDropOff() {
+        return dropOff;
+    }
+
+    public void setDropOff(int dropOff) {
+        this.dropOff = dropOff;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

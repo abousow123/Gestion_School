@@ -1,9 +1,6 @@
 package org.sid.school.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
@@ -26,11 +23,11 @@ public class Etudiant implements Serializable {
     private String email;
     private double fraisInscription;
 
+
     //relation
     @ManyToOne
-    private Programme programme;
-    @ManyToOne
-    private Classe classe ;
+    @JoinColumn(nullable = true)
+    private ModePaiement modePaiement ;
 
 
     public Etudiant() {
@@ -125,19 +122,11 @@ public class Etudiant implements Serializable {
         this.fraisInscription = fraisInscription;
     }
 
-    public Programme getProgramme() {
-        return programme;
+    public ModePaiement getModePaiement() {
+        return modePaiement;
     }
 
-    public void setProgramme(Programme programme) {
-        this.programme = programme;
-    }
-
-    public Classe getClasse() {
-        return classe;
-    }
-
-    public void setClasse(Classe classe) {
-        this.classe = classe;
+    public void setModePaiement(ModePaiement modePaiement) {
+        this.modePaiement = modePaiement;
     }
 }

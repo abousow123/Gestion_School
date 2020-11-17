@@ -11,7 +11,7 @@ public class User implements Serializable {
 
     @Id
     @Column(name = "id", unique = true, nullable = false, length = 254)
-    private String id = UUID.randomUUID().toString();;
+    private String id = UUID.randomUUID().toString();
 
     private String firstName;
     private String lastName;
