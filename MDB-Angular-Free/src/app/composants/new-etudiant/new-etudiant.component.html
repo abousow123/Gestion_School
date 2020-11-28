@@ -1,0 +1,290 @@
+
+
+<!--   <button mat-raised-button (click)="isEditable = !isEditable">
+    {{!isEditable ? 'Enable edit mode' : 'Disable edit mode'}}
+  </button>
+  
+  <button mat-raised-button (click)="isEditable = !isEditable">
+    {{!isEditable ? 'Enable edit mode' : 'Disable edit mode'}}
+  </button> -->
+  
+  <mat-horizontal-stepper linear #stepper>
+  <!-- #docregion editable -->
+    <mat-step [stepControl]="etudiantForm" label="Student Informations" [editable]="isEditable">
+  <!-- #enddocregion editable -->
+      <form [formGroup]="etudiantForm">
+              <!-- #docregion step-label -->
+                    <!-- <ng-template matStepLabel>Student informations</ng-template> -->
+              <!-- #enddocregion step-label -->
+          <div>
+            <h4>Infos Student</h4>
+              <!-- Grid row -->
+              <div class="form-row">
+                <!-- Grid column -->
+                <div class="col-md-6">
+                  <!-- Material input -->
+                  <div class="md-form form-group">
+                    <input mdbInput type="text" class="form-control" id="inputName4" formControlName="firstName"  placeholder="">
+                    <label for="inputEmail4MD">FirstName</label>
+                  </div>
+                </div>
+                <!-- Grid column -->
+            
+                <!-- Grid column -->
+                <div class="col-md-6">
+                  <!-- Material input -->
+                  <div class="md-form form-group">
+                    <input mdbInput type="text" id="inputName4" class="form-control" formControlName="lastName"  placeholder="">
+                    <label for="inputPassword4MD">LastName</label>
+                  </div>
+                </div>
+                <!-- Grid column -->
+              </div>
+              <!-- Grid row -->
+            
+              <!-- Grid row -->
+              <div class="row">
+                <!-- Grid column -->
+                <div class="col-md-6">
+                  <!-- Material input -->
+                  <div class="md-form form-group">
+                    <input mdbInput type="text" class="form-control" id="inputAddress" formControlName="address"  placeholder="">
+                    <label for="inputAddressMD">Address</label>
+                  </div>
+                </div>
+                <!-- Grid column -->
+            
+                <!-- Grid column -->
+                <div class="col-md-6">
+                  <!-- Material input -->
+                  <div class="md-form form-group">
+                    <input mdbInput type="text" class="form-control" id="inputCity" formControlName="nationalite"  placeholder="">
+                    <label for="inputAddress2MD">City</label>
+                  </div>
+                </div>
+                <!-- Grid column -->
+              </div>
+              <!-- Grid row -->
+            
+              <!-- Grid row -->
+              <div class="form-row">
+                <!-- Grid column -->
+            
+                <!-- Grid column -->
+                <div class="col-md-6">
+                  <!-- Material input -->
+                  <div class="md-form form-group">
+                    <input mdbInput type="tel" class="form-control"  id="inputName4" formControlName="tel"  placeholder="">
+                    <label for="inputZipMD">Phone Number</label>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <!-- Material input -->
+                  <div class="md-form form-group">
+                    <input mdbInput type="email" class="form-control" id="inputEmail4" formControlName="email"  placeholder="exemple@exemple.com">
+                    <label for="inputCityMD">Email</label>
+                  </div>
+                </div>
+
+              
+                <!-- Grid column -->
+                <!-- Grid column -->
+              </div>
+              <!-- Grid row -->
+
+            
+
+           </div>
+
+           <p></p>
+           <p></p>
+           <p></p>
+
+           <div>
+            <h4>Infos Tuteur</h4>
+              
+               <!-- Grid row -->
+               <div class="form-row">
+                <!-- Grid column -->
+                <div class="col-md-6">
+                  <!-- Material input -->
+                  <div class="md-form form-group">
+                    <select class="browser-default custom-select form-control" formControlName="typeTuteur">
+                      <option selected>Open this select menu</option>
+                      <option value="Father">Father</option>
+                      <option value="Mother">Mother</option>
+                      <option value="Uncle">Uncle</option>
+                      <option value="Aunt">Aunt</option>
+                    </select>
+                    
+                  </div>
+                </div>
+               </div>
+                <!-- Grid column -->
+
+            
+              <!-- Grid row -->
+              <div class="form-row">
+                <!-- Grid column -->
+                <div class="col-md-6">
+                  <!-- Material input -->
+                  <div class="md-form form-group">
+                    <input mdbInput type="text" class="form-control" id="inputName4" formControlName="firstNameTuteur"  placeholder="">
+                    <label for="inputEmail4MD">FirstName</label>
+                  </div>
+                </div>
+                <!-- Grid column -->
+            
+                <!-- Grid column -->
+                <div class="col-md-6">
+                  <!-- Material input -->
+                  <div class="md-form form-group">
+                    <input mdbInput type="text" id="inputName4" class="form-control" formControlName="lastNameTuteur"  placeholder="">
+                    <label for="inputPassword4MD">LastName</label>
+                  </div>
+                </div>
+                <!-- Grid column -->
+              </div>
+              <!-- Grid row -->
+            
+              <!-- Grid row -->
+              <div class="form-row">
+                <!-- Grid column -->
+            
+                <!-- Grid column -->
+                <div class="col-md-6">
+                  <!-- Material input -->
+                  <div class="md-form form-group">
+                    <input mdbInput type="tel" class="form-control"  id="inputName4" formControlName="telTuteur"  placeholder="">
+                    <label for="inputZipMD">Phone Number</label>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <!-- Material input -->
+                  <div class="md-form form-group">
+                    <input mdbInput type="email" class="form-control" id="inputEmail4" formControlName="emailTuteur"  placeholder="exemple@exemple.com">
+                    <label for="inputCityMD">Email</label>
+                  </div>
+                </div>
+                <!-- Grid column -->
+                <!-- Grid column -->
+              </div>
+              <!-- Grid row -->
+
+           </div>
+
+           <div>
+            <button mat-button mdbBtn color="success" mdbWavesEffect matStepperNext>Next</button> 
+            <!-- <button mat-button matStepperNext>Next</button> -->
+          </div>
+
+
+      </form>
+
+    </mat-step>
+    <mat-step [stepControl]="firstFormGroup" label="Type of payment" [editable]="isEditable">
+      <p> <strong>Registration fees =$120 no refundable</strong>  </p>
+        
+      <!-- Grid row -->
+     <div class="form-row">
+         <!-- Grid column -->
+         <div class="col-md-12">
+           <!-- Material input -->
+           <div class="md-form form-group">
+             <mat-label>Choose the method of payment</mat-label>
+             <select (click)="onOption()" class="browser-default custom-select"  class="form-control" [(ngModel)]="pay">
+               <option selected></option>
+               <option  *ngFor="let val of optionPay" value="{{val.value}}">{{val.value}}</option>
+             </select>
+
+             
+           </div>
+         </div>
+
+     </div>
+
+      <form [formGroup]="firstFormGroup">
+      
+
+        <mdb-card *ngIf="op == 0">
+          <mdb-card-body>
+
+              <div class="form-row">
+                <div class="col-md-12">
+                  <!-- Material input -->
+                  <div class="md-form form-group">
+                    <input mdbInput type="text" class="form-control" id="inputName4" formControlName="firstCtrl"  placeholder="">
+                    <label for="inputEmail4MD">Card Number</label>
+                  </div>
+                </div>
+              </div>
+              <!-- Grid row -->
+
+              <p></p>
+              <div class="form-row">
+                <div class="col-md-6">
+                  <!-- Material input -->
+                  <div class="md-form form-group">
+                    <input mdbInput type="text" class="form-control" id="inputName4" formControlName="firstCtrl"  placeholder="">
+                    <label for="inputEmail4MD">Expiry date</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <!-- Material input -->
+                  <div class="md-form form-group">
+                    <input mdbInput type="text" class="form-control" id="inputName4" formControlName="firstCtrl"  placeholder="">
+                    <label for="inputEmail4MD">CVV</label>
+                  </div>
+                </div>
+              </div>
+            </mdb-card-body>
+        </mdb-card>
+
+        <mdb-card *ngIf="op == 1">
+          
+            <mdb-card-body>
+              This is some text within a panel body.
+            </mdb-card-body>
+          
+        </mdb-card>
+        <p></p>
+        <p></p>
+        <p></p>
+        <div>
+          <!-- <button mat-button  matStepperPrevious>Back</button>  -->
+          <button mat-button mdbBtn color="success" (click)="saveEtudiant(etudiantForm)" matStepperNext>Valider</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>Veillez vous rapprocher de la caisse pour finaliser votre inscription.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+  
+  
+  <!-- Copyright 2020 Google LLC. All Rights Reserved.
+      Use of this source code is governed by an MIT-style license that
+      can be found in the LICENSE file at http://angular.io/license -->
+
+
+
+
+
+
+
+
+
+
+
+      <!-- Default form register -->
+
+
+
+

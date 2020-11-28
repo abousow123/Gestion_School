@@ -1,0 +1,67 @@
+
+<div class="container">
+    <div class="row">
+      <div class="col-md-9 mx-left">
+      <h1>List of studiens</h1>
+    </div>
+  
+    
+      <div class="col-md-3 mx-auto">
+        <div class="md-form">
+          <input type="text" class="form-control" [(ngModel)]="searchText" (keyup)="searchItems()" id="search-input"
+                 mdbInput>
+          <label for="search-input">Search</label>
+        </div>
+      </div>
+      <table mdbTable #tableEl="mdbTable" stickyHeader="true" hover="true" striped="true" class="z-depth-1">
+        <thead class="sticky-top">
+        <tr>
+          <th *ngFor="let head of headElements; let i = index" [mdbTableSort]="etudiants" [sortBy]="headElements[i]"
+              scope="col">{{head | titlecase}} <mdb-icon fas icon="sort"></mdb-icon>
+          </th>
+        </tr>
+        </thead>
+        <tbody #row *ngIf="etudiants">
+        <tr mdbTableCol  *ngFor="let el of etudiants; let i = index">
+          <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">{{el.firstName}}</th>
+          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" class="red-text">{{el.lastName}}</td>
+          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.address}}</td>
+          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.email}}</td>
+          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.tel}}</td>
+          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.nationalite}}</td>
+          <td>
+                   <!-- Grid row -->
+            <div class="form-row">
+                  <!-- Grid column -->
+                  <div class="col-md-4">
+                    <a> <mat-icon svgIcon="view"  aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> </a>
+                  </div>
+
+                  <div class="col-md-4">
+                    <a> <mat-icon svgIcon="edit" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> </a>
+                  </div>
+
+                  <div class="col-md-4">
+                    <a> <mat-icon svgIcon="delete" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> </a>
+                  </div>
+
+              </div>
+
+          </td>
+
+            
+        </tr>
+        </tbody>
+        <tfoot class="grey lighten-5 w-100">
+        <tr>
+          <td colspan="4">
+            <mdb-table-pagination [tableEl]="tableEl" paginationAlign="" [searchDataSource]="etudiants"></mdb-table-pagination>
+          </td>
+        </tr>
+        </tfoot>
+      </table>
+
+    </div>
+
+   
+

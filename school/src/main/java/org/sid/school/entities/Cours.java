@@ -21,6 +21,7 @@ public class Cours implements Serializable {
     private Date heureDebut;
     private Date heureFin;
     private String libelle;
+    private String description;
 
     @ManyToOne
     private Classe classe;
@@ -102,5 +103,13 @@ public class Cours implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

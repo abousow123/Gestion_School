@@ -1,0 +1,71 @@
+
+
+
+
+
+<form [formGroup]="etudiantForm">
+
+  <p class="h4 mb-4">New studient</p>
+
+  <div class="form-row mb-4">
+    <div class="col">
+      <!-- First name -->
+      <input type="text" id="defaultRegisterFormFirstName" class="form-control" formControlName="firstName" placeholder="First name">
+    </div>
+    <div class="col">
+      <!-- Last name -->
+      <input type="text" id="defaultRegisterFormLastName" class="form-control" formControlName="lastName" placeholder="Last name">
+    </div>
+  </div>
+
+  <div class="form-row mb-4">
+    <div class="col">
+      <!-- First name -->
+      <input type="text" id="defaultRegisterFormFirstName1" class="form-control" formControlName="address" placeholder="Address">
+    </div>
+    <div class="col">
+      <!-- Last name -->
+      <input type="text" id="defaultRegisterFormLastName2" class="form-control" formControlName="tel" placeholder="Phone number" aria-describedby="defaultRegisterFormPhoneHelpBlock">
+    </div>
+  </div>
+
+  <div class="form-row mb-4">
+    <div class="col">
+      <!-- First name -->
+      <input type="email" id="defaultRegisterFormFirstName1" class="form-control" formControlName="email" placeholder="E-mail">
+    </div>
+    <div class="col">
+      <!-- Last name -->
+      <input type="text" id="defaultRegisterFormLastName2" class="form-control" formControlName="nationalite" placeholder="Nationalite" aria-describedby="defaultRegisterFormPhoneHelpBlock">
+    </div>
+  </div>
+
+
+
+    <!-- Subject -->
+    <label>Mode de paiement</label>
+    <select class="browser-default custom-select mb-4">
+      <option value="" disabled>Choose option</option> 
+      <option value="1">debit card</option>
+      <option value="2">credit cards</option>
+      <option value="3">PayPal</option>
+      <option value="4">cash</option>
+    </select>
+  
+
+  <!-- Sign up button -->
+  <button mdbBtn color="Default" block="true" class="my-2" type="submit" (click)="saveEtudiant(etudiantForm)">Enregistrer</button>
+
+
+
+</form>
+<!-- Default form register -->
+
+
+
+
+
+
+
+
+

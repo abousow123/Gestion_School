@@ -1,5 +1,7 @@
 package org.sid.school.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -14,20 +16,28 @@ public class Etudiant implements Serializable {
 
     private String firstName;
     private String lastName;
+    @JsonIgnore
     private String sexe;
     private String address;
+    @JsonIgnore
     private Date dateNaissance;
+    @JsonIgnore
     private String lieuNaissance;
     private String nationalite;
     private String tel;
     private String email;
-    private double fraisInscription;
+    private boolean feesPays = false ;
+    private double fraisInscription = 120.0;
 
 
     //relation
     @ManyToOne
     @JoinColumn(nullable = true)
+    @JsonIgnore
     private ModePaiement modePaiement ;
+    @OneToOne
+    @JoinColumn(nullable = true)
+    private Tuteur tuteur ;
 
 
     public Etudiant() {
@@ -128,5 +138,21 @@ public class Etudiant implements Serializable {
 
     public void setModePaiement(ModePaiement modePaiement) {
         this.modePaiement = modePaiement;
+    }
+
+    public boolean isFeesPays() {
+        return feesPays;
+    }
+
+    public void setFeesPays(boolean feesPays) {
+        this.feesPays = feesPays;
+    }
+
+    public Tuteur getTuteur() {
+        return tuteur;
+    }
+
+    public void setTuteur(Tuteur tuteur) {
+        this.tuteur = tuteur;
     }
 }

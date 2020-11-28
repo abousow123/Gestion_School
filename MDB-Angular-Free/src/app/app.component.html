@@ -1,0 +1,225 @@
+<!-- Start your project here-->
+
+<mdb-card-header>
+
+
+<!-- Just an image fixed-top -->
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark red " [containerInside]="true">
+  <mdb-navbar-brand>
+    <a class="navbar-brand" href="#">
+        <img src="https://mdbootstrap.com/img/logo/mdb-transparent.png" height="30" class="d-inline-block align-top" alt="">
+        Bootstrap
+    </a>
+</mdb-navbar-brand>
+
+  <!-- Collapsible content -->
+  <links>
+
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link waves-light"  routerLink="/home" mdbWavesEffect>Home<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link waves-light" routerLink="/newEtudiant" mdbWavesEffect>Registration</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link waves-light" routerLink="/gallery" mdbWavesEffect>Gallery</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link waves-light" routerLink="/newEtudiant" mdbWavesEffect>Plans & Pricing</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link waves-light" routerLink="/about" mdbWavesEffect>About</a>
+      </li>
+     
+
+      <!-- Dropdown -->
+      <li class="nav-item dropdown" dropdown>
+        <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+          Settings<span class="caret"></span></a>
+        <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/etudiant">Student</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/tuition">Tuitions</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/classe">Classe</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/cours">Cours</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/programme">Programme</a>
+          <div class="divider dropdown-divider"></div>
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/newCours">Separated link</a>
+        </div>
+      </li>
+
+    </ul>
+    <!-- Links -->
+
+    <ul class="navbar-nav ml-auto nav-flex-icons">
+       <li class="nav-item">
+        <a class="nav-link">
+          <mdb-icon fab icon="twitter"></mdb-icon>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link">
+          <mdb-icon fab icon="google-plus"></mdb-icon>
+        </a>
+      </li> 
+    
+      <li class="nav-item">
+        <a class="nav-link">
+          <div class="btn-group" mdbDropdown>
+            <mdb-icon fas icon="user" mdbDropdownToggle></mdb-icon>
+            <div class="dropdown-menu dropdown-menu-right dropdown-primary">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+              <div class="divider dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Separated link</a>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </links>
+  <!-- Collapsible content -->
+</mdb-navbar>
+</mdb-card-header>
+
+
+<mdb-card-body>
+<div class="container">
+
+<router-outlet></router-outlet>
+
+</div>
+
+</mdb-card-body>
+
+
+
+  <footer class="page-footer font-small mdb-color dribbble pt-3">
+
+    <!-- Footer Links -->
+    <div class="container text-center text-md-left">
+
+      <!-- Grid row -->
+      <div class="row">
+
+     
+
+        <hr class="clearfix w-100 d-md-none">
+
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 mx-auto my-md-4 my-0 mt-4 mb-1">
+
+          <!-- Links -->
+          <h5 class="font-weight-bold text-uppercase mb-4">About</h5>
+
+          <ul class="list-unstyled">
+            <li>
+              <p>
+                <a href="#!">PROJECTS</a>
+              </p>
+            </li>
+            <li>
+              <p>
+                <a href="#!">ABOUT US</a>
+              </p>
+            </li>
+            <li>
+              <p>
+                <a href="#!">BLOG</a>
+              </p>
+            </li>
+            <li>
+              <p>
+                <a href="#!">AWARDS</a>
+              </p>
+            </li>
+          </ul>
+
+        </div>
+        <!-- Grid column -->
+
+        <hr class="clearfix w-100 d-md-none">
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
+
+          <!-- Contact details -->
+          <h5 class="font-weight-bold text-uppercase mb-4">Address</h5>
+
+          <ul class="list-unstyled">
+            <li>
+              <p>
+                <mdb-icon fas icon="home" class="mr-3"></mdb-icon> New York, NY 10012, US
+              </p>
+            </li>
+            <li>
+              <p>
+                <mdb-icon fas icon="envelope" class="mr-3"></mdb-icon> info@example.com
+              </p>
+            </li>
+            <li>
+              <p>
+                <mdb-icon fas icon="phone" class="mr-3"></mdb-icon> + 01 234 567 88
+              </p>
+            </li>
+            <li>
+              <p>
+                <mdb-icon fas icon="print" class="mr-3"></mdb-icon> + 01 234 567 88
+              </p>
+            </li>
+          </ul>
+
+        </div>
+        <!-- Grid column -->
+
+        <hr class="clearfix w-100 d-md-none">
+
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 text-center mx-auto my-4">
+
+          <!-- Social buttons -->
+          <h5 class="font-weight-bold text-uppercase mb-4">Follow Us</h5>
+
+          
+          <a type="button" mdbBtn floating="true" size="lg" color="fb" class="waves-light" mdbWavesEffect><mdb-icon fab icon="facebook-f"></mdb-icon></a>
+          
+          <!--Twitter-->
+          <a type="button" mdbBtn floating="true" size="lg" color="tw" class="waves-light" mdbWavesEffect><mdb-icon fab icon="twitter"></mdb-icon></a>
+          
+          <!--Google +-->
+          <a type="button" mdbBtn floating="true" size="lg" color="gplus" class=" waves-light" mdbWavesEffect><mdb-icon fab icon="google-plus"></mdb-icon></a>
+          
+          <!--Linkedin-->
+          <a type="button" mdbBtn floating="true" size="lg" color="li" class=" waves-light" mdbWavesEffect><mdb-icon fab icon="linkedin-in"></mdb-icon></a>
+          
+          <!--Instagram-->
+          <a type="button" mdbBtn floating="true" size="lg" color="ins" class="  waves-light" mdbWavesEffect><mdb-icon fab icon="instagram"></mdb-icon></a>
+          <!--Youtube-->
+          <a type="button" mdbBtn floating="true" size="lg" color="yt" class="  waves-light" mdbWavesEffect><mdb-icon fab icon="youtube"></mdb-icon></a>
+
+          
+          
+
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Grid row -->
+
+    </div>
+    <!-- Footer Links -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+      <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
+    </div>
+    <!-- Copyright -->
+
+  </footer>
+<!-- Footer -->
+
+
+<!-- /Start your project here-->
