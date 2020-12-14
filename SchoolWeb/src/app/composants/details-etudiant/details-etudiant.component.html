@@ -1,0 +1,149 @@
+<!-- Material form register -->
+<mdb-card>
+
+  <mdb-card-header class="info-color white-text text-left py-2">
+    <h5>
+      Information de l'etudiant
+    </h5>
+  </mdb-card-header>
+
+  <!--Card content-->
+  <mdb-card-body class="px-lg-5 pt-0">
+
+    <!-- Form -->
+    <form class="text-center" style="color: #757575;">
+
+
+
+      <div class="form-row">
+        <div class="col">
+          <!-- First name -->
+          <div class="md-form">
+            <input type="text" id="materialRegisterFormFirstName" class="form-control" disabled="true" value="{{detailEtudiant.firstName}}" mdbInput>
+            <label for="materialRegisterFormFirstName">First name</label>
+          </div>
+        </div>
+        <div class="col">
+          <!-- Last name -->
+          <div class="md-form">
+            <input type="email" id="materialRegisterFormLastName" class="form-control" disabled="true" value="{{detailEtudiant.lastName}}" mdbInput>
+            <label for="materialRegisterFormLastName">Last name</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col">
+          <!-- First name -->
+          <div class="md-form">
+            <input type="text" id="materialRegisterFormAddress" class="form-control" disabled="true" value="{{detailEtudiant.address}}" mdbInput>
+            <label for="materialRegisterFormAddress">Address</label>
+          </div>
+        </div>
+        <div class="col">
+          <!-- Last name -->
+          <div class="md-form">
+            <input type="email" id="materialRegisterFormLastName" class="form-control" disabled="true" value="{{detailEtudiant.nationalite}}" mdbInput>
+            <label for="materialRegisterFormCity">City</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col">
+          <!-- First name -->
+          <div class="md-form">
+            <input type="text" id="materialRegisterFormTel" class="form-control" disabled="true" value="{{detailEtudiant.tel}}" mdbInput>
+            <label for="materialRegisterFormTel">Phone number</label>
+          </div>
+        </div>
+        <div class="col">
+          <!-- Last name -->
+          <div class="md-form">
+            <input type="email" id="materialRegisterFormEmail" class="form-control" disabled="true" value="{{detailEtudiant.email}}" mdbInput>
+            <label for="materialRegisterFormEmail">Email</label>
+          </div>
+        </div>
+      </div>
+
+      
+    </form>
+    <!-- Form -->
+
+  </mdb-card-body>
+
+</mdb-card>
+
+ <mdb-card>
+
+  <mdb-card-header class="info-color white-text text-left py-2">
+    <h5>
+      Information du tuteur
+    </h5>
+  </mdb-card-header>
+
+  <!--Card content-->
+  <mdb-card-body *ngIf="detailTuteur" class="px-lg-5 pt-0">
+
+    <!-- Form -->
+    <form  class="text-center" style="color: #757575;">
+
+      <div class="form-row">
+        <div class="col">
+          <!-- First name -->
+          <div class="md-form">
+            <input type="text" id="materialRegisterFormFirstName" class="form-control" disabled="true" value="{{detailTuteur.typeTuteur}}" mdbInput>
+            <label for="materialRegisterFormFirstName">Guardian type</label>
+          </div>
+        </div>
+       
+      </div>
+
+      <div class="form-row">
+        <div class="col">
+          <!-- First name -->
+          <div class="md-form">
+            <input type="text" id="materialRegisterFormFirstName" class="form-control" disabled="true" value="{{detailTuteur.nom}}" mdbInput>
+            <label for="materialRegisterFormFirstName">First name</label>
+          </div>
+        </div>
+        <div class="col">
+          <!-- Last name -->
+          <div class="md-form">
+            <input type="email" id="materialRegisterFormLastName" class="form-control" disabled="true" value="{{detailTuteur.prenom}}" mdbInput>
+            <label for="materialRegisterFormLastName">Last name</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col">
+          <!-- First name -->
+          <div class="md-form">
+            <input type="text" id="materialRegisterFormAddress" class="form-control" disabled="true" value="{{detailTuteur.tel}}" mdbInput>
+            <label for="materialRegisterFormAddress">Phone number</label>
+          </div>
+        </div>
+        <div class="col">
+          <!-- Last name -->
+          <div class="md-form">
+            <input type="email" id="materialRegisterFormLastName" class="form-control" disabled="true" value="{{detailTuteur.email}}" mdbInput>
+            <label for="materialRegisterFormCity">Email</label>
+          </div>
+        </div>
+      </div>
+
+     
+
+      
+    </form>
+    <!-- Form -->
+
+  </mdb-card-body>
+
+</mdb-card>
+
+
+<!-- Material form register -->
+
+

@@ -1,242 +1,311 @@
 package org.sid.school;
 
+import org.sid.school.Account.AccountService;
 import org.sid.school.dao.*;
 import org.sid.school.entities.*;
+import org.sid.school.metier.EtudiantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.io.IOException;
 import java.util.Date;
 
 @SpringBootApplication
 public class SchoolApplication implements CommandLineRunner {
 
-	@Autowired
-	TuitionRepository tuitionRepository;
-	@Autowired
-	ProgrammeRepository programmeRepository;
-	@Autowired
-	EtudiantRepository etudiantRepository;
-	@Autowired
-	ClasseRepository classeRepository ;
-	@Autowired
-	CoursRepository coursRepository ;
-	@Autowired
-	TuteurRepository tuteurRepository;
+    @Autowired
+    TuitionRepository tuitionRepository;
+    @Autowired
+    ProgrammeRepository programmeRepository;
+    @Autowired
+    EtudiantRepository etudiantRepository;
+    @Autowired
+    ClasseRepository classeRepository;
+    @Autowired
+    CoursRepository coursRepository;
+    @Autowired
+    TuteurRepository tuteurRepository;
+    @Autowired
+    RoleRepository roleRepository;
+    @Autowired
+    AccountService accountService;
+    @Autowired
+    EtudiantService etudiantService;
 
-	public static void main(String[] args) {
-		SpringApplication.run(SchoolApplication.class, args);
-	}
+    @Autowired
+    private RepositoryRestConfiguration restConfiguration;
 
-
-	@Override
-	public void run(String... args) throws Exception {
-
-		Tuition tuition = new Tuition();
-		tuition.setCode("t1");
-		tuition.setDate_created(new Date());
-		tuition.setLibelle("the bronze membership");
-		tuition.setPrix(250.0);
-		tuition.setDropOff(0);
-		tuitionRepository.save(tuition);
-
-		Tuition tuition1 = new Tuition();
-		tuition1.setCode("t2");
-		tuition1.setDate_created(new Date());
-		tuition1.setLibelle("the silver membership");
-		tuition1.setPrix(1000.0);
-		tuition1.setDropOff(25);
-		tuitionRepository.save(tuition1);
-
-		Tuition tuition2 = new Tuition();
-		tuition2.setCode("t3");
-		tuition2.setDate_created(new Date());
-		tuition2.setLibelle("the silver membership");
-		tuition2.setPrix(12000.0);
-		tuition2.setDropOff(30);
-		tuitionRepository.save(tuition2);
-
-		Programme programme = new Programme();
-		programme.setCode_programme("p1");
-		programme.setDate_created(new Date());
-		programme.setLibelle("test1");
-		programme.setTypeProgramme("type 1");
-		programmeRepository.save(programme);
-
-		/*Classe classe = new Classe();
-		classe.setCode("c1");
-		classe.setDate_created(new Date());
-		classe.setLibelle("classe1");
-		classe.setNbre_max_etudiant(10);
-		classeRepository.save(classe);*/
-
-		for (int i = 1; i < 30; i++) {
-			Classe classe = new Classe();
-			classe.setCode("c" +i);
-			classe.setDate_created(new Date());
-			classe.setLibelle("classe"+i);
-			classe.setNbre_max_etudiant(10);
-			classeRepository.save(classe);
-
-		}
-
-		Tuteur tuteur = new Tuteur() ;
-		tuteur.setNom("N1");
-		tuteur.setPrenom("P1");
-		tuteur.setEmail("email1@gmail.com");
-		tuteur.setTel("123456789");
-		tuteur.setTypeTuteur("Father");
-		tuteurRepository.save(tuteur) ;
+    public static void main(String[] args) {
+        SpringApplication.run(SchoolApplication.class, args);
+    }
 
 
-		//test
-		Etudiant etudiant = new Etudiant();
-		etudiant.setAddress("New York");
-		etudiant.setFirstName("Amina");
-		etudiant.setLastName("SOW");
-		etudiant.setEmail("amina@gmail.com");
-		etudiant.setDateNaissance(new Date());
-		etudiant.setFraisInscription(120.0);
-		etudiant.setTel("7789876534");
-		etudiant.setNationalite("SN");
-		etudiant.setSexe("Femme");
-		etudiant.setTuteur(tuteur);
-		//etudiant.setProgramme(programmeRepository.getOne(programme.getId()));
-		//etudiant.setClasse(classeRepository.getOne(classe.getId()));
-		etudiantRepository.save(etudiant);
+    @Override
+    public void run(String... args) throws Exception {
+        restConfiguration.exposeIdsFor(Etudiant.class);
 
-		Etudiant etudiant1 = new Etudiant();
-		etudiant1.setAddress("New York");
-		etudiant1.setFirstName("Fatou");
-		etudiant1.setLastName("Dia");
-		etudiant1.setEmail("fatou@gmail.com");
-		etudiant1.setDateNaissance(new Date());
-		etudiant1.setFraisInscription(120.0);
-		etudiant1.setTel("77765433");
-		etudiant1.setNationalite("US");
-		etudiant1.setSexe("Femme");
-		etudiantRepository.save(etudiant1);
+        Tuition tuition = new Tuition();
+        tuition.setCode("t1");
+        tuition.setDate_created(new Date());
+        tuition.setLibelle("the bronze membership");
+        tuition.setPrix(250.0);
+        tuition.setDropOff(0);
+        tuitionRepository.save(tuition);
 
-		Etudiant etudiant2 = new Etudiant();
-		etudiant2.setAddress("dakar");
-		etudiant2.setFirstName("aida");
-		etudiant2.setLastName("Diallo");
-		etudiant2.setEmail("aida@gmail.com");
-		etudiant2.setDateNaissance(new Date());
-		etudiant2.setFraisInscription(120.0);
-		etudiant2.setTel("77765433");
-		etudiant2.setNationalite("US");
-		etudiant2.setSexe("Femme");
-		etudiantRepository.save(etudiant2);
+        Tuition tuition1 = new Tuition();
+        tuition1.setCode("t2");
+        tuition1.setDate_created(new Date());
+        tuition1.setLibelle("the silver membership");
+        tuition1.setPrix(1000.0);
+        tuition1.setDropOff(25);
+        tuitionRepository.save(tuition1);
 
-		Etudiant etudiant3 = new Etudiant();
-		etudiant3.setAddress("Guediawaye");
-		etudiant3.setFirstName("Fatou");
-		etudiant3.setLastName("Dia");
-		etudiant3.setEmail("fatou@gmail.com");
-		etudiant3.setDateNaissance(new Date());
-		etudiant3.setFraisInscription(120.0);
-		etudiant3.setTel("77765433");
-		etudiant3.setNationalite("US");
-		etudiant3.setSexe("Femme");
-		etudiantRepository.save(etudiant3);
+        Tuition tuition2 = new Tuition();
+        tuition2.setCode("t3");
+        tuition2.setDate_created(new Date());
+        tuition2.setLibelle("the silver membership");
+        tuition2.setPrix(12000.0);
+        tuition2.setDropOff(30);
+        tuitionRepository.save(tuition2);
 
-		Etudiant etudiant4 = new Etudiant();
-		etudiant4.setAddress("thiaroye");
-		etudiant4.setFirstName("Fatou");
-		etudiant4.setLastName("Fall");
-		etudiant4.setEmail("fatou@gmail.com");
-		etudiant4.setDateNaissance(new Date());
-		etudiant4.setFraisInscription(120.0);
-		etudiant4.setTel("77765433");
-		etudiant4.setNationalite("US");
-		etudiant4.setSexe("Femme");
-		etudiantRepository.save(etudiant4);
+        Programme programme = new Programme();
+        programme.setCode_programme("p1");
+        programme.setDate_created(new Date());
+        programme.setLibelle("test1");
+        programme.setTypeProgramme("type 1");
+        programmeRepository.save(programme);
+
+        Classe c = new Classe();
+        c.setCode("c1");
+        c.setDate_created(new Date());
+        c.setLibelle("classe1");
+        c.setNbre_max_etudiant(10);
+        classeRepository.save(c);
+
+        for (int i = 2; i < 30; i++) {
+            Classe classe = new Classe();
+            classe.setCode("c" + i);
+            classe.setDate_created(new Date());
+            classe.setLibelle("classe" + i);
+            classe.setNbre_max_etudiant(10);
+            classeRepository.save(classe);
+
+        }
+
+        Tuteur tuteur = new Tuteur();
+        tuteur.setNom("N1");
+        tuteur.setPrenom("P1");
+        tuteur.setEmail("email1@gmail.com");
+        tuteur.setTel("123456789");
+        tuteur.setTypeTuteur("Father");
+        tuteurRepository.save(tuteur);
 
 
-		/*Etudiant etudiant5 = new Etudiant();
-		etudiant5.setAddress("New York");
-		etudiant5.setFirstName("kadia");
-		etudiant5.setLastName("Diouf");
-		etudiant5.setEmail("kadia@gmail.com");
-		etudiant5.setDateNaissance(new Date());
-		etudiant5.setFraisInscription(120.0);
-		etudiant5.setTel("77454549545");
-		etudiant5.setNationalite("US");
-		etudiant5.setSexe("Femme");
-		etudiantRepository.save(etudiant5);
+        //test
+        Etudiant etudiant = new Etudiant();
+        etudiant.setAddress("New York");
+        etudiant.setFirstName("Amina");
+        etudiant.setLastName("SOW");
+        etudiant.setEmail("amina@gmail.com");
+        etudiant.setDateNaissance(new Date());
+        etudiant.setFraisInscription(120.0);
+        etudiant.setTel("7789876534");
+        etudiant.setNationalite("SN");
+        etudiant.setSexe("Femme");
+        etudiant.setTuteur(tuteur);
+        //etudiant.setProgramme(programmeRepository.getOne(programme.getId()));
+        //etudiant.setClasse(classeRepository.getOne(classe.getId()));
+        etudiantRepository.save(etudiant);
+
+        Etudiant etudiant1 = new Etudiant();
+        etudiant1.setAddress("New York");
+        etudiant1.setFirstName("Fatou");
+        etudiant1.setLastName("Dia");
+        etudiant1.setEmail("fatou@gmail.com");
+        etudiant1.setDateNaissance(new Date());
+        etudiant1.setFraisInscription(120.0);
+        etudiant1.setTel("77765433");
+        etudiant1.setNationalite("US");
+        etudiant1.setSexe("Femme");
+        etudiant1.setTuteur(tuteur);
+        etudiantRepository.save(etudiant1);
+
+        Etudiant etudiant2 = new Etudiant();
+        etudiant2.setAddress("dakar");
+        etudiant2.setFirstName("aida");
+        etudiant2.setLastName("Diallo");
+        etudiant2.setEmail("aida@gmail.com");
+        etudiant2.setDateNaissance(new Date());
+        etudiant2.setFraisInscription(120.0);
+        etudiant2.setTel("77765433");
+        etudiant2.setNationalite("US");
+        etudiant2.setSexe("Femme");
+        etudiant2.setTuteur(tuteur);
+        etudiantRepository.save(etudiant2);
+
+        Etudiant etudiant3 = new Etudiant();
+        etudiant3.setAddress("Guediawaye");
+        etudiant3.setFirstName("Fatou");
+        etudiant3.setLastName("Dia");
+        etudiant3.setEmail("fatou1@gmail.com");
+        etudiant3.setFeesPays(true);
+        etudiant3.setDateNaissance(new Date());
+        etudiant3.setFraisInscription(120.0);
+        etudiant3.setTel("77765433");
+        etudiant3.setNationalite("US");
+        etudiant3.setSexe("Femme");
+        etudiant3.setTuteur(tuteur);
+        etudiantRepository.save(etudiant3);
+
+        Etudiant etudiant4 = new Etudiant();
+        etudiant4.setAddress("thiaroye");
+        etudiant4.setFirstName("Fatou");
+        etudiant4.setLastName("Fall");
+        etudiant4.setEmail("fatou2@gmail.com");
+        etudiant4.setDateNaissance(new Date());
+        etudiant4.setFraisInscription(120.0);
+        etudiant4.setTel("77765433");
+        etudiant4.setNationalite("US");
+        etudiant4.setSexe("Femme");
+        etudiant4.setTuteur(tuteur);
+        etudiantRepository.save(etudiant4);
 
 
-		Etudiant etudiant6 = new Etudiant();
-		etudiant6.setAddress("Thies");
-		etudiant6.setFirstName("Maya");
-		etudiant6.setLastName("Kane");
-		etudiant6.setEmail("kane@gmail.com");
-		etudiant6.setDateNaissance(new Date());
-		etudiant6.setFraisInscription(120.0);
-		etudiant6.setTel("77765433");
-		etudiant6.setNationalite("US");
-		etudiant6.setSexe("Femme");
-		etudiantRepository.save(etudiant6);
+        Etudiant etudiant5 = new Etudiant();
+        etudiant5.setAddress("New York");
+        etudiant5.setFirstName("kadia");
+        etudiant5.setLastName("Diouf");
+        etudiant5.setEmail("kadia@gmail.com");
+        etudiant5.setFeesPays(true);
+        etudiant5.setDateNaissance(new Date());
+        etudiant5.setFraisInscription(120.0);
+        etudiant5.setTel("77454549545");
+        etudiant5.setNationalite("US");
+        etudiant5.setSexe("Femme");
+        etudiant5.setTuteur(tuteur);
+        etudiantRepository.save(etudiant5);
 
-		Etudiant etudiant7 = new Etudiant();
-		etudiant7.setAddress("New York");
-		etudiant7.setFirstName("Dieyna");
-		etudiant7.setLastName("Sow");
-		etudiant7.setEmail("sow@gmail.com");
-		etudiant7.setDateNaissance(new Date());
-		etudiant7.setFraisInscription(120.0);
-		etudiant7.setTel("77765433");
-		etudiant7.setNationalite("US");
-		etudiant7.setSexe("Femme");
-		etudiantRepository.save(etudiant7);
 
-		Etudiant etudiant8 = new Etudiant();
-		etudiant8.setAddress("DkR");
-		etudiant8.setFirstName("Aida");
-		etudiant8.setLastName("diagn");
-		etudiant8.setEmail("aida@gmail.com");
-		etudiant8.setDateNaissance(new Date());
-		etudiant8.setFraisInscription(120.0);
-		etudiant8.setTel("77765433");
-		etudiant8.setNationalite("US");
-		etudiant8.setSexe("Femme");
-		etudiantRepository.save(etudiant8);
+        Etudiant etudiant6 = new Etudiant();
+        etudiant6.setAddress("Thies");
+        etudiant6.setFirstName("Maya");
+        etudiant6.setLastName("Kane");
+        etudiant6.setEmail("kane@gmail.com");
+        etudiant6.setDateNaissance(new Date());
+        etudiant6.setFraisInscription(120.0);
+        etudiant6.setTel("77765433");
+        etudiant6.setNationalite("US");
+        etudiant6.setSexe("Femme");
+        etudiant6.setTuteur(tuteur);
+        etudiantRepository.save(etudiant6);
 
-		Etudiant etudiant9 = new Etudiant();
-		etudiant9.setAddress("DkR");
-		etudiant9.setFirstName("raki");
-		etudiant9.setLastName("gam");
-		etudiant9.setEmail("gam@gmail.com");
-		etudiant9.setDateNaissance(new Date());
-		etudiant9.setFraisInscription(120.0);
-		etudiant9.setTel("77765433");
-		etudiant9.setNationalite("US");
-		etudiant9.setSexe("Femme");
-		etudiantRepository.save(etudiant9);
+        Etudiant etudiant7 = new Etudiant();
+        etudiant7.setAddress("New York");
+        etudiant7.setFirstName("Dieyna");
+        etudiant7.setLastName("Sow");
+        etudiant7.setEmail("sow@gmail.com");
+        etudiant7.setDateNaissance(new Date());
+        etudiant7.setFraisInscription(120.0);
+        etudiant7.setTel("77765433");
+        etudiant7.setFeesPays(true);
+        etudiant7.setNationalite("US");
+        etudiant7.setSexe("Femme");
+        etudiant7.setTuteur(tuteur);
+        etudiantRepository.save(etudiant7);
 
-		Etudiant etudiantn = new Etudiant();
-		etudiantn.setAddress("DkR");
-		etudiantn.setFirstName("oumou");
-		etudiantn.setLastName("gam");
-		etudiantn.setEmail("oumou@gmail.com");
-		etudiantn.setDateNaissance(new Date());
-		etudiantn.setFraisInscription(120.0);
-		etudiantn.setTel("77765433");
-		etudiantn.setNationalite("US");
-		etudiantn.setSexe("Femme");
-		etudiantRepository.save(etudiantn);*/
+        Etudiant etudiant8 = new Etudiant();
+        etudiant8.setAddress("DkR");
+        etudiant8.setFirstName("Aida");
+        etudiant8.setLastName("diagn");
+        etudiant8.setEmail("aida1@gmail.com");
+        etudiant8.setDateNaissance(new Date());
+        etudiant8.setFraisInscription(120.0);
+        etudiant8.setTel("77765433");
+        etudiant8.setNationalite("US");
+        etudiant8.setSexe("Femme");
+        etudiant8.setTuteur(tuteur);
+        etudiantRepository.save(etudiant8);
 
+        Etudiant etudiant9 = new Etudiant();
+        etudiant9.setAddress("DkR");
+        etudiant9.setFirstName("raki");
+        etudiant9.setLastName("gam");
+        etudiant9.setEmail("gam@gmail.com");
+        etudiant9.setDateNaissance(new Date());
+        etudiant9.setFraisInscription(120.0);
+        etudiant9.setTel("77765433");
+        etudiant9.setFeesPays(true);
+        etudiant9.setNationalite("US");
+        etudiant9.setSexe("Femme");
+        etudiant9.setTuteur(tuteur);
+        etudiantRepository.save(etudiant9);
+
+        Etudiant etudiantn = new Etudiant();
+        etudiantn.setAddress("DkR");
+        etudiantn.setFirstName("oumou");
+        etudiantn.setLastName("gam");
+        etudiantn.setEmail("oumou@gmail.com");
+        etudiantn.setDateNaissance(new Date());
+        etudiantn.setFraisInscription(120.0);
+        etudiantn.setTel("77765433");
+        etudiantn.setNationalite("US");
+        etudiantn.setSexe("Femme");
+        etudiantn.setTuteur(tuteur);
+        etudiantRepository.save(etudiantn);
+/*
 		Cours c = new Cours();
 		c.setCode("cours1");
 		c.setLibelle("cours Test");
 		c.setDescription(" cours test 1");
 		c.setDate_cours(new Date());
-		coursRepository.save(c) ;
+
+		coursRepository.save(c) ;*/
+
+        Role r1 = new Role();
+        r1.setAuthority("Admin");
+        Role r2 = new Role();
+        r2.setAuthority("User");
+        Role r3 = new Role();
+        r3.setAuthority("Studient");
+        roleRepository.save(r1);
+        roleRepository.save(r2);
+        roleRepository.save(r3);
+
+        etudiantRepository.findAll().forEach(e -> {
+            AgentUser user = new AgentUser();
+            user.setPassword("12345");
+            user.setLogin(e.getEmail());
+            user.setFirstName(e.getFirstName());
+            user.setLastName(e.getLastName());
+            accountService.saveCompte(user, user.getPassword());
+            accountService.addRoleToCompte(user.getLogin(),r1.getAuthority());
+
+        });
 
 
-	}
+        for (int i = 1; i < 10; i++) {
+            Cours classe = new Cours();
+            classe.setCode("cours " + i);
+            classe.setDate_cours(new Date());
+            classe.setLibelle("Cours test " + i);
+            classe.setDescription("Description " + i);
+            classe.setClasse(c);
+            coursRepository.save(classe);
+
+        }
+
+
+    }
+
+    @Bean
+    BCryptPasswordEncoder getBCPE() {
+        return new BCryptPasswordEncoder();
+    }
 
 
 }

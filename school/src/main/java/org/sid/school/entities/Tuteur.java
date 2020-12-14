@@ -1,17 +1,18 @@
 package org.sid.school.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.UUID;
 
 @Entity
 public class Tuteur implements Serializable {
 
     @Id
-    @Column(name = "id", unique = true, nullable = false, length = 254)
-    private String id = UUID.randomUUID().toString();;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String nom ;
     private String prenom;
@@ -19,14 +20,15 @@ public class Tuteur implements Serializable {
     private String email;
     private String typeTuteur ;
 
+
     public Tuteur() {
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -69,4 +71,6 @@ public class Tuteur implements Serializable {
     public void setTypeTuteur(String typeTuteur) {
         this.typeTuteur = typeTuteur;
     }
+
+
 }

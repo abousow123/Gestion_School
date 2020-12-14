@@ -26,17 +26,16 @@ public class Etudiant implements Serializable {
     private String nationalite;
     private String tel;
     private String email;
+    private String photo;
     private boolean feesPays = false ;
     private double fraisInscription = 120.0;
-
 
     //relation
     @ManyToOne
     @JoinColumn(nullable = true)
     @JsonIgnore
     private ModePaiement modePaiement ;
-    @OneToOne
-    @JoinColumn(nullable = true)
+    @ManyToOne
     private Tuteur tuteur ;
 
 
@@ -154,5 +153,13 @@ public class Etudiant implements Serializable {
 
     public void setTuteur(Tuteur tuteur) {
         this.tuteur = tuteur;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }
