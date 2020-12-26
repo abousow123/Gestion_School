@@ -1,4 +1,7 @@
 import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 import { MdbTableDirective, MdbTablePaginationComponent } from 'angular-bootstrap-md';
 import { Programme } from 'src/app/models/programme';
 import { SchoolService } from 'src/app/services/school.service';
@@ -10,15 +13,15 @@ import { SchoolService } from 'src/app/services/school.service';
 })
 export class ProgrammeComponent implements OnInit {
 
- 
+
   @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective;
   @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
   @ViewChild('row', { static: true }) row: ElementRef;
 
   elements: any = [];
-  headElements = ['code_programme', 'libelle', 'typeProgramme'];
+  headElements = ['code_programme', 'libelle', 'Price','Drop Off','Action'];
 
-  programmes: Programme[] ;
+  programmes: Programme[]  = [];
   tuit: any ;
 
   searchText: string = '';
@@ -26,7 +29,31 @@ export class ProgrammeComponent implements OnInit {
 
   maxVisibleItems: number = 8;
 
-  constructor(private cdRef: ChangeDetectorRef, private etudiantService: SchoolService) {}
+  constructor(private cdRef: ChangeDetectorRef, private etudiantService: SchoolService,
+    iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,private _formBuilder: FormBuilder,) {
+    iconRegistry.addSvgIcon(
+      'thumbs-up',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/images/create.svg'));
+      iconRegistry.addSvgIcon(
+        'view',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/images/eye.svg'));
+
+        iconRegistry.addSvgIcon(
+          'edit',
+          sanitizer.bypassSecurityTrustResourceUrl('assets/images/edit.svg'));
+
+        iconRegistry.addSvgIcon(
+          'delete',
+          sanitizer.bypassSecurityTrustResourceUrl('assets/images/delete.svg'));
+
+        iconRegistry.addSvgIcon(
+          'true',
+          sanitizer.bypassSecurityTrustResourceUrl('assets/images/true.svg'));
+
+        iconRegistry.addSvgIcon(
+          'no',
+          sanitizer.bypassSecurityTrustResourceUrl('assets/images/no.svg'));
+  }
 
   @HostListener('input') oninput() {
     this.mdbTablePagination.searchText = this.searchText;
@@ -42,29 +69,27 @@ export class ProgrammeComponent implements OnInit {
     .subscribe(data=>{
       this.tuit = data;
       this.programmes = this.tuit._embedded.programmes ;
-      console.log(this.programmes);
-      
+
+      this.mdbTable.setDataSource(this.programmes);
+      this.programmes = this.mdbTable.getDataSource();
+      this.previous = this.mdbTable.getDataSource();
     },err=>{
       console.log(err);
-      
+
     })
 
 
-    this.mdbTable.setDataSource(this.programmes);
-    this.programmes = this.mdbTable.getDataSource();
-    this.previous = this.mdbTable.getDataSource();
   }
 
   ngAfterViewInit() {
-    console.log("++++++++++++++++++++++++++++++++++" + this.maxVisibleItems);
-    
+
     this.mdbTablePagination.setMaxVisibleItemsNumberTo(this.maxVisibleItems);
 
     this.mdbTablePagination.calculateFirstItemIndex();
     this.mdbTablePagination.calculateLastItemIndex();
     this.cdRef.detectChanges();
   }
- 
+
   addNewRow() {
     this.mdbTable.addRow({
       firstName: this.elements.length.toString(),
@@ -73,10 +98,9 @@ export class ProgrammeComponent implements OnInit {
       handle: 'Handle ' + this.elements.length
     });
     this.emitDataSourceChange();
-  } 
+  }
 
   addNewRowAfter() {
-    console.log("++++++++++++++++++++++++++++++++++" + this.maxVisibleItems);
     this.mdbTable.addRowAfter(1, {firstName: '', lastName: 'Nowy', address: 'Row', email: 'Kopytkowy'});
     this.mdbTable.getDataSource().forEach((el: any, index: any) => {
       el.id = (index + 1).toString();
@@ -134,6 +158,6 @@ export class ProgrammeComponent implements OnInit {
   remove(){
 
   }
-  
+
 
 }

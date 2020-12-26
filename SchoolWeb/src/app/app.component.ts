@@ -1,4 +1,9 @@
+import { SchoolService } from 'src/app/services/school.service';
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
+import { AuthenticationService } from './services/authentication.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { User } from './models/user';
 
 @Component({
   selector: 'app-root',
@@ -6,55 +11,73 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Nay’s hair braiding';
+  title = "Nay’s hair braiding";
 
-  cards = [
-    {
-      title: 'Card Title 1',
-      description: 'This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.',
-      buttonText: 'Button',
-      img: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-    },
-    {
-      title: 'Card Title 2',
-      description: 'This card has supporting text below as a natural lead-in to additional content.',
-      buttonText: 'Button',
-      img: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-    },
-    {
-      title: 'Card Title 3',
-      description: 'This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action. This text is much longer so that you can see a significant difference between the text in  previous tabs.',
-      buttonText: 'Button',
-      img: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-    },
-    {
-      title: 'Card Title 4',
-      description: 'Some quick example text to build on the card title and make up the bulk of the card content',
-      buttonText: 'Button',
-      img: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-    },
-    {
-      title: 'Card Title 5',
-      description: 'Some quick example text to build on the card title and make up the bulk of the card content',
-      buttonText: 'Button',
-      img: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-    },
-    {
-      title: 'Card Title 6',
-      description: 'Some quick example text to build on the card title and make up the bulk of the card content',
-      buttonText: 'Button',
-      img: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-    }
-  ];
-  slides: any = [[]];
-  chunk(arr: any, chunkSize:any) {
-    let R = [];
-    for (let i = 0, len = arr.length; i < len; i += chunkSize) {
-      R.push(arr.slice(i, i + chunkSize));
-    }
-    return R;
-  }
+  admin: number = 0 ;
+  username: number = 0 ;
+  userForm: FormGroup;
+  user: User = new User();
+  mode: number = 0 ;
+
+
+  constructor(private schoolService: SchoolService,public authService: AuthenticationService, private router: Router,private _formBuilder: FormBuilder){}
   ngOnInit() {
-    this.slides = this.chunk(this.cards, 3);
+
+    this.userForm = this._formBuilder.group({
+      login:([this.user.login, Validators.required]),
+      password:([this.user.password, Validators.required]),
+
+    });
+  /*   this.isAdmin() ;
+    this.isUserName() ; */
   }
+
+  onLogin(userForm){
+    this.authService.login(userForm)
+    .subscribe(resp=>{
+      let jwt = resp.headers.get('Authorization') ;
+      this.authService.saveToken(jwt) ;
+      this.mode = 0;
+      this.username = 1 ;
+      this.isEmployer() ;
+    },err =>{
+      this.mode = 1 ;
+    }
+    )
+  }
+
+
+
+  onLogout(){
+     this.authService.logout();
+     this.mode = 0;
+     this.username = 0 ;
+     this.admin = 0 ;
+     this.router.navigateByUrl('/home') ;
+  }
+
+  login(){
+    this.authService.logout();
+    this.mode = 1 ;
+  }
+
+
+
+  isEmployer(){
+      if(this.authService.isEmployer() == true)  this.admin = 1 ;
+      else this.admin = 0 ;
+
+  }
+
+  isUserName(){
+    if(this.authService.isuserName() === ""){
+       this.username = 0;
+    }
+    else{
+      this.username = 1 ;
+    }
+
+  }
+
+
 }

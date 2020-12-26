@@ -1,56 +1,75 @@
+<mdb-breadcrumb>
+  <mdb-breadcrumb-item class="blue-text">Home</mdb-breadcrumb-item>
+  <mdb-breadcrumb-item class="blue-text">Library</mdb-breadcrumb-item>
+  <mdb-breadcrumb-item class="active">Data</mdb-breadcrumb-item>
+</mdb-breadcrumb>
 
-<div class="container">
-    <div class="row">
-      <div class="col-md-6 mx-left">
-      <h1>List of studiens</h1>
-    </div>
-  
-    
-      <div class="col-md-3 mx-auto">
-        <div class="md-form">
-          <input type="text" class="form-control" [(ngModel)]="searchText" (keyup)="searchItems()" id="search-input"
-                 mdbInput>
-          <label for="search-input">Search</label>
-        </div>
+ <div class="container">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <div class="md-form">
+        <input type="text" class="form-control" [(ngModel)]="searchText" (keyup)="searchItems()" id="search-input"
+               mdbInput>
+        <label for="search-input">Search</label>
       </div>
-      <div class="col-md-3 mx-right">
-        <button mdbBtn type="button" color="primary" rounded="true" mdbWavesEffect>Add new cours</button>
-      </div>
-      <table mdbTable #tableEl="mdbTable" stickyHeader="true" hover="true" striped="true" class="z-depth-1">
-        <thead class="sticky-top">
-        <tr>
-          <th *ngFor="let head of headElements; let i = index" [mdbTableSort]="cours" [sortBy]="headElements[i]"
-              scope="col">{{head | titlecase}} <mdb-icon fas icon="sort"></mdb-icon>
-          </th>
-        </tr>
-        </thead>
-        <tbody #row *ngIf="cours">
-        <tr mdbTableCol  *ngFor="let el of cours; let i = index">
-          <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">{{el.code}}</th>
-          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.libelle}}</td>
-          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" class="red-text">{{el.date_cours}}</td>
-          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.description}}</td>
-
-          <td>
-              <span class="table-remove">
-                <button type="button" mdbBtn color="default" rounded="true" size="sm" class="my-0" (click)="remove()">edit</button>
-              </span>
-            </td>
-        </tr>
-        </tbody>
-        <div *ngIf="!cours">
-            <p>Liste vide</p>
-        </div>
-        <tfoot class="grey lighten-5 w-100">
-        <tr>
-          <td colspan="4">
-            <mdb-table-pagination [tableEl]="tableEl" paginationAlign="" [searchDataSource]="cours"></mdb-table-pagination>
-          </td>
-        </tr>
-        </tfoot>
-      </table>
-
     </div>
+    <div class="col-md-3 mx-right">
+      <button mdbBtn type="button" color="primary" rounded="true" mdbWavesEffect>Add new classe</button>
+    </div>
+    <table mdbTable #tableEl="mdbTable" stickyHeader="true" hover="true" striped="true" class="z-depth-1">
+      <thead class="sticky-top">
+      <tr>
+        <th *ngFor="let head of headElements; let i = index" [mdbTableSort]="cours" [sortBy]="headElements[i]"
+            scope="col">{{head | titlecase}} <mdb-icon fas icon="sort"></mdb-icon>
+        </th>
+      </tr>
+      </thead>
+      <tbody #row *ngIf="cours">
+      <tr mdbTableCol  *ngFor="let el of cours; let i = index">
+        <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">{{el.code}}</th>
+        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" class="red-text">{{el.libelle}}</td>
+        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.description}}</td>
 
-   
+        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+
+
+
+         <!-- Grid row -->
+          <div class="form-row">
+            <!-- Grid column -->
+            <div class="col-md-2">
+              <a> <mat-icon svgIcon="view"  aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> </a>
+            </div>
+
+            <div class="col-md-2">
+              <a> <mat-icon svgIcon="edit" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> </a>
+            </div>
+
+            <div class="col-md-2">
+              <a> <mat-icon svgIcon="delete" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> </a>
+            </div>
+
+          </div>
+
+
+          <!-- <button mdbBtn color="warning" size="" mdbWavesEffect (click)="editRow(el)">Edit</button>
+          <button mdbBtn color="danger" size="sm" mdbWavesEffect (click)="removeRow1(el)">R</button>
+          <button mdbBtn color="danger" size="sm" mdbWavesEffect (click)="removeRow1(el)">view</button> -->
+        </td>
+
+      </tr>
+      </tbody>
+      <tfoot class="grey lighten-5 w-100">
+      <tr>
+        <td colspan="4">
+
+          <mdb-table-pagination [tableEl]="tableEl" paginationAlign="paginator" [searchDataSource]="cours" ></mdb-table-pagination>
+        </td>
+      </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+
+
 

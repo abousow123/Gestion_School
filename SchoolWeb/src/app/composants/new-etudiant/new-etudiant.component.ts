@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, VERSION, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Etudiant } from 'src/app/models/etudiant';
 import { Tuteur } from 'src/app/models/tuteur';
@@ -10,7 +10,14 @@ import { SchoolService } from 'src/app/services/school.service';
   styleUrls: ['./new-etudiant.component.scss']
 })
 export class NewEtudiantComponent implements OnInit {
-  
+  [x: string]: any;
+
+  name = 'Angular ' + VERSION.major;
+  dataimage:any;
+
+   @ViewChild('fileInput') fileInput: ElementRef;
+  fileAttr = 'Choose File';
+
 
 
   etudiant: Etudiant = new Etudiant() ;
@@ -28,7 +35,7 @@ export class NewEtudiantComponent implements OnInit {
     {value: "Cash"}
   ] ;
 
-  
+
 
   etudiantForm: FormGroup;
   cardFormGroup: FormGroup;
@@ -47,6 +54,7 @@ export class NewEtudiantComponent implements OnInit {
       firstCtrl: ['']
     });
 
+
     this.etudiantForm = this._formBuilder.group({
       firstName:([this.etudiant.firstName, Validators.required]),
       lastName:([this.etudiant.lastName, Validators.required]),
@@ -60,8 +68,10 @@ export class NewEtudiantComponent implements OnInit {
       emailTuteur: ([this.tuteur.email]),
       typeTuteur: ([this.tuteur.typeTuteur]),
     });
-  
+
   }
+
+ // get input() { return this.etudiantForm.get('email'); }
 
   get f() { return this.etudiantForm.controls; }
 
@@ -81,15 +91,15 @@ export class NewEtudiantComponent implements OnInit {
     this.tuteur.typeTuteur = etudiantForm.value.typeTuteur ;
 
     this.etudiant.tuteur = this.tuteur ;
-    
+
     this.etudiantService.saveEtudiant(this.etudiant)
     .subscribe(
       response => {
         this.detailEtudiant = response as Etudiant ;
-        console.log("Reurn Etudiant: ======> "+JSON.stringify(this.detailEtudiant));
+
       }
     );
-    
+
   }
 
   onOption(){
@@ -103,15 +113,43 @@ export class NewEtudiantComponent implements OnInit {
 
   onFileSelected() {
     const inputNode: any = document.querySelector('#file');
-  
+
     if (typeof (FileReader) !== 'undefined') {
       const reader = new FileReader();
-  
+
       reader.onload = (e: any) => {
        // this.srcResult = e.target.result;
       };
-  
+
       reader.readAsArrayBuffer(inputNode.files[0]);
+    }
+  }
+
+
+  uploadFileEvt(imgFile: any) {
+    if (imgFile.target.files && imgFile.target.files[0]) {
+      this.fileAttr = '';
+      Array.from(imgFile.target.files).forEach((file: File) => {
+        this.fileAttr += file.name ;
+      });
+
+      // HTML5 FileReader API
+      let reader = new FileReader();
+      reader.onload = (e: any) => {
+        let image = new Image();
+        image.src = e.target.result;
+        image.onload = rs => {
+          let imgBase64Path = e.target.result;
+          console.log(imgBase64Path);
+          this.dataimage = imgBase64Path;
+        };
+      };
+      reader.readAsDataURL(imgFile.target.files[0]);
+
+      // Reset if duplicate image uploaded again
+      this.fileInput.nativeElement.value = "";
+    } else {
+      this.fileAttr = 'Choose File';
     }
   }
 

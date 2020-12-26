@@ -12,8 +12,9 @@ public class Etudiant implements Serializable {
 
     @Id
     @Column(name = "id", unique = true, nullable = false, length = 254)
-    private String id = UUID.randomUUID().toString();;
+    private String id = UUID.randomUUID().toString();
 
+    private String numStudent;
     private String firstName;
     private String lastName;
     @JsonIgnore
@@ -49,6 +50,14 @@ public class Etudiant implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getNumStudent() {
+        return numStudent;
+    }
+
+    public void setNumStudent(String numStudent) {
+        this.numStudent = numStudent;
     }
 
     public String getFirstName() {

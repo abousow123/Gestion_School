@@ -1,62 +1,68 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  
-  public authenticated: boolean;
-  public authenticatedUser;
-  private users=[
-    {username:"admin", password:"1234",roles:['USER','ADMIN']},
-    {username:"user1", password:"1234",roles:['USER']},
-    {username:"user2", password:"1234",roles:['USER']}
-  ]
 
-  constructor(private http:HttpClient) {
+  private host = environment.url;
+  private roles: Array<any>  ;
+  private jwtToken = null ;
+  private userName: string = "" ;
+
+
+  constructor(private http:HttpClient,private jwtHelper: JwtHelperService) {
   }
 
-  login(username:string,password:string){
-    let user;
-    this.users.forEach(u=>{
-      if(u.username===username && u.password===password){
-        user=u;
-      }
-    })
-    if(user){
-      this.authenticated=true;
-      this.authenticatedUser=user;
-      localStorage.setItem("authenticatedUser",JSON.stringify(this.authenticatedUser));
-    }
-    else{
-      this.authenticated=false;
-    }
+  login(user){
+    return this.http.post(this.host+"login",user,{observe:'response'}) ;
   }
 
-  loadUser(){
-    let user=localStorage.getItem('authenticatedUser');
-    if(user){
-      this.authenticatedUser=JSON.parse(user);
-      this.authenticated=true;
-    }
+  saveToken(jwt:string){
+    localStorage.setItem('token',jwt) ;
+    this.jwtToken = jwt ;
+    this.roles = this.jwtHelper.decodeToken(this.jwtToken).roles ;
+    this.userName = this.jwtHelper.decodeToken(this.jwtToken).sub ;
+
+
+  }
+
+  loadToken(){
+    this.jwtToken = localStorage.getItem('token') ;
+    return this.jwtToken ;
+  }
+
+  logout(){
+    this.jwtToken = null ;
+    localStorage.removeItem('token') ;
   }
 
   isAdmin(){
-    if(this.authenticatedUser){
-      return this.authenticatedUser.roles.indexOf("ADMIN")>-1;
+    if(this.roles != null){
+      for(let r of this.roles){
+        if(r=='Admin') return true ;
+
+      }
+      return false ;
     }
-    else return false;
   }
 
-  isAuthenticated(){
-    return this.authenticated;
+  isEmployer(){
+    if(this.roles != null){
+      for(let r of this.roles){
+        if(r=='Admin' || r == 'User') return true ;
+
+      }
+      return false ;
+    }
   }
-  logout(){
-    this.authenticated=false;
-    this.authenticatedUser=undefined;
-    localStorage.removeItem('authenticatedUser');
+
+  isuserName(){
+      return this.userName ;
   }
 
 }

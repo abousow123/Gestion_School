@@ -25,7 +25,7 @@ public class Classe implements Serializable {
     @OneToMany(mappedBy = "classe")
     private Collection<Cours> cours;
     @ManyToOne
-    private User user ;
+    private AgentUser user ;
 
 
     public Classe() {
@@ -71,11 +71,11 @@ public class Classe implements Serializable {
         this.date_created = date_created;
     }
 
-    public User getUser() {
+    public AgentUser getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(AgentUser user) {
         this.user = user;
     }
 }

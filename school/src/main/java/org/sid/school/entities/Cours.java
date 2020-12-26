@@ -26,7 +26,7 @@ public class Cours implements Serializable {
     @ManyToOne
     private Classe classe;
     @ManyToOne
-    private User user ;
+    private AgentUser user ;
 
 
     public Cours() {
@@ -97,11 +97,11 @@ public class Cours implements Serializable {
         this.file = file;
     }
 
-    public User getUser() {
+    public AgentUser getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(AgentUser user) {
         this.user = user;
     }
 

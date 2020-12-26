@@ -21,15 +21,13 @@ public class Inscription implements Serializable {
     @ManyToOne
     private Classe classe;
     @ManyToOne
-    private Tuition tuition;
-    @ManyToOne
     private Programme programme;
     @ManyToOne
     private Etudiant etudiant;
     @ManyToOne
     private ModePaiement paiement ;
     @ManyToOne
-    private User user;
+    private AgentUser user;
 
 
     public Inscription() {
@@ -59,14 +57,6 @@ public class Inscription implements Serializable {
         this.classe = classe;
     }
 
-    public Tuition getTuition() {
-        return tuition;
-    }
-
-    public void setTuition(Tuition tuition) {
-        this.tuition = tuition;
-    }
-
     public Programme getProgramme() {
         return programme;
     }
@@ -91,11 +81,11 @@ public class Inscription implements Serializable {
         this.paiement = paiement;
     }
 
-    public User getUser() {
+    public AgentUser getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(AgentUser user) {
         this.user = user;
     }
 }

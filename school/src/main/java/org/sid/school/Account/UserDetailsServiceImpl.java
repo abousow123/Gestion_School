@@ -27,11 +27,11 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		AgentUser compte = accountService.loadCompteBylogin(login);
 		if (compte==null) throw new UsernameNotFoundException("Login incorrect") ;
 		Collection<GrantedAuthority> authorities= new ArrayList<>() ;
-		Role r = compte.getRole() ;
-		authorities.add(new SimpleGrantedAuthority(r.getAuthority())) ;
-		
-		
-		return new User(compte.getLogin(),compte.getPassword(),authorities) ;
+		compte.getRoles().forEach(r ->{
+			authorities.add(new SimpleGrantedAuthority(r.getAuthority())) ;
+		});
+
+		return new User(compte.getUsername(),compte.getPassword(),authorities) ;
 	}
 
 }

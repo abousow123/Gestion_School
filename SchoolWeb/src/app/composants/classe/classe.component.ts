@@ -35,14 +35,10 @@ export class ClasseComponent implements OnInit {
 
   maxVisibleItems: number = 15;
 
-  
+
 
   constructor(private cdRef: ChangeDetectorRef, private etudiantService: SchoolService,iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-     // Create 100 users
-     //const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
 
-     // Assign the data to the data source for the table to render
-     //this.dataSource = new MatTableDataSource(users);
 
      iconRegistry.addSvgIcon(
       'thumbs-up',
@@ -69,38 +65,32 @@ export class ClasseComponent implements OnInit {
       this.elements.push({id: i.toString(), first: 'Wpis ' + i, last: 'Last ' + i, handle: 'Handle ' + i});
     }
 
-  
+
     this.etudiantService.getClasses()
     .subscribe(data=>{
       this.etu = data;
       this.classes = this.etu._embedded.classes ;
-      console.log(this.classes);
-
       this.mdbTable.setDataSource(this.classes);
       this.classes = this.mdbTable.getDataSource();
-      console.log(this.classes);
       this.previous = this.mdbTable.getDataSource();
-      console.log(this.previous);
-     
-      
+
     },err=>{
       console.log(err);
-      
     })
 
-    
 
 
-  
+
+
   }
 
   ngAfterViewInit() {
     this.mdbTablePagination.setMaxVisibleItemsNumberTo(this.maxVisibleItems);
-    
+
     this.mdbTablePagination.calculateFirstItemIndex();
     this.mdbTablePagination.calculateLastItemIndex();
     this.cdRef.detectChanges();
-    
+
   }
 
   /* addNewRow() {

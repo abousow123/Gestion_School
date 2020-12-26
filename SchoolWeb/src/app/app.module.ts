@@ -1,4 +1,3 @@
-
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -6,47 +5,75 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { InputUtilitiesModule, MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { EtudiantComponent } from './composants/etudiant/etudiant.component';
 import { NewEtudiantComponent } from './composants/new-etudiant/new-etudiant.component';
 import { RouterModule, Routes } from '@angular/router';
-import { TuitionComponent } from './composants/tuition/tuition.component';
 import { ProgrammeComponent } from './composants/programme/programme.component';
 import { NewTuitionComponent } from './composants/new-tuition/new-tuition.component';
 import { ClasseComponent } from './composants/classe/classe.component';
 import { CoursComponent } from './composants/cours/cours.component';
 import { NewCoursComponent } from './composants/new-cours/new-cours.component';
-
 import {MaterialModule} from './material/material.module'
 import { CheckboxModule,WavesModule, ButtonsModule, InputsModule, IconsModule, CardsModule } from 'angular-bootstrap-md';
 import { AboutComponent } from './composants/about/about.component';
-import { GalleryComponent } from './composants/gallery/gallery.component';
 import { DetailsEtudiantComponent } from './composants/details-etudiant/details-etudiant.component';
 import { UserComponent } from './users/user/user.component';
-import { NewUserComponent } from './users/new-user/new-user.component'
+import { NewUserComponent } from './users/new-user/new-user.component';
+import { LoginComponent } from './login/login.component';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { GalleryModule } from 'ng-gallery';
+import { LightboxModule } from 'ng-gallery/lightbox';
+import { Service, Data } from './app.service';
+import { AgendaComponent } from './composants/agenda/agenda.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
+import interactionPlugin from '@fullcalendar/interaction'; // a plugin
+import { AgendaService, DayService, MonthAgendaService, MonthService, ScheduleModule, TimelineMonthService, TimelineViewsService, WeekService, WorkWeekService } from '@syncfusion/ej2-angular-schedule';
+import { ConroeComponent } from './composants/gallery/conroe/conroe.component';
+import { BoxBraidsComponent } from './composants/gallery/box-braids/box-braids.component';
+import { TwistComponent } from './composants/gallery/twist/twist.component';
+import { CrochetComponent } from './composants/gallery/crochet/crochet.component';
+import { SewInComponent } from './composants/gallery/sew-in/sew-in.component';
+import { DreadLocsComponent } from './composants/gallery/dread-locs/dread-locs.component';
+import { SettingsComponent } from './composants/settings/settings.component';
+import { InscriptionComponent } from './composants/inscription/inscription.component';
+
+
 
 
 const routes: Routes = [
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'etudiant', component: EtudiantComponent },
   { path: 'newEtudiant', component: NewEtudiantComponent },
-  { path: 'tuition', component: TuitionComponent },
-  { path: 'programme', component: ProgrammeComponent },
-  { path: 'classe', component: ClasseComponent },
-  { path: 'cours', component: CoursComponent },
   { path: 'newCours', component: NewCoursComponent },
-  { path: 'newUser', component: NewUserComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'gallery', component: GalleryComponent },
-  {path: 'user',component: UserComponent},
-  { path: 'detailEtudiant/:ref', component: DetailsEtudiantComponent},
-  /* 
-  { path: 'inscription', component: InscriptionComponent }, */
-  
-   { path: '', redirectTo: '/home', pathMatch: 'full' }
+  { path: 'agenda', component: AgendaComponent },
+  {path: 'login',component: LoginComponent},
+  {path: 'conroe',component: ConroeComponent},
+
+  {path: 'settings',
+  component: SettingsComponent,
+   children: [
+    { path: 'etudiant', component: EtudiantComponent },
+    { path: 'classe', component: ClasseComponent },
+    { path: 'cours', component: CoursComponent },
+    { path: 'programme', component: ProgrammeComponent },
+    { path: 'user',component: UserComponent},
+    { path: 'newUser', component: NewUserComponent },
+    { path: 'inscription', component: InscriptionComponent },
+    { path: 'detailEtudiant/:ref', component: DetailsEtudiantComponent},
+  ]
+  }
   ];
+
+
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  dayGridPlugin,
+  interactionPlugin
+]);
 
 @NgModule({
   declarations: [
@@ -54,17 +81,27 @@ const routes: Routes = [
     HomeComponent,
     EtudiantComponent,
     NewEtudiantComponent,
-    TuitionComponent,
     ProgrammeComponent,
     NewTuitionComponent,
     ClasseComponent,
     CoursComponent,
     NewCoursComponent,
     AboutComponent,
-    GalleryComponent,
+
     DetailsEtudiantComponent,
     UserComponent,
-    NewUserComponent
+    NewUserComponent,
+    LoginComponent,
+    AgendaComponent,
+    ConroeComponent,
+    BoxBraidsComponent,
+    TwistComponent,
+    CrochetComponent,
+    SewInComponent,
+    DreadLocsComponent,
+    SettingsComponent,
+    InscriptionComponent
+
   ],
   imports: [
     BrowserModule,
@@ -80,9 +117,19 @@ const routes: Routes = [
     ButtonsModule,
     InputsModule,
     IconsModule,
-    CardsModule
+    CardsModule,
+    GalleryModule,
+    LightboxModule,
+    FullCalendarModule,
+    ScheduleModule,
+    InputUtilitiesModule
   ],
-  providers: [],
+  providers: [
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService,
+    Service,
+    DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService, TimelineViewsService, TimelineMonthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

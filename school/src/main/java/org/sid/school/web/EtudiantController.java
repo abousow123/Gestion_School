@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("*")
 public class EtudiantController {
 
     @Autowired
@@ -27,7 +26,6 @@ public class EtudiantController {
     @GetMapping("/etudiant/{id}")
     public Optional<Etudiant> getEtudiant(@PathVariable("id") String id){
         Optional<Etudiant> e = etudiantRepository.findById(id) ;
-
         return e ;
     }
 

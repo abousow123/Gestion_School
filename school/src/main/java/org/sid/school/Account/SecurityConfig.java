@@ -32,12 +32,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		// http.formLogin() ;
 		http.csrf().disable();
-		http.headers().frameOptions().disable();
+		//http.headers().frameOptions().disable();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.authorizeRequests()
-				.antMatchers("/**","/users/**","/h2-console/**")
+				.antMatchers("/users/**","/login","/h2-console/**")
 				.permitAll();
-		http.authorizeRequests().antMatchers("/comptes/**", "/roles/**").hasAuthority("Admin");
+		http.authorizeRequests().antMatchers( "/roles/**").hasAuthority("Admin");
 		http.authorizeRequests().anyRequest().authenticated();
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager()));
 		http.addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);

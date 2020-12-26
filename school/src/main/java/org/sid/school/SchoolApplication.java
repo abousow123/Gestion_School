@@ -13,13 +13,12 @@ import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
 
 @SpringBootApplication
 public class SchoolApplication implements CommandLineRunner {
 
-    @Autowired
-    TuitionRepository tuitionRepository;
     @Autowired
     ProgrammeRepository programmeRepository;
     @Autowired
@@ -47,9 +46,9 @@ public class SchoolApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        restConfiguration.exposeIdsFor(Etudiant.class);
+        restConfiguration.exposeIdsFor(Etudiant.class,Role.class);
 
-        Tuition tuition = new Tuition();
+/*        Tuition tuition = new Tuition();
         tuition.setCode("t1");
         tuition.setDate_created(new Date());
         tuition.setLibelle("the bronze membership");
@@ -71,14 +70,35 @@ public class SchoolApplication implements CommandLineRunner {
         tuition2.setLibelle("the silver membership");
         tuition2.setPrix(12000.0);
         tuition2.setDropOff(30);
-        tuitionRepository.save(tuition2);
+        tuitionRepository.save(tuition2);*/
 
         Programme programme = new Programme();
-        programme.setCode_programme("p1");
+        programme.setCode_programme("BM");
         programme.setDate_created(new Date());
-        programme.setLibelle("test1");
-        programme.setTypeProgramme("type 1");
+        programme.setLibelle("the bronze membership");
+        programme.setPrix(250.0);
+        programme.setDropOff(0);
+       // programme.setTypeProgramme("type 1");
         programmeRepository.save(programme);
+
+        Programme programme1 = new Programme();
+        programme1.setCode_programme("SM");
+        programme1.setDate_created(new Date());
+        programme1.setLibelle("the silver membership");
+        programme1.setPrix(1000.0);
+        programme1.setDropOff(25);
+        // programme.setTypeProgramme("type 1");
+        programmeRepository.save(programme1);
+
+        Programme programme2 = new Programme();
+        programme2.setCode_programme("GM");
+        programme2.setDate_created(new Date());
+        programme2.setLibelle("The gold membership");
+        programme2.setPrix(12000.0);
+        programme2.setDropOff(30);
+        // programme.setTypeProgramme("type 1");
+        programmeRepository.save(programme2);
+
 
         Classe c = new Classe();
         c.setCode("c1");
@@ -276,6 +296,23 @@ public class SchoolApplication implements CommandLineRunner {
         roleRepository.save(r2);
         roleRepository.save(r3);
 
+        AgentUser user1 = new AgentUser();
+        user1.setPassword("12345");
+        user1.setLogin("admin1@gmail.com");
+        user1.setFirstName("admin");
+        user1.setLastName("admin");
+        accountService.saveCompte(user1, user1.getPassword());
+        accountService.addRoleToCompte(user1.getLogin(),r1.getAuthority());
+        accountService.addRoleToCompte(user1.getLogin(),r2.getAuthority());
+
+        AgentUser user2 = new AgentUser();
+        user2.setPassword("12345");
+        user2.setLogin("user1@gmail.com");
+        user2.setFirstName("user");
+        user2.setLastName("user");
+        accountService.saveCompte(user2, user2.getPassword());
+        accountService.addRoleToCompte(user2.getLogin(),r2.getAuthority());
+
         etudiantRepository.findAll().forEach(e -> {
             AgentUser user = new AgentUser();
             user.setPassword("12345");
@@ -283,7 +320,7 @@ public class SchoolApplication implements CommandLineRunner {
             user.setFirstName(e.getFirstName());
             user.setLastName(e.getLastName());
             accountService.saveCompte(user, user.getPassword());
-            accountService.addRoleToCompte(user.getLogin(),r1.getAuthority());
+            accountService.addRoleToCompte(user.getLogin(),r3.getAuthority());
 
         });
 
@@ -298,6 +335,13 @@ public class SchoolApplication implements CommandLineRunner {
             coursRepository.save(classe);
 
         }
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, 1);
+        Date tenSecondsAgo = calendar.getTime();
+        Date d = new Date(System.currentTimeMillis()+24*3600);
+        Date g = new Date();
+        System.out.println("test ======== >>>>>"+ tenSecondsAgo );
 
 
     }

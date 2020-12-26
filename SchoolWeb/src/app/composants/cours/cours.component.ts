@@ -1,4 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 import { MdbTableDirective, MdbTablePaginationComponent } from 'angular-bootstrap-md';
 import { Cours } from 'src/app/models/cours';
 import { SchoolService } from 'src/app/services/school.service';
@@ -10,13 +12,13 @@ import { SchoolService } from 'src/app/services/school.service';
 })
 export class CoursComponent implements OnInit {
 
- 
+
   @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective;
   @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
   @ViewChild('row', { static: true }) row: ElementRef;
 
   elements: any = [];
-  headElements = ['code', 'libelle', 'date_cours','description'];
+  headElements = ['code', 'libelle','description','Action'];
 
   cours: any = [] ;
   etu: any ;
@@ -26,7 +28,22 @@ export class CoursComponent implements OnInit {
 
   maxVisibleItems: number = 8;
 
-  constructor(private cdRef: ChangeDetectorRef, private etudiantService: SchoolService) {}
+  constructor(private cdRef: ChangeDetectorRef, private etudiantService: SchoolService,iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+    iconRegistry.addSvgIcon(
+      'thumbs-up',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/images/create.svg'));
+      iconRegistry.addSvgIcon(
+        'view',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/images/eye.svg'));
+
+        iconRegistry.addSvgIcon(
+          'edit',
+          sanitizer.bypassSecurityTrustResourceUrl('assets/images/edit.svg'));
+
+        iconRegistry.addSvgIcon(
+          'delete',
+          sanitizer.bypassSecurityTrustResourceUrl('assets/images/delete.svg'));
+  }
 
   @HostListener('input') oninput() {
     this.mdbTablePagination.searchText = this.searchText;
@@ -42,29 +59,28 @@ export class CoursComponent implements OnInit {
     .subscribe(data=>{
       this.etu = data;
       this.cours = this.etu._embedded.courses ;
-      console.log(this.cours);
-      
+
+      this.mdbTable.setDataSource(this.cours);
+      this.cours = this.mdbTable.getDataSource();
+      this.previous = this.mdbTable.getDataSource();
+
     },err=>{
       console.log(err);
-      
+
     })
 
 
-    this.mdbTable.setDataSource(this.cours);
-    this.cours = this.mdbTable.getDataSource();
-    this.previous = this.mdbTable.getDataSource();
   }
 
   ngAfterViewInit() {
-    console.log("++++++++++++++++++++++++++++++++++" + this.maxVisibleItems);
-    
+
     this.mdbTablePagination.setMaxVisibleItemsNumberTo(this.maxVisibleItems);
 
     this.mdbTablePagination.calculateFirstItemIndex();
     this.mdbTablePagination.calculateLastItemIndex();
     this.cdRef.detectChanges();
   }
- 
+
   /* addNewRow() {
     this.mdbTable.addRow({
       firstName: this.elements.length.toString(),
@@ -73,7 +89,7 @@ export class CoursComponent implements OnInit {
       handle: 'Handle ' + this.elements.length
     });
     this.emitDataSourceChange();
-  } 
+  }
 
   addNewRowAfter() {
     console.log("++++++++++++++++++++++++++++++++++" + this.maxVisibleItems);

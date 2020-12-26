@@ -1,9 +1,10 @@
 package org.sid.school.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.UUID;
 
 @Entity
@@ -23,7 +24,8 @@ public class AgentUser implements Serializable {
     private boolean userActive ;
 
     //Relation
-    Role role;
+    @ManyToMany(fetch = FetchType.EAGER)
+    Collection<Role> roles = new ArrayList<>();
 
     public AgentUser() {
     }
@@ -92,12 +94,12 @@ public class AgentUser implements Serializable {
         this.username = username;
     }
 
-    public Role getRole() {
-        return role;
+    public Collection<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoles(Collection<Role> role) {
+        this.roles = role;
     }
 
     public boolean isUserActive() {

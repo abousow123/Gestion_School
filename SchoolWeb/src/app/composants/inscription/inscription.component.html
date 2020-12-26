@@ -1,0 +1,188 @@
+<mdb-breadcrumb>
+  <mdb-breadcrumb-item class="blue-text">Home</mdb-breadcrumb-item>
+  <mdb-breadcrumb-item class="blue-text">Library</mdb-breadcrumb-item>
+  <mdb-breadcrumb-item class="active">Data</mdb-breadcrumb-item>
+</mdb-breadcrumb>
+
+<form [formGroup]="contactForm">
+<mdb-card>
+
+  <mdb-card-body>
+
+    <div class="form-row">
+      <!-- <div class="col-md-3">
+
+        <div class="md-form form-group">
+          <input mdbInput type="text" class="form-control" id="inputNameExpiraty" formControlName="contactFormName"  placeholder="">
+          <label for="inputExpiraty4MD">Student number</label>
+        </div>
+      </div>
+      <div class="col-md-3">
+
+        <div class="md-form form-group">
+          <input mdbInput type="text" class="form-control" id="inputNameCvv" formControlName="contactFormSubjects"  placeholder="">
+          <label for="inputCvv4MD">Student name</label>
+        </div>
+      </div> -->
+
+      <div class="col-md-6">
+        <!-- Material input -->
+        <div class="md-form form-group">
+          <select class="browser-default custom-select">
+            <option selected>Programme</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <!-- Material input -->
+        <div class="md-form form-group">
+          <select class="browser-default custom-select">
+            <option selected>Classe</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+      </div>
+
+    </div>
+  </mdb-card-body>
+
+
+</mdb-card>
+<p></p>
+
+<mdb-card>
+
+  <mdb-card-header>
+    <div class="form-row">
+      <div class="col-md-4">
+
+        <div class="md-form form-group">
+          <input mdbInput type="text" class="form-control" id="inputNameExpiraty" formControlName="contactFormName"  placeholder="">
+          <label for="inputExpiraty4MD">Student number</label>
+        </div>
+      </div>
+      <div class="col-md-4">
+
+        <div class="md-form form-group">
+          <input mdbInput type="text" class="form-control" id="inputNameCvv" formControlName="contactFormSubjects"  placeholder="">
+          <label for="inputCvv4MD">Student name</label>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+
+        <div class="md-form form-group">
+          <button>Rechercher</button>
+        </div>
+      </div>
+
+    </div>
+  </mdb-card-header>
+  <mdb-card-body *ngIf="etudiant != null">
+    <p>Test</p>
+  </mdb-card-body>
+
+
+
+</mdb-card>
+<p></p>
+<mdb-card>
+  <div class="row">
+    <div class="col-md-6">
+
+      <mdb-card>
+
+        <mdb-card-header class="info-color white-text text-left py-2">
+          <h5>
+            Information de l'etudiant
+          </h5>
+        </mdb-card-header>
+
+        <!--Card content-->
+        <mdb-card-body class="px-lg-5 pt-0">
+
+          <!-- Form -->
+          <form class="text-center" style="color: #757575;">
+
+
+
+            <div class="form-row">
+              <div class="col">
+                <!-- First name -->
+                <div class="md-form">
+                  <input type="text" id="materialRegisterFormFirstName" class="form-control" disabled="true" value="{{detailEtudiant.firstName}}" mdbInput>
+                  <label for="materialRegisterFormFirstName">First name</label>
+                </div>
+              </div>
+              <div class="col">
+                <!-- Last name -->
+                <div class="md-form">
+                  <input type="email" id="materialRegisterFormLastName" class="form-control" disabled="true" value="{{detailEtudiant.lastName}}" mdbInput>
+                  <label for="materialRegisterFormLastName">Last name</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col">
+                <!-- First name -->
+                <div class="md-form">
+                  <input type="text" id="materialRegisterFormAddress" class="form-control" disabled="true" value="{{detailEtudiant.address}}" mdbInput>
+                  <label for="materialRegisterFormAddress">Address</label>
+                </div>
+              </div>
+              <div class="col">
+                <!-- Last name -->
+                <div class="md-form">
+                  <input type="email" id="materialRegisterFormLastName" class="form-control" disabled="true" value="{{detailEtudiant.nationalite}}" mdbInput>
+                  <label for="materialRegisterFormCity">City</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col">
+                <!-- First name -->
+                <div class="md-form">
+                  <input type="text" id="materialRegisterFormTel" class="form-control" disabled="true" value="{{detailEtudiant.tel}}" mdbInput>
+                  <label for="materialRegisterFormTel">Phone number</label>
+                </div>
+              </div>
+              <div class="col">
+                <!-- Last name -->
+                <div class="md-form">
+                  <input type="email" id="materialRegisterFormEmail" class="form-control" disabled="true" value="{{detailEtudiant.email}}" mdbInput>
+                  <label for="materialRegisterFormEmail">Email</label>
+                </div>
+              </div>
+            </div>
+
+
+          </form>
+          <!-- Form -->
+
+        </mdb-card-body>
+
+      </mdb-card>
+
+    </div>
+
+    <div class="col-md-2">
+
+    </div>
+
+  </div>
+
+</mdb-card>
+
+
+
+</form>
+
+

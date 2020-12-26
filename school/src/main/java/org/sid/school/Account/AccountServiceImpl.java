@@ -1,6 +1,7 @@
 package org.sid.school.Account;
 
 
+import ch.qos.logback.core.CoreConstants;
 import org.sid.school.dao.RoleRepository;
 import org.sid.school.dao.UserRepository;
 import org.sid.school.entities.AgentUser;
@@ -42,6 +43,7 @@ public class AccountServiceImpl implements AccountService {
             throw new RuntimeException("Svp confirmĂ© votre mot de passe");
         AgentUser compte = user;
         compte.setId(user.getId());
+        compte.setUsername(user.getFirstName() + " " + user.getLastName());
 
         compte.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         //compte.setUserActive(true);
@@ -70,9 +72,7 @@ public class AccountServiceImpl implements AccountService {
         // TODO Auto-generated method stub
         AgentUser compte = compteRepository.findByLogin(login);
         Role role = roleRepository.findByAuthority(nomrole);
-        compte.setRole(role);
-        compteRepository.saveAndFlush(compte);
-
+        compte.getRoles().add(role) ;
     }
 
 }

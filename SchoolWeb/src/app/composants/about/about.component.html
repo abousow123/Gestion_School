@@ -1,15 +1,70 @@
+
+  <!-- ======= Breadcrumbs Section ======= -->
+  <mdb-breadcrumb>
+    <mdb-breadcrumb-item class="blue-text">Home</mdb-breadcrumb-item>
+    <mdb-breadcrumb-item class="blue-text">Library</mdb-breadcrumb-item>
+    <mdb-breadcrumb-item class="active">Data</mdb-breadcrumb-item>
+  </mdb-breadcrumb><!-- Breadcrumbs Section -->
+
 <mdb-card >
 
-  <mdb-card-header>
-    About
-    Committed to Education
-  </mdb-card-header>
-          
     <mdb-card-body>
-      
-      Over the years, our reputation has grown as our professionalism go on to become knowledgeable in the field. 
-      Through engaging and hands-on educational opportunities, Nay's Hair Braiding School wants to cultivates future industry leaders.
-       If this is what you’re looking for, please don’t hesitate to get in touch to learn more and join our growing community.
+
+         <!-- ======= About Section ======= -->
+    <section id="about" class="about section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>About</h2>
+          <h3>Find Out More <span>About Us</span></h3>
+         <!--  <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p> -->
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6" data-aos="zoom-out" data-aos-delay="100">
+            <mdb-carousel [animation]="'slide'">
+              <mdb-carousel-item>
+                <img class="d-block w-100" src="assets/images/about.jpeg" alt="First slide">
+              </mdb-carousel-item>
+              <mdb-carousel-item>
+                <img class="d-block w-100" src="assets/images/about1.jpeg"  alt="Second slide">
+              </mdb-carousel-item>
+              <mdb-carousel-item>
+                <img class="d-block w-100" src="assets/images/about2.jpeg"  alt="Third slide">
+              </mdb-carousel-item>
+            </mdb-carousel>
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0 content d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="100">
+            <h3>About Committed to Education.</h3>
+            <p class="font-italic">
+              Over the years, our reputation has grown as our professionalism go on to become knowledgeable in the field.
+              Through engaging and hands-on educational opportunities, Nay's Hair Braiding School wants to cultivates future industry leaders.
+              If this is what you’re looking for, please don’t hesitate to get in touch to learn more and join our growing community.
+            </p>
+             <ul>
+              <li>
+                <div>
+                  <p><mdb-icon fas icon="home" size="2x" class="pink-text ml-3" aria-hidden="true"></mdb-icon> 3128 Richmond road Lexington Kentucky 40509</p>
+                </div>
+
+              </li>
+
+              <li>
+                <div>
+                  <p><mdb-icon fas icon="phone-alt" size="2x" class="pink-text ml-3" aria-hidden="true"></mdb-icon> 859 33 56 006</p>
+                </div>
+              </li>
+            </ul>
+            <p>
+            <!--   Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+              culpa qui officia deserunt mollit anim id est laborum -->
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
     </mdb-card-body>
-  
+
 </mdb-card>

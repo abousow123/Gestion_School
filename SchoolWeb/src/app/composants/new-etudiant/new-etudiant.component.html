@@ -1,27 +1,10 @@
-<!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-  {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
-</button> -->
-
-<!--     
-<main id="main" data-aos="fade-up">
-    <section class="breadcrumbs">
-          <div class="container">
-            <div class="d-flex justify-content-between align-items-center">
-              <h2>Portfolio Details</h2>
-              <ol>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="portfolio.html">Portfolio</a></li>
-                <li>Portfolio Details</li>
-              </ol>
-            </div>
-
-          </div>
-        </section>
-
-</main> 
- -->
 
 
+<mdb-breadcrumb>
+  <mdb-breadcrumb-item class="blue-text">Home</mdb-breadcrumb-item>
+  <mdb-breadcrumb-item class="blue-text">Registration</mdb-breadcrumb-item>
+  <mdb-breadcrumb-item class="active">New studient</mdb-breadcrumb-item>
+</mdb-breadcrumb>
 
 <mat-horizontal-stepper linear #stepper>
   <mat-step [stepControl]="etudiantForm" >
@@ -30,26 +13,41 @@
       <mdb-card>
 
         <mdb-card-header>
-          <h4>Student Information</h4>
+          <h4>Student Informations</h4>
         </mdb-card-header>
 
         <mdb-card-body>
 
-          <div class="form-row">
-            <div class="col-sm-4 text-center">
-              <div class="kv-avatar">
-                  <div class="file-loading">
-                      <input id="avatar-1" name="avatar-1" type="file" required>
-                  </div>
-              </div>
-              <div class="kv-avatar-hint">
-                  <small>Select file < 1500 KB</small>
-              </div>
-          </div>
-          
-          </div>
 
-          
+            <!--Card image-->
+            <img src="assets/images/profil.jpeg" width="200px" *ngIf="dataimage == undefined">
+            <img src="{{dataimage}}" width="200px" >
+            <!--Card content-->
+
+
+              <!--Title-->
+              <mdb-card-title>
+                <h4>Profile picture</h4>
+              </mdb-card-title>
+
+              <mat-form-field>
+                <div>
+                  <mat-toolbar>
+                    <!-- Display files names -->
+                    <input matInput  readonly name="name" />
+
+                    <!-- Browse Button -->
+                    <button mat-flat-button color="primary">
+                      Choose picture
+                    </button>
+                  </mat-toolbar>
+
+                  <!-- Fetch selected filed on change -->
+                  <input type="file" #fileInput id="uploadFile" (change)="uploadFileEvt($event)" name="uploadFile"
+                    accept="image/*" />
+                </div>
+              </mat-form-field>
+<p></p>
 
              <!-- Grid row -->
              <div class="form-row">
@@ -62,7 +60,7 @@
                 </div>
               </div>
               <!-- Grid column -->
-          
+
               <!-- Grid column -->
               <div class="col-md-6">
                 <!-- Material input -->
@@ -74,7 +72,7 @@
               <!-- Grid column -->
             </div>
             <!-- Grid row -->
-          
+
             <!-- Grid row -->
             <div class="row">
               <!-- Grid column -->
@@ -86,7 +84,7 @@
                 </div>
               </div>
               <!-- Grid column -->
-          
+
               <!-- Grid column -->
               <div class="col-md-6">
                 <!-- Material input -->
@@ -98,11 +96,11 @@
               <!-- Grid column -->
             </div>
             <!-- Grid row -->
-          
+
             <!-- Grid row -->
             <div class="form-row">
               <!-- Grid column -->
-          
+
               <!-- Grid column -->
               <div class="col-md-6">
                 <!-- Material input -->
@@ -114,32 +112,34 @@
 
               <div class="col-md-6">
                 <!-- Material input -->
-                <div class="md-form form-group">
-                  <input mdbInput type="email" class="form-control" id="inputEmail4" formControlName="email"  placeholder="exemple@exemple.com">
-                  <label for="inputCityMD">Email</label>
+                <div class="md-form">
+                  <input mdbInput  type="email" class="form-control" id="form8" formControlName="email"  placeholder="exemple@exemple.com">
+                  <label for="form8">Email</label>
                 </div>
               </div>
 
-            
+
               <!-- Grid column -->
               <!-- Grid column -->
             </div>
             <!-- Grid row -->
+
+
         </mdb-card-body>
-        
+
 
                <mdb-card-header>
-                <h4>Information from your tutor</h4>
+                <h4>Reference contact Informations</h4>
                </mdb-card-header>
                <mdb-card-body>
-                
+
                  <!-- Grid row -->
                  <div class="form-row">
                   <!-- Grid column -->
                   <div class="col-md-6">
                     <!-- Material input -->
                     <div class="md-form form-group">
-                      <p>Tutor type</p>
+                      <p>Reference contact</p>
                       <select   class="form-control" formControlName="typeTuteur" >
                         <option value="Father">Father</option>
                         <option value="Mother">Mother</option>
@@ -150,8 +150,8 @@
                   </div>
                  </div>
                   <!-- Grid column -->
-  
-              
+
+
                 <!-- Grid row -->
                 <div class="form-row">
                   <!-- Grid column -->
@@ -163,7 +163,7 @@
                     </div>
                   </div>
                   <!-- Grid column -->
-              
+
                   <!-- Grid column -->
                   <div class="col-md-6">
                     <!-- Material input -->
@@ -175,11 +175,11 @@
                   <!-- Grid column -->
                 </div>
                 <!-- Grid row -->
-              
+
                 <!-- Grid row -->
                 <div class="form-row">
                   <!-- Grid column -->
-              
+
                   <!-- Grid column -->
                   <div class="col-md-6">
                     <!-- Material input -->
@@ -188,7 +188,7 @@
                       <label for="inputZipMD">Phone Number</label>
                     </div>
                   </div>
-  
+
                   <div class="col-md-6">
                     <!-- Material input -->
                     <div class="md-form form-group">
@@ -200,7 +200,7 @@
                   <!-- Grid column -->
                 </div>
                 <!-- Grid row -->
-              
+
 
         </mdb-card-body>
 
@@ -209,11 +209,11 @@
             <button mdbBtn color="success" mat-button matStepperNext>Next</button>
           </div>
         </mdb-card-footer>
-       
-        
+
+
 
       </mdb-card>
-     
+
     </form>
 
   </mat-step>
@@ -240,7 +240,7 @@
                     <option  *ngFor="let val of optionPay" value="{{val.value}}">{{val.value}}</option>
                   </select>
 
-                  
+
                 </div>
               </div>
             </div>
@@ -303,13 +303,13 @@
             </div>
           </div>
 
-        
+
 
         </mdb-card-footer>
-        
+
 
       </mdb-card>
-     
+
 
     </form>
   </mat-step>
@@ -336,7 +336,7 @@
           </div>
         </div>
         <!-- Grid column -->
-    
+
         <!-- Grid column -->
         <div class="col-md-6">
           <!-- Material input -->
@@ -348,7 +348,7 @@
         <!-- Grid column -->
       </div>
       <!-- Grid row -->
-    
+
       <!-- Grid row -->
       <div class="row">
         <!-- Grid column -->
@@ -360,7 +360,7 @@
           </div>
         </div>
         <!-- Grid column -->
-    
+
         <!-- Grid column -->
         <div class="col-md-6">
           <!-- Material input -->
@@ -372,11 +372,11 @@
         <!-- Grid column -->
       </div>
       <!-- Grid row -->
-    
+
       <!-- Grid row -->
       <div class="form-row">
         <!-- Grid column -->
-    
+
         <!-- Grid column -->
         <div class="col-md-6">
           <!-- Material input -->
@@ -394,19 +394,19 @@
           </div>
         </div>
 
-      
+
         <!-- Grid column -->
         <!-- Grid column -->
       </div>
       <!-- Grid row -->
   </mdb-card-body>
-  
+
 
          <mdb-card-header>
           <h4>Infos Tuteur</h4>
          </mdb-card-header>
          <mdb-card-body>
-          
+
            <!-- Grid row -->
            <div class="form-row">
             <!-- Grid column -->
@@ -420,7 +420,7 @@
            </div>
             <!-- Grid column -->
 
-        
+
           <!-- Grid row -->
           <div class="form-row">
             <!-- Grid column -->
@@ -432,7 +432,7 @@
               </div>
             </div>
             <!-- Grid column -->
-        
+
             <!-- Grid column -->
             <div class="col-md-6">
               <!-- Material input -->
@@ -444,11 +444,11 @@
             <!-- Grid column -->
           </div>
           <!-- Grid row -->
-        
+
           <!-- Grid row -->
           <div class="form-row">
             <!-- Grid column -->
-        
+
             <!-- Grid column -->
             <div class="col-md-6">
               <!-- Material input -->
@@ -469,7 +469,7 @@
             <!-- Grid column -->
           </div>
           <!-- Grid row -->
-        
+
 
   </mdb-card-body>
 

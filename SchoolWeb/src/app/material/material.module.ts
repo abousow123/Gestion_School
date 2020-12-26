@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatTableModule} from '@angular/material/table'; 
+import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
-
+import {MatTabsModule} from '@angular/material/tabs';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 
 const MaterialComponents = [
@@ -17,7 +19,10 @@ const MaterialComponents = [
   MatTableModule,
   MatPaginatorModule,
   MatIconModule,
-  MatSelectModule
+  MatSelectModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatProgressBarModule
 ]
 
 @NgModule({

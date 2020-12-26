@@ -1,8 +1,14 @@
+<mdb-breadcrumb>
+  <mdb-breadcrumb-item class="blue-text">Home</mdb-breadcrumb-item>
+  <mdb-breadcrumb-item class="blue-text">Library</mdb-breadcrumb-item>
+  <mdb-breadcrumb-item class="active">Data</mdb-breadcrumb-item>
+</mdb-breadcrumb>
+
 <mdb-card>
 
     <div class="container">
      <div class="row">
-       <div class="col-md-6 mx-auto">
+       <div class="col-md-9 mx-auto">
          <div class="md-form">
            <input type="text" class="form-control" [(ngModel)]="searchText" (keyup)="searchItems()" id="search-input" mdbInput>
            <label for="search-input">Search</label>
@@ -11,6 +17,7 @@
        <div class="col-md-3 mx-right">
          <button mdbBtn type="button" color="primary" rounded="true" mdbWavesEffect routerLink="/newUser">Add new student</button>
        </div>
+       
        <table mdbTable #tableEl="mdbTable" stickyHeader="true" hover="true" striped="true" class="z-depth-1">
          <thead class="sticky-top">
          <tr>
@@ -50,7 +57,7 @@
          </div>
    
          <div class="col-md-3">
-           <a> <mat-icon svgIcon="delete" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> </a>
+           <a (click)="onRemove(el)"> <mat-icon svgIcon="delete" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> </a>
          </div>
    
         </div>

@@ -14,12 +14,15 @@ public class Programme implements Serializable {
 
     private String code_programme;
     private String libelle;
-    private String typeProgramme;
+    private String description;
+    private double prix;
+    private int dropOff;
+
     private Date date_created;
 
     //Relation
-    @ManyToOne
-    private User user ;
+  /*  @ManyToOne
+    private AgentUser user ;*/
 
     public Programme() {
     }
@@ -50,11 +53,11 @@ public class Programme implements Serializable {
     }
 
     public String getTypeProgramme() {
-        return typeProgramme;
+        return description;
     }
 
-    public void setTypeProgramme(String typeProgramme) {
-        this.typeProgramme = typeProgramme;
+    public void setTypeProgramme(String description) {
+        this.description = description;
     }
 
     public Date getDate_created() {
@@ -63,6 +66,22 @@ public class Programme implements Serializable {
 
     public void setDate_created(Date date_created) {
         this.date_created = date_created;
+    }
+
+    public double getPrix() {
+        return prix;
+    }
+
+    public void setPrix(double prix) {
+        this.prix = prix;
+    }
+
+    public int getDropOff() {
+        return dropOff;
+    }
+
+    public void setDropOff(int dropOff) {
+        this.dropOff = dropOff;
     }
 
 }

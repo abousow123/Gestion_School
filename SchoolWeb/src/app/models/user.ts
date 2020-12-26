@@ -16,6 +16,7 @@ export class User{
 export class Role{
     constructor(){};
 
+    id: number ;
     authority: string;
 
 }

@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @RepositoryRestResource
 public interface UserRepository extends JpaRepository<AgentUser, String> {
 
-    @Query("select a from User a where a.login like :x")
+    @Query("select a from AgentUser a where a.login like :x")
     public AgentUser findByLogin(@Param("x") String login) ;
 }

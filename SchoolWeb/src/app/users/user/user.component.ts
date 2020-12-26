@@ -3,6 +3,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { MdbTableDirective, MdbTablePaginationComponent } from 'angular-bootstrap-md';
+import { User } from 'src/app/models/user';
 import { SchoolService } from 'src/app/services/school.service';
 
 @Component({
@@ -26,6 +27,7 @@ export class UserComponent implements OnInit {
 
 
   maxVisibleItems: number = 10;
+  d: any ;
 
   users: any = [] ;
 
@@ -61,12 +63,15 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getListUsers();
+   
+  }
 
-
+  getListUsers(){
     this.etudiantService.getUsers()
     .subscribe(data=>{
       this.etu = data;
-      this.users = this.etu._embedded.users  ;
+      this.users = this.etu._embedded.agentUsers  ;
       console.log(this.users);
 
       this.mdbTable.setDataSource(this.users);
@@ -77,8 +82,6 @@ export class UserComponent implements OnInit {
       console.log(err);
       
     }) ;
-
-   
   }
 
   ngAfterViewInit() {
@@ -158,7 +161,18 @@ export class UserComponent implements OnInit {
   editRow(t){
 
   }
-  removeRow1(el){
+  onRemove(el){
+    this.d = el as User ;
+    console.log("test user =====>>>>"+JSON.stringify(this.d._links.agentUser.href));
+    
+    this.etudiantService.deleteUser(this.d._links.agentUser.href)
+    .subscribe(data=>{
+      this.getListUsers();
+      
+    },err=>{
+      console.log(err);
+      
+    }) ;
 
   }
 

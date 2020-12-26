@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { User } from 'src/app/models/user';
+import { Role, User } from 'src/app/models/user';
 import { SchoolService } from 'src/app/services/school.service';
 
 @Component({
@@ -12,16 +12,12 @@ export class NewUserComponent implements OnInit {
 
   userForm: FormGroup;
   user: User = new User();
+  role: Role = new Role();
 
   model: string = '';
   roles: any;
   r:any;
 
-  foods = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'}
-  ];
 
 
 
@@ -43,14 +39,48 @@ export class NewUserComponent implements OnInit {
       response => {
         this.r = response  ;
         this.roles = this.r._embedded.roles
-        console.log("Reurn Etudiant: ======> "+JSON.stringify(this.roles));
+      },err=>{
+        console.log(err);
       }
     );
 
   }
 
   OnSave(){
+    this.user.firstName = this.userForm.value.firstName ;
+    this.user.lastName = this.userForm.value.lastName ;
+    this.user.login = this.userForm.value.login;
+    this.user.password = this.userForm.value.password ;
+    this.user.userActive = this.userForm.value.activeUser ;
 
+    this.schoolService.getRole(parseInt(this.userForm.value.authority))
+    .subscribe(
+      response => {
+        this.role = response as Role  ;
+
+        this.user.role = this.role ;
+        this.schoolService.saveUser(this.user)
+        .subscribe(resp => {
+          this.user = resp as User ;
+          console.log("User return ========>"+JSON.stringify(this.user));
+          
+        },err=>{
+          console.log(err);
+        })
+      },err=>{
+        console.log(err);
+      }
+    );
+
+    
+    
+
+
+  }
+
+  test(){
+   // console.log("test id ===> "+ this.userForm.value.authority);
+    
   }
 
 }
