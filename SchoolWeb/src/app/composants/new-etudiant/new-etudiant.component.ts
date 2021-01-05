@@ -14,6 +14,7 @@ export class NewEtudiantComponent implements OnInit {
 
   name = 'Angular ' + VERSION.major;
   dataimage:any;
+  demandeFile: any = File;
 
    @ViewChild('fileInput') fileInput: ElementRef;
   fileAttr = 'Choose File';
@@ -47,6 +48,7 @@ export class NewEtudiantComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder,private etudiantService: SchoolService) {}
 
   ngOnInit() {
+
     this.cardFormGroup = this._formBuilder.group({
       cardNumber: [''],
       expiratyDate: [''],
@@ -91,8 +93,12 @@ export class NewEtudiantComponent implements OnInit {
     this.tuteur.typeTuteur = etudiantForm.value.typeTuteur ;
 
     this.etudiant.tuteur = this.tuteur ;
+    const formData = new FormData() ;
 
-    this.etudiantService.saveEtudiant(this.etudiant)
+    formData.append('etudiant', JSON.stringify(this.etudiant));
+    formData.append('file1',this.demandeFile) ;
+
+    this.etudiantService.saveEtudiant(formData)
     .subscribe(
       response => {
         this.detailEtudiant = response as Etudiant ;
@@ -127,9 +133,14 @@ export class NewEtudiantComponent implements OnInit {
 
 
   uploadFileEvt(imgFile: any) {
+
     if (imgFile.target.files && imgFile.target.files[0]) {
+
+      this.demandeFile = imgFile.target.files[0] ;
+
       this.fileAttr = '';
       Array.from(imgFile.target.files).forEach((file: File) => {
+
         this.fileAttr += file.name ;
       });
 
@@ -140,7 +151,7 @@ export class NewEtudiantComponent implements OnInit {
         image.src = e.target.result;
         image.onload = rs => {
           let imgBase64Path = e.target.result;
-          console.log(imgBase64Path);
+          //console.log(imgBase64Path);
           this.dataimage = imgBase64Path;
         };
       };
@@ -151,6 +162,7 @@ export class NewEtudiantComponent implements OnInit {
     } else {
       this.fileAttr = 'Choose File';
     }
+
   }
 
 }

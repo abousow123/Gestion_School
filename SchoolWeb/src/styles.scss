@@ -13,5 +13,14 @@ body {
   background-color: #ef5350 !important;
 }
 
+.navbar .nav-link.active {
+  background-color: lightblue;
+}
+
+
+
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+
 
 

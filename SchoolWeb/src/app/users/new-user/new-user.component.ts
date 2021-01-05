@@ -31,7 +31,7 @@ export class NewUserComponent implements OnInit {
       login:([this.user.login,Validators.required]),
       confirmPassword:(['',Validators.required]),
       activeUser:([this.user.userActive,Validators.required]),
-      authority:([this.user.role.authority,Validators.required])
+      authority:(['',Validators.required])
     });
 
     this.schoolService.getRoles()
@@ -58,12 +58,12 @@ export class NewUserComponent implements OnInit {
       response => {
         this.role = response as Role  ;
 
-        this.user.role = this.role ;
+       // this.user.roles = this.role ;
         this.schoolService.saveUser(this.user)
         .subscribe(resp => {
           this.user = resp as User ;
           console.log("User return ========>"+JSON.stringify(this.user));
-          
+
         },err=>{
           console.log(err);
         })
@@ -72,15 +72,15 @@ export class NewUserComponent implements OnInit {
       }
     );
 
-    
-    
+
+
 
 
   }
 
   test(){
    // console.log("test id ===> "+ this.userForm.value.authority);
-    
+
   }
 
 }

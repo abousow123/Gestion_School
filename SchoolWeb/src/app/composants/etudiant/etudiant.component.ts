@@ -23,7 +23,7 @@ export class EtudiantComponent implements OnInit {
 
   etu: any ;
 
-  headElements = ['firstName', 'lastName', 'address', 'email', 'telephone','registration fees','action'];
+  headElements = ['Num','FirstName', 'LastName', 'Address', 'Email', 'Tel','Fees','action'];
 
   searchText: string = '';
   previous: string;
@@ -32,6 +32,9 @@ export class EtudiantComponent implements OnInit {
   maxVisibleItems: number = 10;
 
   etudiants: any = [] ;
+  programmes: any ;
+  resp: any ;
+  classes:any ;
 
   cardFormGroup: FormGroup ;
 
@@ -92,8 +95,33 @@ export class EtudiantComponent implements OnInit {
 
     }) ;
 
+    this.getProgrammes();
+    this.getClasses() ;
 
   }
+
+  getProgrammes(){
+    this.etudiantService.getProgrammes()
+    .subscribe(data =>{
+      this.resp = data;
+      this.programmes = this.resp._embedded.programmes;
+    },err=>{
+      console.log(err);
+
+    });
+  }
+
+  getClasses(){
+    this.etudiantService.getClasses()
+    .subscribe(data =>{
+      this.resp = data;
+      this.classes = this.resp._embedded.classes;
+    },err=>{
+      console.log(err);
+
+    });
+  }
+
 
   ngAfterViewInit() {
     this.mdbTablePagination.setMaxVisibleItemsNumberTo(this.maxVisibleItems);

@@ -1,5 +1,6 @@
 package org.sid.school;
 
+import org.apache.commons.math3.random.RandomDataGenerator;
 import org.sid.school.Account.AccountService;
 import org.sid.school.dao.*;
 import org.sid.school.entities.*;
@@ -13,8 +14,10 @@ import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
 
 @SpringBootApplication
 public class SchoolApplication implements CommandLineRunner {
@@ -100,14 +103,7 @@ public class SchoolApplication implements CommandLineRunner {
         programmeRepository.save(programme2);
 
 
-        Classe c = new Classe();
-        c.setCode("c1");
-        c.setDate_created(new Date());
-        c.setLibelle("classe1");
-        c.setNbre_max_etudiant(10);
-        classeRepository.save(c);
-
-        for (int i = 2; i < 30; i++) {
+        for (int i = 1; i < 15; i++) {
             Classe classe = new Classe();
             classe.setCode("c" + i);
             classe.setDate_created(new Date());
@@ -138,6 +134,9 @@ public class SchoolApplication implements CommandLineRunner {
         etudiant.setNationalite("SN");
         etudiant.setSexe("Femme");
         etudiant.setTuteur(tuteur);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
+        String numEtudiant0 = formatter.format(new Date()) + UUID.randomUUID().toString().substring(0,4).toUpperCase();
+        etudiant.setNumStudent(numEtudiant0);
         //etudiant.setProgramme(programmeRepository.getOne(programme.getId()));
         //etudiant.setClasse(classeRepository.getOne(classe.getId()));
         etudiantRepository.save(etudiant);
@@ -153,6 +152,9 @@ public class SchoolApplication implements CommandLineRunner {
         etudiant1.setNationalite("US");
         etudiant1.setSexe("Femme");
         etudiant1.setTuteur(tuteur);
+        SimpleDateFormat formatter0 = new SimpleDateFormat("yyyy");
+        String numEtudiant = formatter0.format(new Date()) + UUID.randomUUID().toString().substring(0,4).toUpperCase();
+        etudiant1.setNumStudent(numEtudiant);
         etudiantRepository.save(etudiant1);
 
         Etudiant etudiant2 = new Etudiant();
@@ -166,6 +168,9 @@ public class SchoolApplication implements CommandLineRunner {
         etudiant2.setNationalite("US");
         etudiant2.setSexe("Femme");
         etudiant2.setTuteur(tuteur);
+        SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy");
+        String numEtudiant1 = formatter.format(new Date()) + UUID.randomUUID().toString().substring(0,4).toUpperCase();
+        etudiant2.setNumStudent(numEtudiant1);
         etudiantRepository.save(etudiant2);
 
         Etudiant etudiant3 = new Etudiant();
@@ -180,6 +185,9 @@ public class SchoolApplication implements CommandLineRunner {
         etudiant3.setNationalite("US");
         etudiant3.setSexe("Femme");
         etudiant3.setTuteur(tuteur);
+        SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy");
+        String numEtudiant2 = formatter.format(new Date()) + UUID.randomUUID().toString().substring(0,4).toUpperCase();
+        etudiant3.setNumStudent(numEtudiant2);
         etudiantRepository.save(etudiant3);
 
         Etudiant etudiant4 = new Etudiant();
@@ -193,9 +201,12 @@ public class SchoolApplication implements CommandLineRunner {
         etudiant4.setNationalite("US");
         etudiant4.setSexe("Femme");
         etudiant4.setTuteur(tuteur);
+        SimpleDateFormat formatter3 = new SimpleDateFormat("yyyy");
+        String numEtudiant3 = formatter.format(new Date()) + UUID.randomUUID().toString().substring(0,4).toUpperCase();
+        etudiant4.setNumStudent(numEtudiant3);
         etudiantRepository.save(etudiant4);
 
-
+/*
         Etudiant etudiant5 = new Etudiant();
         etudiant5.setAddress("New York");
         etudiant5.setFirstName("kadia");
@@ -276,15 +287,15 @@ public class SchoolApplication implements CommandLineRunner {
         etudiantn.setNationalite("US");
         etudiantn.setSexe("Femme");
         etudiantn.setTuteur(tuteur);
-        etudiantRepository.save(etudiantn);
-/*
+        etudiantRepository.save(etudiantn); */
+
 		Cours c = new Cours();
 		c.setCode("cours1");
 		c.setLibelle("cours Test");
 		c.setDescription(" cours test 1");
 		c.setDate_cours(new Date());
 
-		coursRepository.save(c) ;*/
+		coursRepository.save(c) ;
 
         Role r1 = new Role();
         r1.setAuthority("Admin");
@@ -313,7 +324,7 @@ public class SchoolApplication implements CommandLineRunner {
         accountService.saveCompte(user2, user2.getPassword());
         accountService.addRoleToCompte(user2.getLogin(),r2.getAuthority());
 
-        etudiantRepository.findAll().forEach(e -> {
+       etudiantRepository.findAll().forEach(e -> {
             AgentUser user = new AgentUser();
             user.setPassword("12345");
             user.setLogin(e.getEmail());
@@ -331,17 +342,23 @@ public class SchoolApplication implements CommandLineRunner {
             classe.setDate_cours(new Date());
             classe.setLibelle("Cours test " + i);
             classe.setDescription("Description " + i);
-            classe.setClasse(c);
+     //       classe.setClasse(c);
             coursRepository.save(classe);
 
         }
 
-        Calendar calendar = Calendar.getInstance();
+ /*       Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, 1);
         Date tenSecondsAgo = calendar.getTime();
         Date d = new Date(System.currentTimeMillis()+24*3600);
         Date g = new Date();
-        System.out.println("test ======== >>>>>"+ tenSecondsAgo );
+        System.out.println("test ======== >>>>>"+ tenSecondsAgo );*/
+
+       // RandomDataGenerator randomDataGenerator = new RandomDataGenerator();
+
+
+
+
 
 
     }

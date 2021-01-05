@@ -25,7 +25,9 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
 		AgentUser compte = accountService.loadCompteBylogin(login);
-		if (compte==null) throw new UsernameNotFoundException("Login incorrect") ;
+		if (compte==null){
+			throw new UsernameNotFoundException("Login incorrect") ;
+		}
 		Collection<GrantedAuthority> authorities= new ArrayList<>() ;
 		compte.getRoles().forEach(r ->{
 			authorities.add(new SimpleGrantedAuthority(r.getAuthority())) ;

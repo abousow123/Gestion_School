@@ -8,6 +8,7 @@ export class Etudiant{
     constructor(){}
 
     id: string = '' ;
+    numStudent: string;
     firstName:string;
     lastName: string;
     address: string;
@@ -15,6 +16,7 @@ export class Etudiant{
     nationalite: string;
     tel: string;
     email: string;
+    photo: string;
     fraisInscription: number;
     feesPays: boolean;
     tuteur: Tuteur = new Tuteur() ;

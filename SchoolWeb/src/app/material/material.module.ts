@@ -10,6 +10,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 const MaterialComponents = [
@@ -22,7 +23,8 @@ const MaterialComponents = [
   MatSelectModule,
   MatTabsModule,
   MatToolbarModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatSnackBarModule
 ]
 
 @NgModule({

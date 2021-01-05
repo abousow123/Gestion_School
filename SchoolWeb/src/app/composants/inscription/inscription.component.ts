@@ -1,3 +1,5 @@
+import { Programme } from './../../models/programme';
+import { SchoolService } from './../../services/school.service';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Etudiant } from 'src/app/models/etudiant';
@@ -24,7 +26,16 @@ detailEtudiant: Etudiant = new Etudiant();
     }
   }
 
-  constructor(private fb: FormBuilder) {
+  programmes: any ;
+  classes: any;
+  resp: any ;
+  idProgramme: number;
+  programme: Programme ;
+
+  p = 0;
+
+
+  constructor(private fb: FormBuilder,private schoolService: SchoolService) {
 
   this.contactForm = fb.group({
     'contactFormName': ['', Validators.required],
@@ -36,10 +47,17 @@ detailEtudiant: Etudiant = new Etudiant();
   }
 
   ngOnInit(): void {
+
+
+    this.getProgrammes();
+    this.getClasses();
+
+
   }
 
 
   onSubmit() {
+    this.p = 20;
     /* this.connectionService.sendMessage(this.contactForm.value).subscribe(() => {
       alert('Your message has been sent.');
       this.contactForm.reset();
@@ -48,6 +66,29 @@ detailEtudiant: Etudiant = new Etudiant();
       console.log('Error', error);
     }); */
   }
+
+  getProgrammes(){
+    this.schoolService.getProgrammes()
+    .subscribe(data =>{
+      this.resp = data;
+      this.programmes = this.resp._embedded.programmes;
+    },err=>{
+      console.log(err);
+
+    });
+  }
+
+  getClasses(){
+    this.schoolService.getClasses()
+    .subscribe(data =>{
+      this.resp = data;
+      this.classes = this.resp._embedded.classes;
+    },err=>{
+      console.log(err);
+
+    });
+  }
+
 
 
 }

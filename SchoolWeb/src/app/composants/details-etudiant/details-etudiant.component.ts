@@ -16,6 +16,7 @@ export class DetailsEtudiantComponent implements OnInit {
   detailTuteur: Tuteur = new Tuteur() ;
   id:string = "" ;
   private state$: Observable<object> ;
+  currentActive:number = 0 ;
 
   constructor(private activeRoute: ActivatedRoute,private etudiantService: SchoolService, private router: Router) { }
 
@@ -27,26 +28,30 @@ export class DetailsEtudiantComponent implements OnInit {
       this.detailEtudiant = data as Etudiant ;
       this.detailTuteur = this.detailEtudiant.tuteur ;
       console.log("detail 1 ======> "+ JSON.stringify(this.detailTuteur));
-      
-      
+
+
     },err=>{
       console.log(err);
-      
+
     }) ;
 
   /*   this.etudiantService.getTuteur(JSON.stringify(this.detailEtudiant))
     .subscribe(data=>{
       this.detailTuteur = data as Tuteur ;
       console.log("detail 2======> "+this.detailTuteur);
-      
-      
+
+
     },err=>{
       console.log(err);
-      
+
     }) */
 
 
 
+
+  }
+
+  onStudients(){
 
   }
 

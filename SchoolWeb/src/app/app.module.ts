@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
@@ -17,7 +17,7 @@ import { ClasseComponent } from './composants/classe/classe.component';
 import { CoursComponent } from './composants/cours/cours.component';
 import { NewCoursComponent } from './composants/new-cours/new-cours.component';
 import {MaterialModule} from './material/material.module'
-import { CheckboxModule,WavesModule, ButtonsModule, InputsModule, IconsModule, CardsModule } from 'angular-bootstrap-md';
+import { CheckboxModule,WavesModule, ButtonsModule, InputsModule, IconsModule, CardsModule,ModalModule, TooltipModule, PopoverModule, } from 'angular-bootstrap-md';
 import { AboutComponent } from './composants/about/about.component';
 import { DetailsEtudiantComponent } from './composants/details-etudiant/details-etudiant.component';
 import { UserComponent } from './users/user/user.component';
@@ -40,6 +40,11 @@ import { SewInComponent } from './composants/gallery/sew-in/sew-in.component';
 import { DreadLocsComponent } from './composants/gallery/dread-locs/dread-locs.component';
 import { SettingsComponent } from './composants/settings/settings.component';
 import { InscriptionComponent } from './composants/inscription/inscription.component';
+import { ProfilComponent } from './composants/profil/profil.component';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { CarouselComponent } from './composants/carousel/carousel.component';
+import { ScolariteComponent } from './composants/scolarite/scolarite.component';
+
 
 
 
@@ -53,6 +58,7 @@ const routes: Routes = [
   { path: 'agenda', component: AgendaComponent },
   {path: 'login',component: LoginComponent},
   {path: 'conroe',component: ConroeComponent},
+  {path: 'profil',component: ProfilComponent},
 
   {path: 'settings',
   component: SettingsComponent,
@@ -66,7 +72,9 @@ const routes: Routes = [
     { path: 'inscription', component: InscriptionComponent },
     { path: 'detailEtudiant/:ref', component: DetailsEtudiantComponent},
   ]
-  }
+  },
+
+  {path: 'scolarite', component: ScolariteComponent}
   ];
 
 
@@ -100,7 +108,10 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     SewInComponent,
     DreadLocsComponent,
     SettingsComponent,
-    InscriptionComponent
+    InscriptionComponent,
+    ProfilComponent,
+    CarouselComponent,
+    ScolariteComponent
 
   ],
   imports: [
@@ -117,12 +128,16 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ButtonsModule,
     InputsModule,
     IconsModule,
+    NgxGalleryModule,
     CardsModule,
     GalleryModule,
     LightboxModule,
     FullCalendarModule,
     ScheduleModule,
-    InputUtilitiesModule
+    InputUtilitiesModule,
+    ModalModule,
+    TooltipModule,
+    PopoverModule
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

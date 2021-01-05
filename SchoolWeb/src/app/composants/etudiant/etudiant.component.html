@@ -1,7 +1,7 @@
 <mdb-breadcrumb>
-  <mdb-breadcrumb-item class="blue-text">Home</mdb-breadcrumb-item>
-  <mdb-breadcrumb-item class="blue-text">Library</mdb-breadcrumb-item>
-  <mdb-breadcrumb-item class="active">Data</mdb-breadcrumb-item>
+  <mdb-breadcrumb-item class="blue-text">Scolarite</mdb-breadcrumb-item>
+  <mdb-breadcrumb-item class="blue-text">Students</mdb-breadcrumb-item>
+  <mdb-breadcrumb-item class="active">List Students</mdb-breadcrumb-item>
 </mdb-breadcrumb>
 
 <form [formGroup]="cardFormGroup">
@@ -14,7 +14,7 @@
         <!-- Material input -->
         <div class="md-form form-group">
           <input mdbInput type="text" class="form-control" id="inputNameExpiraty" formControlName="expiratyDate"  placeholder="">
-          <label for="inputExpiraty4MD">First Name</label>
+          <label for="inputExpiraty4MD">Numero Carte</label>
         </div>
       </div>
       <div class="col-md-3">
@@ -29,10 +29,8 @@
         <!-- Material input -->
         <div class="md-form form-group">
           <select class="browser-default custom-select">
-            <option selected>Programme</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            <option  *ngFor="let val of programmes" value="{{val.id}}">{{val.code_programme}} - {{val.libelle}}</option>
+
           </select>
         </div>
       </div>
@@ -41,10 +39,9 @@
         <!-- Material input -->
         <div class="md-form form-group">
           <select class="browser-default custom-select">
-            <option selected>Classe</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            <option value="">Open this select menu</option>
+            <option  *ngFor="let val of classes" value="{{val.id}}">{{val.code}} - {{val.libelle}}</option>
+
           </select>
         </div>
       </div>
@@ -58,99 +55,108 @@
   </mdb-card-footer>
 
 
-
 </mdb-card>
-
 </form>
 
 
-  <div class="row">
-    <div class="col-md-12 mx-auto">
-      <div class="md-form">
-        <input
-          type="text"
-          [(ngModel)]="searchText"
-          class="form-control"
-          (keyup)="searchItems()"
-          id="search"
-          mdbInput
-        />
-        <label for="search">sort by ...</label>
+      <div class="row">
+        <div class="col-md-12 mx-auto">
+          <div class="md-form">
+            <input
+              type="text"
+              [(ngModel)]="searchText"
+              class="form-control"
+              (keyup)="searchItems()"
+              id="search"
+              mdbInput
+            />
+            <label for="search">sort by ...</label>
+          </div>
+        </div>
+
       </div>
-    </div>
+
+      <div class="table-responsive">
+        <table mdbTable #tableEl="mdbTable" responsive="true" stickyHeader="true" hover="true"  class="z-depth-1">
+          <thead class="sticky-top">
+          <tr>
+            <th *ngFor="let head of headElements; let i = index" [mdbTableSort]="etudiants" [sortBy]="headElements[i]"
+                scope="col">{{head | titlecase}}
+            </th>
+          </tr>
+          </thead>
+          <tbody #row *ngIf="etudiants">
+          <tr mdbTableCol  *ngFor="let el of etudiants; let i = index">
+            <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row" class="text-center">{{el.numStudent}}</th>
+            <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">{{el.firstName}}</th>
+            <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" >{{el.lastName}}</td>
+            <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.address}}</td>
+            <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.email}}</td>
+            <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.tel}}</td>
+            <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+
+              <h5 *ngIf="el.feesPays == false" class="text-center text-danger">Unpaid</h5>
+              <h5 *ngIf="el.feesPays == true" class="text-center text-success">Paid</h5>
+
+            </td>
+
+            <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
 
 
 
-  </div>
+             <!-- Grid row -->
+         <div class="form-row">
+          <!-- Grid column -->
+          <div class="col-md-2">
+            <a (click)="onDetails(el.id)"> <mat-icon svgIcon="view" aria-hidden="false" aria-label="Example thumbs up SVG icon" mdbTooltip="view" placement="top" ></mat-icon> </a>
+          </div>
 
-  <table mdbTable #tableEl="mdbTable" responsive="true" stickyHeader="true" hover="true"  class="z-depth-1">
-    <thead class="sticky-top">
-    <tr>
-      <th *ngFor="let head of headElements; let i = index" [mdbTableSort]="etudiants" [sortBy]="headElements[i]"
-          scope="col">{{head | titlecase}} <mdb-icon fas icon="sort"></mdb-icon>
-      </th>
-    </tr>
-    </thead>
-    <tbody #row *ngIf="etudiants">
-    <tr mdbTableCol  *ngFor="let el of etudiants; let i = index">
-      <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">{{el.firstName}}</th>
-      <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" >{{el.lastName}}</td>
-      <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.address}}</td>
-      <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.email}}</td>
-      <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.tel}}</td>
-      <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+          <div class="col-md-2">
 
-        <h5 *ngIf="el.feesPays == false" class="text-center text-danger">Unpaid</h5>
-        <h5 *ngIf="el.feesPays == true" class="text-center text-success">Paid</h5>
+          </div>
 
-      </td>
+          <div class="col-md-2">
+            <a> <mat-icon svgIcon="edit" mdbTooltip="edit" placement="top" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> </a>
+          </div>
 
-      <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+          <div class="col-md-2">
 
+          </div>
+
+          <div class="col-md-2">
+            <a> <mat-icon svgIcon="delete" mdbTooltip="delete" placement="top" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> </a>
+          </div>
+
+         </div>
 
 
-       <!-- Grid row -->
-   <div class="form-row">
-    <!-- Grid column -->
-    <div class="col-md-2">
-      <a (click)="onDetails(el.id)"> <mat-icon svgIcon="view" aria-hidden="false" aria-label="Example thumbs up SVG icon" ></mat-icon> </a>
-    </div>
+              <!-- <button mdbBtn color="warning" size="" mdbWavesEffect (click)="editRow(el)">Edit</button>
+              <button mdbBtn color="danger" size="sm" mdbWavesEffect (click)="removeRow1(el)">R</button>
+              <button mdbBtn color="danger" size="sm" mdbWavesEffect (click)="removeRow1(el)">view</button> -->
+            </td>
 
-    <div class="col-md-2">
+          </tr>
+          </tbody>
+          <tfoot class="grey lighten-5 w-100">
+          <tr>
+            <td colspan="4">
 
-    </div>
-
-    <div class="col-md-2">
-      <a> <mat-icon svgIcon="edit" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> </a>
-    </div>
-
-    <div class="col-md-2">
-
-    </div>
-
-    <div class="col-md-2">
-      <a> <mat-icon svgIcon="delete" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> </a>
-    </div>
-
-   </div>
+              <mdb-table-pagination [tableEl]="tableEl" paginationAlign="paginator" [searchDataSource]="etudiants" ></mdb-table-pagination>
+            </td>
+          </tr>
+          </tfoot>
+        </table>
+      </div>
 
 
-        <!-- <button mdbBtn color="warning" size="" mdbWavesEffect (click)="editRow(el)">Edit</button>
-        <button mdbBtn color="danger" size="sm" mdbWavesEffect (click)="removeRow1(el)">R</button>
-        <button mdbBtn color="danger" size="sm" mdbWavesEffect (click)="removeRow1(el)">view</button> -->
-      </td>
 
-    </tr>
-    </tbody>
-    <tfoot class="grey lighten-5 w-100">
-    <tr>
-      <td colspan="4">
 
-        <mdb-table-pagination [tableEl]="tableEl" paginationAlign="paginator" [searchDataSource]="etudiants" ></mdb-table-pagination>
-      </td>
-    </tr>
-    </tfoot>
-  </table>
+
+
+
+
+
+
 
 
 

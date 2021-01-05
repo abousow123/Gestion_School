@@ -9,7 +9,7 @@ export class User{
     photo: string;
     username: string;
     userActive: boolean ;
-    role: Role = new Role() ;
+    roles: Role[] = [] ;
 }
 
 
@@ -18,5 +18,14 @@ export class Role{
 
     id: number ;
     authority: string;
+
+}
+
+export class UserLogin{
+
+  constructor(){} ;
+
+  login: string;
+  password: string;
 
 }

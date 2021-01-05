@@ -15,7 +15,7 @@ public interface EtudiantService {
 
     public List<Etudiant> getEtudiants();
     public Optional<Etudiant> getEtudiant(String id);
-    public Etudiant saveEtudiant(MultipartFile file, String etudiant,String user) throws JsonParseException, JsonMappingException, IOException;
+    public Etudiant saveEtudiant(MultipartFile file, String etudiant) throws JsonParseException, JsonMappingException, IOException;
     public boolean deleteEtudiant(String id);
     public Etudiant updateEtudiant(String id, Etudiant etudiant) ;
 

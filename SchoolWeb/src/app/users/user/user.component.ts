@@ -20,7 +20,7 @@ export class UserComponent implements OnInit {
 
   etu: any ;
 
-  headElements = ['firstName', 'lastName', 'login','Role', 'User Active','action'];
+  headElements = ['firstName', 'lastName', 'login','tel','action'];
 
   searchText: string = '';
   previous: string;
@@ -30,6 +30,7 @@ export class UserComponent implements OnInit {
   d: any ;
 
   users: any = [] ;
+  roles: any = [] ;
 
 
   constructor(private cdRef: ChangeDetectorRef, private etudiantService: SchoolService,iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,
@@ -52,7 +53,7 @@ export class UserComponent implements OnInit {
         iconRegistry.addSvgIcon(
           'true',
           sanitizer.bypassSecurityTrustResourceUrl('assets/images/true.svg'));
-        
+
         iconRegistry.addSvgIcon(
           'no',
           sanitizer.bypassSecurityTrustResourceUrl('assets/images/no.svg'));
@@ -64,7 +65,7 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     this.getListUsers();
-   
+
   }
 
   getListUsers(){
@@ -77,20 +78,34 @@ export class UserComponent implements OnInit {
       this.mdbTable.setDataSource(this.users);
       this.users = this.mdbTable.getDataSource();
       this.previous = this.mdbTable.getDataSource();
-      
+
     },err=>{
       console.log(err);
-      
+
     }) ;
+  }
+
+  getRoles(user){
+
+    this.etudiantService.getRolesUser(user)
+    .subscribe(data=>{
+      this.etu = data;
+      this.roles = this.etu._embedded.roles  ;
+
+    },err=>{
+      console.log(err);
+
+    }) ;
+
   }
 
   ngAfterViewInit() {
     this.mdbTablePagination.setMaxVisibleItemsNumberTo(this.maxVisibleItems);
-    
+
     this.mdbTablePagination.calculateFirstItemIndex();
     this.mdbTablePagination.calculateLastItemIndex();
     this.cdRef.detectChanges();
-    
+
   }
 
   /* addNewRow() {
@@ -164,14 +179,14 @@ export class UserComponent implements OnInit {
   onRemove(el){
     this.d = el as User ;
     console.log("test user =====>>>>"+JSON.stringify(this.d._links.agentUser.href));
-    
+
     this.etudiantService.deleteUser(this.d._links.agentUser.href)
     .subscribe(data=>{
       this.getListUsers();
-      
+
     },err=>{
       console.log(err);
-      
+
     }) ;
 
   }

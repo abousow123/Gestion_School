@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Role, User } from '../models/user';
+import { User } from '../models/user';
 import { AuthenticationService } from './authentication.service';
 
 @Injectable({
@@ -69,6 +69,11 @@ export class SchoolService {
   getRoles(){
     if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
     return this.http.get(this.host+ "roles", {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
+  }
+
+  getRolesUser(user){
+    if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
+    return this.http.get(user._links.roles.href, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
   }
 
   getRole(id){

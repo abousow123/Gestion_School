@@ -14,7 +14,7 @@ public class Etudiant implements Serializable {
     @Column(name = "id", unique = true, nullable = false, length = 254)
     private String id = UUID.randomUUID().toString();
 
-    private String numStudent;
+    private String numStudent ;
     private String firstName;
     private String lastName;
     @JsonIgnore
@@ -32,11 +32,7 @@ public class Etudiant implements Serializable {
     private double fraisInscription = 120.0;
 
     //relation
-    @ManyToOne
-    @JoinColumn(nullable = true)
-    @JsonIgnore
-    private ModePaiement modePaiement ;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Tuteur tuteur ;
 
 
@@ -140,13 +136,7 @@ public class Etudiant implements Serializable {
         this.fraisInscription = fraisInscription;
     }
 
-    public ModePaiement getModePaiement() {
-        return modePaiement;
-    }
 
-    public void setModePaiement(ModePaiement modePaiement) {
-        this.modePaiement = modePaiement;
-    }
 
     public boolean isFeesPays() {
         return feesPays;

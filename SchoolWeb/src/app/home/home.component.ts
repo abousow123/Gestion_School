@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { Gallery, GalleryItem, ImageItem, ImageSize, ThumbnailsPosition } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
 
@@ -7,9 +8,12 @@ import { Lightbox } from 'ng-gallery/lightbox';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+
+  galleryOptions: NgxGalleryOptions[];
+  galleryImages: NgxGalleryImage[];
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -22,11 +26,21 @@ export class HomeComponent implements OnInit {
   imageData = data;
   imageData1 = data1 ;
 
+  slides = [
+    {
+      url: 'https://source.unsplash.com/1600x900/?nature,water'
+    },
+    {
+      url: 'https://source.unsplash.com/1600x1600/?nature,forest'
+    }
+  ]
+
 
 
   constructor(private _formBuilder: FormBuilder,public gallery: Gallery, public lightbox: Lightbox) {}
 
   ngOnInit() {
+
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required]
     });
@@ -38,6 +52,55 @@ export class HomeComponent implements OnInit {
 
     // Creat gallery items
     this.items = this.imageData.map(item => new ImageItem({ src: item.srcUrl, thumb: item.previewUrl }));
+
+
+    this.galleryOptions = [
+      {
+        width: '600px',
+        height: '400px',
+        thumbnailsColumns: 4,
+        arrowPrevIcon: 'fa fa-chevron-left',
+        arrowNextIcon: 'fa fa-chevron-right',
+        imageAnimation: NgxGalleryAnimation.Slide
+      },
+      // max-width 800
+      {
+        breakpoint: 800,
+        width: '100%',
+        height: '600px',
+        imagePercent: 80,
+        thumbnailsPercent: 20,
+        thumbnailsMargin: 20,
+        thumbnailMargin: 20
+      },
+      // max-width 400
+      {
+        breakpoint: 400,
+        preview: false
+      }
+    ];
+
+    this.galleryImages = [
+      {
+        small: 'assets/images/gallery/1.jpeg',
+        medium: 'assets/images/gallery/1.jpeg',
+        big: 'assets/images/gallery/1.jpeg'
+      },
+      {
+        small: 'https://preview.ibb.co/kPE1D6/clouds.jpg',
+        medium: 'https://preview.ibb.co/kPE1D6/clouds.jpg',
+        big: 'https://preview.ibb.co/kPE1D6/clouds.jpg'
+      },
+      {
+        small: 'https://preview.ibb.co/mwsA6R/img7.jpg',
+        medium: 'https://preview.ibb.co/mwsA6R/img7.jpg',
+        big: 'https://preview.ibb.co/mwsA6R/img7.jpg'
+      },{
+        small: 'https://preview.ibb.co/kZGsLm/img8.jpg',
+        medium: 'https://preview.ibb.co/kZGsLm/img8.jpg',
+        big: 'https://preview.ibb.co/kZGsLm/img8.jpg'
+      },
+    ];
 
 
   }
