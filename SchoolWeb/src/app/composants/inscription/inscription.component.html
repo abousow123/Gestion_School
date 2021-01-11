@@ -30,7 +30,7 @@
               <div class="md-form form-group">
                 <p>Programme</p>
                 <select class="browser-default custom-select" [(ngModel)]="idProgramme">
-                  <option  *ngFor="let val of programmes" value="{{val.id}}">{{val.code_programme}} - {{val.libelle}}</option>
+                  <option  *ngFor="let val of programmes" value="{{val.id}}"> {{val.code_programme}} - {{val.libelle}} </option>
                 </select>
               </div>
             </div>
@@ -87,7 +87,7 @@
             <div class="col-md-4">
 
               <div class="md-form form-group">
-                <button>Rechercher</button>
+                <button (click)="onSubmit()">Rechercher</button>
               </div>
             </div>
 

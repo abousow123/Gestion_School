@@ -1,7 +1,7 @@
-import { from } from 'rxjs';
-import { Tuitions } from './tuition';
-
+import { Programme } from './programme';
+import { Classe } from './classe';
 import {Tuteur}  from "./tuteur" ;
+
 
 export class Etudiant{
 
@@ -19,5 +19,18 @@ export class Etudiant{
     photo: string;
     fraisInscription: number;
     feesPays: boolean;
-    tuteur: Tuteur = new Tuteur() ;
+    tuteur: Tuteur ;
+    inscrit: Inscription;
+}
+
+
+export class Inscription{
+  constructor(){} ;
+
+  id: string = '' ;
+  dateInscrit: Date;
+  classe: Classe;
+  etudiant: Etudiant;
+  programme: Programme;
+
 }

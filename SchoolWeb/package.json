@@ -27,6 +27,7 @@
     "@fullcalendar/daygrid": "^5.5.0",
     "@fullcalendar/interaction": "^5.5.0",
     "@kolkov/ngx-gallery": "^1.2.3",
+    "@ng-select/ng-select": "^5.0.14",
     "@syncfusion/ej2-angular-schedule": "^18.4.30",
     "angular-bootstrap-md": "10.0.0",
     "chart.js": "^2.5.0",

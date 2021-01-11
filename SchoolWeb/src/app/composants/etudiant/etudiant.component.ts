@@ -73,10 +73,10 @@ export class EtudiantComponent implements OnInit {
   ngOnInit() {
 
     this.cardFormGroup = this._formBuilder.group({
-      cardNumber: [''],
-      expiratyDate: [''],
-      cvv: ['', ],
-      firstCtrl: ['']
+      numStudent: [''],
+      firstName: [''],
+      code_programme: ['', ],
+      code: ['']
     });
 
 
@@ -205,6 +205,6 @@ export class EtudiantComponent implements OnInit {
   }
 
   onDetails(el){
-    this.router.navigate(['settings/detailEtudiant', el]) ;
+    this.router.navigate(['scolarite/detailEtudiant', el]) ;
   }
 }

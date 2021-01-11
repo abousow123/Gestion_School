@@ -29,8 +29,9 @@ detailEtudiant: Etudiant = new Etudiant();
   programmes: any ;
   classes: any;
   resp: any ;
-  idProgramme: number;
+  idProgramme: number = 0;
   programme: Programme ;
+
 
   p = 0;
 
@@ -48,7 +49,6 @@ detailEtudiant: Etudiant = new Etudiant();
 
   ngOnInit(): void {
 
-
     this.getProgrammes();
     this.getClasses();
 
@@ -58,13 +58,21 @@ detailEtudiant: Etudiant = new Etudiant();
 
   onSubmit() {
     this.p = 20;
-    /* this.connectionService.sendMessage(this.contactForm.value).subscribe(() => {
-      alert('Your message has been sent.');
-      this.contactForm.reset();
-      this.disabledSubmitButton = true;
-    }, error => {
-      console.log('Error', error);
-    }); */
+    console.log("test Id ===> "+this.idProgramme);
+    this.getOneProgramme();
+
+  }
+
+  getOneProgramme(){
+    this.schoolService.getOneProgramme(this.idProgramme)
+    .subscribe(data =>{
+      this.resp = data;
+      this.programme = this.resp;
+      console.log("test programme ===> "+ JSON.stringify(this.programme));
+    },err=>{
+      console.log(err);
+
+    });
   }
 
   getProgrammes(){
@@ -72,6 +80,7 @@ detailEtudiant: Etudiant = new Etudiant();
     .subscribe(data =>{
       this.resp = data;
       this.programmes = this.resp._embedded.programmes;
+
     },err=>{
       console.log(err);
 
@@ -87,6 +96,10 @@ detailEtudiant: Etudiant = new Etudiant();
       console.log(err);
 
     });
+  }
+
+  saveInscription(){
+
   }
 
 

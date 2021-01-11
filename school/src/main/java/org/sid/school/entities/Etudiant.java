@@ -161,4 +161,5 @@ public class Etudiant implements Serializable {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
+
 }

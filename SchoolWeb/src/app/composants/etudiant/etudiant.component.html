@@ -13,14 +13,14 @@
       <div class="col-md-3">
         <!-- Material input -->
         <div class="md-form form-group">
-          <input mdbInput type="text" class="form-control" id="inputNameExpiraty" formControlName="expiratyDate"  placeholder="">
+          <input mdbInput type="text" class="form-control" id="inputNameExpiraty" formControlName="numStudent"  placeholder="">
           <label for="inputExpiraty4MD">Numero Carte</label>
         </div>
       </div>
       <div class="col-md-3">
         <!-- Material input -->
         <div class="md-form form-group">
-          <input mdbInput type="text" class="form-control" id="inputNameCvv" formControlName="cvv"  placeholder="">
+          <input mdbInput type="text" class="form-control" id="inputNameCvv" formControlName="firstName"  placeholder="">
           <label for="inputCvv4MD">Last Name</label>
         </div>
       </div>
@@ -28,8 +28,9 @@
       <div class="col-md-3">
         <!-- Material input -->
         <div class="md-form form-group">
-          <select class="browser-default custom-select">
-            <option  *ngFor="let val of programmes" value="{{val.id}}">{{val.code_programme}} - {{val.libelle}}</option>
+          <select class="browser-default custom-select" class="form-control" formControlName="code_programme" >
+            <option value="">Open this select menu</option>
+            <option  *ngFor="let val of programmes" value="{{val.code_programme}}">{{val.code_programme}} - {{val.libelle}}</option>
 
           </select>
         </div>
@@ -38,9 +39,9 @@
       <div class="col-md-3">
         <!-- Material input -->
         <div class="md-form form-group">
-          <select class="browser-default custom-select">
+          <select class="browser-default custom-select" class="form-control" formControlName="code">
             <option value="">Open this select menu</option>
-            <option  *ngFor="let val of classes" value="{{val.id}}">{{val.code}} - {{val.libelle}}</option>
+            <option  *ngFor="let val of classes" value="{{val.code}}">{{val.code}} - {{val.libelle}}</option>
 
           </select>
         </div>
@@ -76,7 +77,7 @@
 
       </div>
 
-      <div class="table-responsive">
+
         <table mdbTable #tableEl="mdbTable" responsive="true" stickyHeader="true" hover="true"  class="z-depth-1">
           <thead class="sticky-top">
           <tr>
@@ -95,8 +96,11 @@
             <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.tel}}</td>
             <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
 
-              <h5 *ngIf="el.feesPays == false" class="text-center text-danger">Unpaid</h5>
-              <h5 *ngIf="el.feesPays == true" class="text-center text-success">Paid</h5>
+              <a  *ngIf="el.feesPays == true"> <mdb-icon fas icon="check" size="2x" ></mdb-icon></a>
+              <a  *ngIf="el.feesPays == false"><mdb-icon fas icon="times" size="2x"></mdb-icon></a>
+
+             <!--  <h5 *ngIf="el.feesPays == false" class="text-center text-danger">Unpaid</h5>
+              <h5 *ngIf="el.feesPays == true" class="text-center text-success">Paid</h5> -->
 
             </td>
 
@@ -146,7 +150,7 @@
           </tr>
           </tfoot>
         </table>
-      </div>
+
 
 
 

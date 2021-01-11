@@ -49,7 +49,7 @@ public class SchoolApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        restConfiguration.exposeIdsFor(Etudiant.class,Role.class);
+        restConfiguration.exposeIdsFor(Etudiant.class,Role.class,Programme.class,Classe.class);
 
 /*        Tuition tuition = new Tuition();
         tuition.setCode("t1");

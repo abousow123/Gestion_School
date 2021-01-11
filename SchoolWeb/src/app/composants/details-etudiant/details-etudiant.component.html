@@ -1,15 +1,15 @@
 <!-- ======= Breadcrumbs Section ======= -->
 <mdb-breadcrumb>
-  <mdb-breadcrumb-item class="blue-text">Home</mdb-breadcrumb-item>
-  <mdb-breadcrumb-item class="blue-text">Library</mdb-breadcrumb-item>
-  <mdb-breadcrumb-item class="active">Data</mdb-breadcrumb-item>
+  <mdb-breadcrumb-item class="blue-text">Scolarite</mdb-breadcrumb-item>
+  <mdb-breadcrumb-item class="blue-text">Student</mdb-breadcrumb-item>
+  <mdb-breadcrumb-item class="active">Details Student</mdb-breadcrumb-item>
 </mdb-breadcrumb><!-- Breadcrumbs Section -->
 
 
 <div class="row">
-  <div class="col-md-2">
+  <div class="col-md-3">
             <!-- Grid column -->
-      <div >
+    <div >
        <!--  <img src="assets/images/1.jpg" alt="thumbnail"  style="width: 200px"> -->
         <img *ngIf="detailEtudiant.photo" src="{{detailEtudiant.photo}}" class="img-fluid z-depth-1 rounded-circle"
       alt="Responsive image">
@@ -19,7 +19,26 @@
       <p></p>
       <p class="text-center">{{detailEtudiant.firstName}} {{detailEtudiant.lastName}}</p>
       <p class="text-center">{{detailEtudiant.numStudent}}</p>
-      </div>
+    </div>
+
+    <div>
+      <mdb-card>
+        <mdb-card-body>
+          <mdb-card-title>
+            <h5>Registration fees</h5>
+          </mdb-card-title>
+          <mdb-card-text *ngIf="detailEtudiant.feesPays == true" class="text-success text-center">
+            paid
+          </mdb-card-text>
+          <mdb-card-text *ngIf="detailEtudiant.feesPays == false" class="text-danger text-center">
+            impaid
+          </mdb-card-text>
+          <div class="flex-row" *ngIf="detailEtudiant.feesPays == false">
+            <a class="card-link" (click)="frame.show()">Edit</a>
+          </div>
+        </mdb-card-body>
+      </mdb-card>
+    </div>
 
   </div>
 
@@ -133,7 +152,7 @@
 
       <mat-tab label="Registered">
 
-        <mdb-card>
+        <mdb-card *ngIf="inscrit">
 
           <!--Card content-->
           <mdb-card-body class="px-lg-5">
@@ -141,29 +160,24 @@
             <!-- Form -->
             <form class="text-center" style="color: #757575;">
 
-              <!-- Name -->
+              <!-- Programme -->
               <div class="md-form mt-3">
-                <input type="text" id="materialRegisterFormFirstName" class="form-control" disabled="true" value="{{detailTuteur.prenom}}" mdbInput>
+                <input type="text" id="materialRegisterFormFirstName" class="form-control" disabled="true" value="{{inscrit.programme.code_programme}} - {{inscrit.programme.libelle}}" mdbInput>
                 <label for="materialRegisterFormFirstName">Programme</label>
               </div>
 
-              <!-- E-mai -->
+              <!-- Classe -->
               <div class="md-form">
-                <input type="email" id="materialRegisterFormLastName" class="form-control" disabled="true" value="{{detailTuteur.nom}}" mdbInput>
-            <label for="materialRegisterFormLastName">Classe</label>
+                <input type="text" id="materialRegisterFormLastName" class="form-control" disabled="true" value="{{inscrit.classe.code}} - {{inscrit.classe.libelle}}" mdbInput>
+                 <label for="materialRegisterFormLastName">Classe</label>
               </div>
 
-            <!-- E-mai -->
-            <div class="md-form">
-              <input type="email" id="materialSubscriptionFormEmail" class="form-control" disabled="true" value="{{detailTuteur.email}}" mdbInput>
-              <label for="materialSubscriptionFormEmail">E-mail</label>
-            </div>
-
-              <!-- E-mai -->
-              <div class="md-form">
-                <input type="text" id="materialRegisterFormTel" class="form-control" disabled="true" value="{{detailTuteur.tel}}" mdbInput>
-                <label for="materialRegisterFormTel">Phone number</label>
+               <!-- Date -->
+               <div class="md-form">
+                <input type="text" id="materialRegisterFormLastDate" class="form-control" disabled="true" value="{{inscrit.dateInscrit | date: 'dd/MM/yyyy  h:mm a'}}" mdbInput>
+                 <label for="materialRegisterFormLastName">Date inscrit: </label>
               </div>
+
 
 
             </form>
@@ -172,6 +186,21 @@
           </mdb-card-body>
           <mdb-card-footer>
             <button mdbBtn type="button" color="primary" mdbWavesEffect>Update</button>
+          </mdb-card-footer>
+
+        </mdb-card>
+
+        <mdb-card *ngIf="inscrit == null">
+          <mdb-card-body>
+            <p>{{detailEtudiant.firstName}} {{detailEtudiant.lastName}} is not registered on any program</p>
+          </mdb-card-body>
+
+          <mdb-card-footer *ngIf="detailEtudiant.feesPays">
+            <button mdbBtn type="button" color="primary" (click)="basicModal.show()" mdbWavesEffect>Register</button>
+          </mdb-card-footer>
+
+          <mdb-card-footer *ngIf="!detailEtudiant.feesPays">
+            <button mdbBtn type="button" color="primary" (click)="frame1.show()" mdbWavesEffect>Register</button>
           </mdb-card-footer>
 
         </mdb-card>
@@ -185,6 +214,228 @@
     <!-- <router-outlet></router-outlet> -->
   </div>
 
+</div>
+
+
+<!-- Models -->
+
+
+<div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">Registration</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="form-row">
+          <div class="col-md-12">
+            <!-- Material input -->
+            <div class="md-form form-group">
+              <p class="text-center text-primary" >{{detailEtudiant.numStudent}} - {{detailEtudiant.firstName}} {{detailEtudiant.lastName}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-12">
+            <!-- Material input -->
+            <div class="md-form form-group">
+              <p>Programme</p>
+              <select class="browser-default custom-select" (click)="getOneProgramme()" [(ngModel)]="idProgramme">
+                <option  *ngFor="let val of programmes" value="{{val.id}}"> {{val.code_programme}} - {{val.libelle}} </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-12">
+            <!-- Material input -->
+            <div class="md-form form-group">
+              <p>Classe</p>
+              <select class="browser-default custom-select" (click)="getOneClasse()" [(ngModel)]="idClasse">
+                <option  *ngFor="let val of classes" value="{{val.id}}">{{val.code}} - {{val.libelle}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+
+          <div class="col-md-12">
+            <div class="md-form form-group">
+          </div>
+
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-6">
+            <!-- Material input -->
+            <div class="md-form form-group">
+              <h3><strong>Tuition:</strong> ${{programme.prix}}</h3>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Close</button>
+        <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="postInscription()" (click)="basicModal.hide()" mdbWavesEffect>Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div mdbModal #basicModalUpdate="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">UPDATE</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="form-row">
+          <div class="col-md-12">
+            <!-- Material input -->
+            <div class="md-form form-group">
+              <p class="text-center text-primary" >{{detailEtudiant.numStudent}} - {{detailEtudiant.firstName}} {{detailEtudiant.lastName}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-12">
+            <!-- Material input -->
+            <div class="md-form form-group">
+              <p>Programme</p>
+              <select class="browser-default custom-select" (click)="getOneProgramme()" [(ngModel)]="idProgramme">
+                <option></option>
+                <option  *ngFor="let val of programmes" value="{{val.id}}"> {{val.code_programme}} - {{val.libelle}} </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-12">
+            <!-- Material input -->
+            <div class="md-form form-group">
+              <p>Classe</p>
+              <select class="browser-default custom-select" (click)="getOneClasse()" [(ngModel)]="idClasse">
+                <option  *ngFor="let val of classes" value="{{val.id}}">{{val.code}} - {{val.libelle}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+
+          <div class="col-md-12">
+            <div class="md-form form-group">
+          </div>
+
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-6">
+            <!-- Material input -->
+            <div class="md-form form-group">
+              <h3><strong>Tuition:</strong> ${{programme.prix}}</h3>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Close</button>
+        <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="postInscription()" (click)="basicModal.hide()" mdbWavesEffect>Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div mdbModal #frame="mdbModal" class="modal fade" id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Registration fees</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <!--Body-->
+      <div class="modal-body">
+
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>ticket</th>
+              <th>number</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+
+              <td>100$</td>
+              <th scope="row">1</th>
+
+            </tr>
+            <tr>
+              <td>50$</td>
+              <th scope="row">2</th>
+            </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+      <!--Footer-->
+      <div class="modal-footer">
+        <button type="button" mdbBtn color="primary" outline="true" class="waves-light" mdbWavesEffect data-dismiss="modal" (click)="frame.hide()">Close</button>
+        <button mdbBtn color="primary" class="waves-light" (click)="onPayFees()"  (click)="frame.hide()" mdbWavesEffect>validate</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div mdbModal #frame1="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+         <p class="heading">Registre Fees is not paid yet!!!!</p>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+
+        <a type="button" mdbBtn color="danger" class="waves-effect" mdbWavesEffect data-dismiss="modal" (click)="frame1.hide()">Ok</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
 </div>
 
 

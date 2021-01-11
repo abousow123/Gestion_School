@@ -6,12 +6,15 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.sid.school.Account.AccountService;
 import org.sid.school.dao.EtudiantRepository;
+import org.sid.school.dao.InscriptionRepository;
 import org.sid.school.dao.TuteurRepository;
 import org.sid.school.dao.UserRepository;
 import org.sid.school.entities.AgentUser;
 import org.sid.school.entities.Etudiant;
+import org.sid.school.entities.Inscription;
 import org.sid.school.entities.Tuteur;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,6 +30,8 @@ public class EtudiantImpl implements EtudiantService{
     private EtudiantRepository etudiantRepository ;
     @Autowired
     private TuteurRepository tuteurRepository;
+    @Autowired
+    private InscriptionRepository inscriptionRepository ;
     @Autowired
     private UtilsService utilsService ;
     @Autowired
@@ -100,7 +105,43 @@ public class EtudiantImpl implements EtudiantService{
     }
 
     @Override
+    @Transactional
     public Etudiant updateEtudiant(String id, Etudiant etudiant) {
+        etudiant.setId(id);
+        return etudiantRepository.saveAndFlush(etudiant);
+    }
+
+    @Override
+    public Inscription getInscriptionbyStudent(String idStudent) {
+        Inscription inscription = inscriptionRepository.findByStudent(idStudent);
+        if(inscription != null){
+            return inscription;
+        }
         return null;
     }
+
+    @Override
+    public List<Etudiant> getInscriptionByFilter(Specification<Inscription> search) {
+
+        List<Inscription> inscriptions = inscriptionRepository.findAll(Specification.where(search));
+        List<Etudiant> etudiants = new ArrayList<>();
+        if(inscriptions != null){
+            for (Inscription inscription : inscriptions){
+                Etudiant etudiant = inscription.getEtudiant() ;
+                etudiant.setPhoto(utilsService.getPhoto(etudiant.getPhoto()));
+                etudiants.add(etudiant);
+            }
+            return etudiants;
+        }else {
+            etudiants = etudiantRepository.findAll() ;
+            List<Etudiant> realEtudiant = new ArrayList<>();
+            for (Etudiant etudiant: etudiants){
+                etudiant.setPhoto(utilsService.getPhoto(etudiant.getPhoto()));
+                realEtudiant.add(etudiant);
+            }
+            return realEtudiant;
+        }
+
+    }
+
 }

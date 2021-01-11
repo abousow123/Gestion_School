@@ -44,6 +44,7 @@ import { ProfilComponent } from './composants/profil/profil.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { CarouselComponent } from './composants/carousel/carousel.component';
 import { ScolariteComponent } from './composants/scolarite/scolarite.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 
@@ -63,18 +64,24 @@ const routes: Routes = [
   {path: 'settings',
   component: SettingsComponent,
    children: [
-    { path: 'etudiant', component: EtudiantComponent },
-    { path: 'classe', component: ClasseComponent },
-    { path: 'cours', component: CoursComponent },
     { path: 'programme', component: ProgrammeComponent },
     { path: 'user',component: UserComponent},
     { path: 'newUser', component: NewUserComponent },
     { path: 'inscription', component: InscriptionComponent },
-    { path: 'detailEtudiant/:ref', component: DetailsEtudiantComponent},
+
   ]
   },
 
-  {path: 'scolarite', component: ScolariteComponent}
+  {path: 'scolarite', component: ScolariteComponent,
+  children: [
+    { path: 'etudiant', component: EtudiantComponent },
+    { path: 'detailEtudiant/:ref', component: DetailsEtudiantComponent},
+    { path: 'classe', component: ClasseComponent },
+    { path: 'cours', component: CoursComponent },
+
+   // { path: '', redirectTo: '/etudiant', pathMatch: 'full' }
+  ]
+  }
   ];
 
 
@@ -137,7 +144,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     InputUtilitiesModule,
     ModalModule,
     TooltipModule,
-    PopoverModule
+    PopoverModule,
+    NgSelectModule
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
