@@ -25,13 +25,13 @@ import { NewUserComponent } from './users/new-user/new-user.component';
 import { LoginComponent } from './login/login.component';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { GalleryModule } from 'ng-gallery';
-import { LightboxModule } from 'ng-gallery/lightbox';
+import { LightboxModule } from 'ngx-lightbox';
 import { Service, Data } from './app.service';
 import { AgendaComponent } from './composants/agenda/agenda.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
 import interactionPlugin from '@fullcalendar/interaction'; // a plugin
-import { AgendaService, DayService, MonthAgendaService, MonthService, ScheduleModule, TimelineMonthService, TimelineViewsService, WeekService, WorkWeekService } from '@syncfusion/ej2-angular-schedule';
+import { AgendaService, DayService, MonthAgendaService, MonthService, RecurrenceEditor, RecurrenceEditorModule, ScheduleModule, TimelineMonthService, TimelineViewsService, WeekService, WorkWeekService } from '@syncfusion/ej2-angular-schedule';
 import { ConroeComponent } from './composants/gallery/conroe/conroe.component';
 import { BoxBraidsComponent } from './composants/gallery/box-braids/box-braids.component';
 import { TwistComponent } from './composants/gallery/twist/twist.component';
@@ -45,6 +45,9 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { CarouselComponent } from './composants/carousel/carousel.component';
 import { ScolariteComponent } from './composants/scolarite/scolarite.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import {IvyCarouselModule} from 'angular-responsive-carousel';
+import { UserDetailsComponent } from './users/user-details/user-details.component';
+import { AllComponent } from './composants/gallery/all/all.component';
 
 
 
@@ -60,20 +63,24 @@ const routes: Routes = [
   {path: 'login',component: LoginComponent},
   {path: 'conroe',component: ConroeComponent},
   {path: 'profil',component: ProfilComponent},
+  {path: 'all',component: AllComponent},
 
   {path: 'settings',
   component: SettingsComponent,
    children: [
+    { path: '', redirectTo: 'programme', pathMatch: 'full' },
     { path: 'programme', component: ProgrammeComponent },
     { path: 'user',component: UserComponent},
     { path: 'newUser', component: NewUserComponent },
-    { path: 'inscription', component: InscriptionComponent },
+    { path: 'detailUser/:id', component: UserDetailsComponent},
+  //  { path: 'inscription', component: InscriptionComponent },
 
   ]
   },
 
   {path: 'scolarite', component: ScolariteComponent,
   children: [
+    { path: '', redirectTo: 'etudiant', pathMatch: 'full' },
     { path: 'etudiant', component: EtudiantComponent },
     { path: 'detailEtudiant/:ref', component: DetailsEtudiantComponent},
     { path: 'classe', component: ClasseComponent },
@@ -118,12 +125,15 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     InscriptionComponent,
     ProfilComponent,
     CarouselComponent,
-    ScolariteComponent
+    ScolariteComponent,
+    UserDetailsComponent,
+    AllComponent
 
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    LightboxModule,
     MDBBootstrapModule.forRoot(),
     RouterModule.forRoot(routes),
     FormsModule,
@@ -135,17 +145,19 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ButtonsModule,
     InputsModule,
     IconsModule,
+
     NgxGalleryModule,
     CardsModule,
     GalleryModule,
-    LightboxModule,
     FullCalendarModule,
     ScheduleModule,
+    RecurrenceEditorModule,
     InputUtilitiesModule,
     ModalModule,
     TooltipModule,
     PopoverModule,
-    NgSelectModule
+    NgSelectModule,
+    IvyCarouselModule
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

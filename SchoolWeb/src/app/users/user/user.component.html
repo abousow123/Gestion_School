@@ -1,117 +1,121 @@
-<mdb-breadcrumb>
-  <mdb-breadcrumb-item class="blue-text">Home</mdb-breadcrumb-item>
-  <mdb-breadcrumb-item class="blue-text">Library</mdb-breadcrumb-item>
-  <mdb-breadcrumb-item class="active">Data</mdb-breadcrumb-item>
-</mdb-breadcrumb>
 
-<mdb-card>
+<div class="container">
+  <mdb-breadcrumb>
+    <mdb-breadcrumb-item class="blue-text">Home</mdb-breadcrumb-item>
+    <mdb-breadcrumb-item class="blue-text">Library</mdb-breadcrumb-item>
+    <mdb-breadcrumb-item class="active">Data</mdb-breadcrumb-item>
+  </mdb-breadcrumb>
 
-    <div class="container">
-     <div class="row">
-       <div class="col-md-9 mx-auto">
-         <div class="md-form">
-           <input type="text" class="form-control" [(ngModel)]="searchText" (keyup)="searchItems()" id="search-input" mdbInput>
-           <label for="search-input">Search</label>
+  <mdb-card>
+
+      <div class="container">
+       <div class="row">
+         <div class="col-md-9 mx-auto">
+           <div class="md-form">
+             <input type="text" class="form-control" [(ngModel)]="searchText" (keyup)="searchItems()" id="search-input" mdbInput>
+             <label for="search-input">Search</label>
+           </div>
          </div>
-       </div>
-       <div class="col-md-3 mx-right">
-         <button mdbBtn type="button" color="primary" rounded="true" mdbWavesEffect routerLink="/newUser">Add new student</button>
-       </div>
-
-       <table mdbTable #tableEl="mdbTable" stickyHeader="true" hover="true" striped="true" class="z-depth-1">
-         <thead class="sticky-top">
-         <tr>
-           <th *ngFor="let head of headElements; let i = index" [mdbTableSort]="users" [sortBy]="headElements[i]"
-               scope="col">{{head | titlecase}} <mdb-icon fas icon="sort"></mdb-icon>
-           </th>
-         </tr>
-         </thead>
-         <tbody #row *ngIf="users">
-         <tr mdbTableCol  *ngFor="let el of users; let i = index">
-           <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">{{el.firstName}}</th>
-           <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" >{{el.lastName}}</td>
-           <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.login}}</td>
-           <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.tel}}</td>
-
-           <!-- <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-
-             <h5 *ngIf="el.feesPays == false" class="text-center text-danger">Unpaid</h5>
-             <h5 *ngIf="el.feesPays == true" class="text-center text-success">Paid</h5>
-
-           </td> -->
-
-           <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
-
-
-
-            <!-- Grid row -->
-        <div class="form-row">
-         <!-- Grid column -->
-         <div class="col-md-3">
-           <a (click)="onDetails(el.id)"> <mat-icon svgIcon="view" aria-hidden="false" aria-label="Example thumbs up SVG icon" ></mat-icon> </a>
+         <div class="col-md-3 mx-right">
+           <button mdbBtn type="button" color="primary" rounded="true" mdbWavesEffect routerLink="/newUser">Add new student</button>
          </div>
 
-         <div class="col-md-3">
-           <a> <mat-icon svgIcon="edit" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> </a>
-         </div>
+         <table mdbTable #tableEl="mdbTable" stickyHeader="true" hover="true" striped="true" class="z-depth-1">
+           <thead class="sticky-top">
+           <tr>
+             <th *ngFor="let head of headElements; let i = index" [mdbTableSort]="users" [sortBy]="headElements[i]"
+                 scope="col">{{head | titlecase}} <mdb-icon fas icon="sort"></mdb-icon>
+             </th>
+           </tr>
+           </thead>
+           <tbody #row *ngIf="users">
+           <tr mdbTableCol  *ngFor="let el of users; let i = index">
+             <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">{{el.firstName}}</th>
+             <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" >{{el.lastName}}</td>
+             <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.login}}</td>
+             <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.tel}}</td>
 
-         <div class="col-md-3">
-           <a (click)="frame.show()" > <mat-icon svgIcon="delete" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> </a>
-         </div>
+             <!-- <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
 
+               <h5 *ngIf="el.feesPays == false" class="text-center text-danger">Unpaid</h5>
+               <h5 *ngIf="el.feesPays == true" class="text-center text-success">Paid</h5>
+
+             </td> -->
+
+             <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+
+
+
+              <!-- Grid row -->
+          <div class="form-row">
+           <!-- Grid column -->
+           <div class="col-md-3">
+             <a (click)="onDetails(el.id)"> <mat-icon svgIcon="view" aria-hidden="false" aria-label="Example thumbs up SVG icon" ></mat-icon> </a>
+           </div>
+
+           <div class="col-md-3">
+             <a> <mat-icon svgIcon="edit" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> </a>
+           </div>
+
+           <div class="col-md-3">
+             <a (click)="frame.show()" > <mat-icon svgIcon="delete" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> </a>
+           </div>
+
+          </div>
+
+          <div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+      <!--Content-->
+      <div class="modal-content text-center">
+        <!--Header-->
+        <div class="modal-header d-flex justify-content-center">
+          <p class="heading">Are you sure?</p>
         </div>
 
-        <div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
-  aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
-    <!--Content-->
-    <div class="modal-content text-center">
-      <!--Header-->
-      <div class="modal-header d-flex justify-content-center">
-        <p class="heading">Are you sure?</p>
-      </div>
+        <!--Body-->
+        <div class="modal-body">
+          <mdb-icon fas icon="times" size="4x" class="animated rotateIn"></mdb-icon>
+        </div>
 
-      <!--Body-->
-      <div class="modal-body">
-        <mdb-icon fas icon="times" size="4x" class="animated rotateIn"></mdb-icon>
+        <!--Footer-->
+        <div class="modal-footer justify-content-center">
+          <a (click)="onRemove(el)" mdbBtn color="danger" outline="true" class="waves-effect"
+            mdbWavesEffect>Yes</a>
+          <a type="button" mdbBtn color="danger" class="waves-effect" mdbWavesEffect data-dismiss="modal" (click)="frame.hide()">No</a>
+        </div>
       </div>
-
-      <!--Footer-->
-      <div class="modal-footer justify-content-center">
-        <a (click)="onRemove(el)" mdbBtn color="danger" outline="true" class="waves-effect"
-          mdbWavesEffect>Yes</a>
-        <a type="button" mdbBtn color="danger" class="waves-effect" mdbWavesEffect data-dismiss="modal" (click)="frame.hide()">No</a>
-      </div>
+      <!--/.Content-->
     </div>
-    <!--/.Content-->
   </div>
-</div>
 
 
-             <!-- <button mdbBtn color="warning" size="" mdbWavesEffect (click)="editRow(el)">Edit</button>
-             <button mdbBtn color="danger" size="sm" mdbWavesEffect (click)="removeRow1(el)">R</button>
-             <button mdbBtn color="danger" size="sm" mdbWavesEffect (click)="removeRow1(el)">view</button> -->
-           </td>
+               <!-- <button mdbBtn color="warning" size="" mdbWavesEffect (click)="editRow(el)">Edit</button>
+               <button mdbBtn color="danger" size="sm" mdbWavesEffect (click)="removeRow1(el)">R</button>
+               <button mdbBtn color="danger" size="sm" mdbWavesEffect (click)="removeRow1(el)">view</button> -->
+             </td>
 
-         </tr>
-         </tbody>
-         <tfoot class="grey lighten-5 w-100">
-         <tr>
-           <td colspan="4">
+           </tr>
+           </tbody>
+           <tfoot class="grey lighten-5 w-100">
+           <tr>
+             <td colspan="4">
 
-             <mdb-table-pagination [tableEl]="tableEl" paginationAlign="paginator" [searchDataSource]="users" ></mdb-table-pagination>
-           </td>
-         </tr>
-         </tfoot>
-       </table>
+               <mdb-table-pagination [tableEl]="tableEl" paginationAlign="paginator" [searchDataSource]="users" ></mdb-table-pagination>
+             </td>
+           </tr>
+           </tfoot>
+         </table>
+       </div>
      </div>
-   </div>
 
 
 
-   </mdb-card>
+     </mdb-card>
 
 
+
+</div>
 
 
 

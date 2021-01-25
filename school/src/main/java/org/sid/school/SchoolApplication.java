@@ -49,31 +49,8 @@ public class SchoolApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        restConfiguration.exposeIdsFor(Etudiant.class,Role.class,Programme.class,Classe.class);
+        restConfiguration.exposeIdsFor(Etudiant.class,Role.class,Programme.class,Classe.class,AgentUser.class);
 
-/*        Tuition tuition = new Tuition();
-        tuition.setCode("t1");
-        tuition.setDate_created(new Date());
-        tuition.setLibelle("the bronze membership");
-        tuition.setPrix(250.0);
-        tuition.setDropOff(0);
-        tuitionRepository.save(tuition);
-
-        Tuition tuition1 = new Tuition();
-        tuition1.setCode("t2");
-        tuition1.setDate_created(new Date());
-        tuition1.setLibelle("the silver membership");
-        tuition1.setPrix(1000.0);
-        tuition1.setDropOff(25);
-        tuitionRepository.save(tuition1);
-
-        Tuition tuition2 = new Tuition();
-        tuition2.setCode("t3");
-        tuition2.setDate_created(new Date());
-        tuition2.setLibelle("the silver membership");
-        tuition2.setPrix(12000.0);
-        tuition2.setDropOff(30);
-        tuitionRepository.save(tuition2);*/
 
         Programme programme = new Programme();
         programme.setCode_programme("BM");
@@ -81,7 +58,6 @@ public class SchoolApplication implements CommandLineRunner {
         programme.setLibelle("the bronze membership");
         programme.setPrix(250.0);
         programme.setDropOff(0);
-       // programme.setTypeProgramme("type 1");
         programmeRepository.save(programme);
 
         Programme programme1 = new Programme();
@@ -137,8 +113,6 @@ public class SchoolApplication implements CommandLineRunner {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
         String numEtudiant0 = formatter.format(new Date()) + UUID.randomUUID().toString().substring(0,4).toUpperCase();
         etudiant.setNumStudent(numEtudiant0);
-        //etudiant.setProgramme(programmeRepository.getOne(programme.getId()));
-        //etudiant.setClasse(classeRepository.getOne(classe.getId()));
         etudiantRepository.save(etudiant);
 
         Etudiant etudiant1 = new Etudiant();
@@ -289,14 +263,6 @@ public class SchoolApplication implements CommandLineRunner {
         etudiantn.setTuteur(tuteur);
         etudiantRepository.save(etudiantn); */
 
-		Cours c = new Cours();
-		c.setCode("cours1");
-		c.setLibelle("cours Test");
-		c.setDescription(" cours test 1");
-		c.setDate_cours(new Date());
-
-		coursRepository.save(c) ;
-
         Role r1 = new Role();
         r1.setAuthority("Admin");
         Role r2 = new Role();
@@ -337,13 +303,14 @@ public class SchoolApplication implements CommandLineRunner {
 
 
         for (int i = 1; i < 10; i++) {
-            Cours classe = new Cours();
-            classe.setCode("cours " + i);
-            classe.setDate_cours(new Date());
-            classe.setLibelle("Cours test " + i);
-            classe.setDescription("Description " + i);
+            Cours cours = new Cours();
+            cours.setCode("cours " + i);
+            cours.setDate_cours(new Date());
+            cours.setLibelle("Cours test " + i);
+            cours.setProgramme(programme);
+            cours.setDescription("Description " + i);
      //       classe.setClasse(c);
-            coursRepository.save(classe);
+            Cours c = coursRepository.save(cours);
 
         }
 

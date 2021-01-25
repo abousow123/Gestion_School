@@ -72,7 +72,7 @@ export class UserComponent implements OnInit {
     this.etudiantService.getUsers()
     .subscribe(data=>{
       this.etu = data;
-      this.users = this.etu._embedded.agentUsers  ;
+      this.users = this.etu  ;
       console.log(this.users);
 
       this.mdbTable.setDataSource(this.users);
@@ -192,6 +192,6 @@ export class UserComponent implements OnInit {
   }
 
   onDetails(el){
-    this.router.navigate(['detailEtudiant', el]) ;
+    this.router.navigate(['settings/detailUser', el]) ;
   }
 }

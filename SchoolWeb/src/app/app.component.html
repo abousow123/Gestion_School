@@ -7,10 +7,10 @@
   <mdb-card-header >
 
         <!-- Just an image fixed-top -->
-      <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark red" [containerInside]="true">
+      <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark dark black" [containerInside]="true">
         <mdb-navbar-brand>
           <a class="navbar-brand" href="#">
-              <img src="assets/images/logo3.jpeg" height="60" class="d-inline-block align-top" alt="">
+              <img src="assets/images/profil1.jpeg" height="60" class="d-inline-block align-top" alt="">
 
           </a>
       </mdb-navbar-brand>
@@ -21,10 +21,10 @@
           <!-- Links -->
           <ul mdbScrollSpy="scrollspy1" class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a  class="nav-link waves-light"  routerLink="/home" mdbWavesEffect>Home<span class="sr-only">(current)</span></a>
+              <a  class="nav-link waves-light" mdbScrollSpyLink="home"  routerLink="/home" mdbWavesEffect>Home<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link waves-light" mdbScrollSpyLink="home" (click)="onRegister()" routerLinkActive="active" mdbWavesEffect>Registration</a>
+              <a class="nav-link waves-light"  (click)="onRegister()" routerLinkActive="active" mdbWavesEffect>Registration</a>
             </li>
             <li class="nav-item">
               <a class="nav-link waves-light" (click)="onGallery()" mdbWavesEffect>Gallery</a>
@@ -57,7 +57,7 @@
               <a class="nav-link">
                 <div class="btn-group" mdbDropdown>
                   <mdb-icon fas icon="user"></mdb-icon>
-                  <span class="username username-hide-mobile" (click)="login()" >Sign in</span>
+                  <span class="username username-hide-mobile" (click)="frame.show()" >Sign in</span>
                 <!--   <div class="dropdown-menu dropdown-menu-right dropdown-primary">
                     <a class="dropdown-item" (click)="onLogout()"></a>
                     <a class="dropdown-item" href="#">Register</a>
@@ -89,9 +89,63 @@
       </mdb-navbar>
 </mdb-card-header>
 
-<div mdbModal #frame="mdbModal" class="modal fade left" id="frameModalTop" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel" aria-hidden="true">
+<div mdbModal #frame="mdbModal" class="modal fade" id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
 
+      <div class="modal-dialog" role="document">
+        <mdb-card *ngIf="codeError == 1">
+          <mdb-card-body  >
+            <p class="text-danger"> E-mail et/ou mot de passe incorrects </p>
+          </mdb-card-body>
+        </mdb-card>
+
+        <p></p>
+
+        <div class="modal-content ">
+          <div class="modal-header text-center">
+            <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+
+          </div>
+          <div class="modal-body mx-3">
+            <div class="md-form mb-5">
+              <mdb-icon fas icon="user" class="prefix grey-text"></mdb-icon>
+              <input type="email" id="defaultForm-email" [formControl]="loginFormModalEmail" class="form-control"
+                    mdbInput mdbValidate>
+              <label for="defaultForm-email">Your email</label>
+              <mdb-error
+                *ngIf="loginFormModalEmail.invalid && (loginFormModalEmail.dirty || loginFormModalEmail.touched)">
+                Input invalid
+              </mdb-error>
+              <mdb-success
+                *ngIf="loginFormModalEmail.valid && (loginFormModalEmail.dirty || loginFormModalEmail.touched)">Input
+                valid
+              </mdb-success>
+            </div>
+
+            <div class="md-form mb-4">
+              <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
+              <input type="password" id="defaultForm-pass" [formControl]="loginFormModalPassword" class="form-control"
+                    mdbInput mdbValidate>
+              <label for="defaultForm-pass">Your password</label>
+              <mdb-error
+                *ngIf="loginFormModalPassword.invalid && (loginFormModalPassword.dirty || loginFormModalPassword.touched)">
+                Input invalid
+              </mdb-error>
+              <mdb-success
+                *ngIf="loginFormModalPassword.valid && (loginFormModalPassword.dirty || loginFormModalPassword.touched)">
+                Input valid
+              </mdb-success>
+            </div>
+
+          </div>
+          <div class="modal-footer d-flex justify-content-center"  >
+            <button mdbBtn color="default" class="waves-light" [ngClass]="{disabled: loginFormModalEmail.invalid && (loginFormModalEmail.dirty || loginFormModalEmail.touched)}"   (click)="onLogin()" (click)="frame.hide()"  mdbWavesEffect>Login</button>
+          </div>
+
+
+
+    </div>
+  </div>
 </div>
 
 <!-- div class="gallery-wrapper" >
@@ -102,11 +156,7 @@
 
  <mdb-card-body *ngIf="mode == 0">
 
-  <div class="container">
     <router-outlet></router-outlet>
-  </div>
-
-
 
 </mdb-card-body>
 
@@ -340,9 +390,9 @@
             <!-- Grid column -->
 
             <!-- Grid column -->
-            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+   <!--          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
 
-              <!-- Links -->
+
               <h6 class="text-uppercase font-weight-bold">Products</h6>
               <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
               <p>
@@ -358,13 +408,13 @@
                 <a class="dark-grey-text" href="#!">Bootstrap Angular</a>
               </p>
 
-            </div>
+            </div> -->
             <!-- Grid column -->
 
             <!-- Grid column -->
-            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+<!--             <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
 
-              <!-- Links -->
+
               <h6 class="text-uppercase font-weight-bold">Useful links</h6>
               <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
               <p>
@@ -380,7 +430,7 @@
                 <a class="dark-grey-text" href="#!">Help</a>
               </p>
 
-            </div>
+            </div> -->
             <!-- Grid column -->
 
             <!-- Grid column -->
@@ -390,7 +440,7 @@
               <h6 class="text-uppercase font-weight-bold">Contact</h6>
               <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
               <p>
-                <mdb-icon fas icon="home" class="mr-3"></mdb-icon> 3128 Richmond road Lexington Kentucky 40509
+                <mdb-icon fas icon="home" class="mr-1"></mdb-icon>3128 Richmond road Lexington Kentucky 40509
               </p>
               <p>
                 <mdb-icon fas icon="envelope" class="mr-3"></mdb-icon> ndeyesambousarr@gmail.com
@@ -424,6 +474,9 @@
     </mdb-card-footer>
 
 
-  </mdb-card>
+</mdb-card>
+
+
+
 
   <!-- /Start your project here-->

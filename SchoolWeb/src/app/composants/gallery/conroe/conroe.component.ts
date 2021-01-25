@@ -1,4 +1,4 @@
-import { Lightbox } from 'ng-gallery/lightbox';
+import { Lightbox } from 'ngx-lightbox';
 import { Gallery, GalleryItem, ImageItem, ImageSize, ThumbnailsPosition } from 'ng-gallery';
 import { Component, OnInit, ViewChild, ElementRef, VERSION } from '@angular/core';
 
@@ -11,7 +11,8 @@ export class ConroeComponent implements OnInit {
 
   items: GalleryItem[];
 
-  imageData = data1;
+  private imageData = [];
+   _album: Array<any> = [];
 
   name = 'Angular ' + VERSION.major;
   dataimage:any;
@@ -24,25 +25,21 @@ export class ConroeComponent implements OnInit {
 
   ngOnInit(): void {
 
-     /** Basic Gallery Example */
-
-    // Creat gallery items
-    this.items = this.imageData.map(item => new ImageItem({ src: item.srcUrl, thumb: item.previewUrl }));
+   //this.imageData = data1
+   this._album = data1
 
 
-    /** Lightbox Example */
 
-    // Get a lightbox gallery ref
-    const lightboxRef = this.gallery.ref('lightbox');
+  }
 
-    // Add custom gallery config to the lightbox (optional)
-    lightboxRef.setConfig({
-      imageSize: ImageSize.Cover,
-      thumbPosition: ThumbnailsPosition.Top
-    });
+  open(index: number): void {
+    // open lightbox
+    this.lightbox.open(this._album, index);
+  }
 
-    // Load items into the lightbox gallery ref
-    lightboxRef.load(this.items);
+  close(): void {
+    // close lightbox programmatically
+    this.lightbox.close();
   }
 
 
@@ -73,27 +70,40 @@ export class ConroeComponent implements OnInit {
     }
   }
 
+
 }
 
 const data1 = [
   {
     srcUrl: 'assets/images/gallery/1.jpeg',
     name: 'Conroe',
-    previewUrl: 'https://preview.ibb.co/jrsA6R/img12.jpeg'
+    src: 'assets/images/gallery/1.jpeg',
   },
   {
     srcUrl: 'assets/images/gallery/2.jpeg',
     name: 'Conroe',
-    previewUrl: 'https://preview.ibb.co/kPE1D6/clouds.jpeg'
+    src: 'assets/images/gallery/2.jpeg',
   },
   {
     srcUrl: 'assets/images/gallery/3.jpeg',
     name: 'Conroe',
-    previewUrl: 'https://preview.ibb.co/mwsA6R/img7.jpeg'
+    src: 'assets/images/gallery/3.jpeg',
+  },
+
+  {
+    srcUrl: 'assets/images/gallery/3.jpeg',
+    name: 'Conroe',
+    src: 'assets/images/gallery/3.jpeg',
+  },
+
+  {
+    srcUrl: 'assets/images/gallery/3.jpeg',
+    name: 'Conroe',
+    src: 'assets/images/gallery/3.jpeg',
   },
 
   {
     srcUrl: 'assets/images/gallery/11.jpeg',
-    previewUrl: 'https://preview.ibb.co/kZGsLm/img8.jpeg'
+    src: 'assets/images/gallery/11.jpeg',
   }
 ];

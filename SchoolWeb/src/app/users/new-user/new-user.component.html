@@ -1,126 +1,132 @@
 
-<mdb-breadcrumb>
-  <mdb-breadcrumb-item class="blue-text">Home</mdb-breadcrumb-item>
-  <mdb-breadcrumb-item class="blue-text">Library</mdb-breadcrumb-item>
-  <mdb-breadcrumb-item class="active">Data</mdb-breadcrumb-item>
-</mdb-breadcrumb>
+<div class="container">
 
- <!-- Form -->
- <form class="text-center" [formGroup]="userForm" style="color: #757575;">
+  <mdb-breadcrumb>
+    <mdb-breadcrumb-item class="blue-text">Home</mdb-breadcrumb-item>
+    <mdb-breadcrumb-item class="blue-text">Library</mdb-breadcrumb-item>
+    <mdb-breadcrumb-item class="active">Data</mdb-breadcrumb-item>
+  </mdb-breadcrumb>
 
-<!-- Material form register -->
+   <!-- Form -->
+   <form class="text-center" [formGroup]="userForm" style="color: #757575;">
 
-
-
-    <mdb-card>
-
-        <mdb-card-header class="info-color white-text text-left py-3">
-          <h5>New User </h5>
-        </mdb-card-header>
-
-        <!--Card content-->
-        <mdb-card-body class="px-lg-5 pt-0">
+  <!-- Material form register -->
 
 
+
+      <mdb-card>
+
+          <mdb-card-header class="info-color white-text text-left py-3">
+            <h5>New User </h5>
+          </mdb-card-header>
+
+          <!--Card content-->
+          <mdb-card-body class="px-lg-5 pt-0">
+
+
+
+              <div class="form-row">
+                <div class="col">
+                  <!-- First name -->
+                  <div class="md-form">
+                    <input type="text" id="materialRegisterFormFirstName" class="form-control" formControlName="firstName" mdbInput>
+                    <label for="materialRegisterFormFirstName">First name</label>
+                  </div>
+                </div>
+                <div class="col">
+                  <!-- Last name -->
+                  <div class="md-form">
+                    <input type="email" id="materialRegisterFormLastName" class="form-control" formControlName="lastName" mdbInput>
+                    <label for="materialRegisterFormLastName">Last name</label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- E-mail -->
+              <div class="md-form mt-0">
+                <input type="email" id="materialRegisterFormEmail" class="form-control" formControlName="login" mdbInput>
+                <label for="materialRegisterFormEmail">E-mail</label>
+              </div>
+
+              <!-- Password -->
+              <div class="md-form">
+                <input type="password" id="materialRegisterFormPassword" class="form-control" formControlName="password" aria-describedby="materialRegisterFormPasswordHelpBlock"
+                  mdbInput>
+                <label for="materialRegisterFormPassword">Password</label>
+                <small id="materialRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+                  At least 8 characters and 1 digit
+                </small>
+              </div>
+
+              <!-- Password -->
+              <div class="md-form">
+                  <input type="password" id="materialRegisterFormConfirmPassword" class="form-control" formControlName="confirmPassword" aria-describedby="materialRegisterFormConfirmPasswordHelpBlock"
+                    mdbInput>
+                  <label for="materialRegisterFormConfirmPassword">Confirme Password</label>
+
+              </div>
+
+             <!-- Grid row -->
+             <div class="form-row">
+              <!-- Grid column -->
+              <div class="col">
+                <!-- Material input -->
+                <div class="md-form ">
+                  <p>Authority</p>
+
+                  <select class="browser-default custom-select" (click)="test()" formControlName="authority">
+                    <option *ngFor="let r of roles"  value="{{r.id}}">
+                      {{r.authority}}
+                    </option>
+
+                  </select>
+
+                </div>
+              </div>
+
+
+
+             </div>
+              <!-- Grid column -->
+
+
+                <!-- Default checked -->
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" formControlName="activeUser" id="customSwitch1" checked>
+                  <label class="custom-control-label" for="customSwitch1">User activity</label>
+                </div>
+
+
+
+
+          </mdb-card-body>
+
+          <mdb-card-footer>
 
             <div class="form-row">
-              <div class="col">
-                <!-- First name -->
-                <div class="md-form">
-                  <input type="text" id="materialRegisterFormFirstName" class="form-control" formControlName="firstName" mdbInput>
-                  <label for="materialRegisterFormFirstName">First name</label>
+              <div class="col-md-2">
+                <!-- Material input -->
+                <div class="md-form form-group">
+                  <button mdbBtn color="default" mat-button routerLink="/user" >Annuler</button>
                 </div>
               </div>
-              <div class="col">
-                <!-- Last name -->
-                <div class="md-form">
-                  <input type="email" id="materialRegisterFormLastName" class="form-control" formControlName="lastName" mdbInput>
-                  <label for="materialRegisterFormLastName">Last name</label>
+              <div class="col-md-2">
+                <!-- Material input -->
+                <div class="md-form form-group">
+                  <button mdbBtn color="success" mat-button  (click)="OnSave()">Valider</button>
                 </div>
               </div>
             </div>
 
-            <!-- E-mail -->
-            <div class="md-form mt-0">
-              <input type="email" id="materialRegisterFormEmail" class="form-control" formControlName="login" mdbInput>
-              <label for="materialRegisterFormEmail">E-mail</label>
-            </div>
 
-            <!-- Password -->
-            <div class="md-form">
-              <input type="password" id="materialRegisterFormPassword" class="form-control" formControlName="password" aria-describedby="materialRegisterFormPasswordHelpBlock"
-                mdbInput>
-              <label for="materialRegisterFormPassword">Password</label>
-              <small id="materialRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
-                At least 8 characters and 1 digit
-              </small>
-            </div>
+          </mdb-card-footer>
 
-            <!-- Password -->
-            <div class="md-form">
-                <input type="password" id="materialRegisterFormConfirmPassword" class="form-control" formControlName="confirmPassword" aria-describedby="materialRegisterFormConfirmPasswordHelpBlock"
-                  mdbInput>
-                <label for="materialRegisterFormConfirmPassword">Confirme Password</label>
+      </mdb-card>
+        <!-- Material form register -->
 
-            </div>
+  </form>
+  <!-- Form -->
 
-           <!-- Grid row -->
-           <div class="form-row">
-            <!-- Grid column -->
-            <div class="col">
-              <!-- Material input -->
-              <div class="md-form ">
-                <p>Authority</p>
-
-                <select class="browser-default custom-select" (click)="test()" formControlName="authority">
-                  <option *ngFor="let r of roles"  value="{{r.id}}">
-                    {{r.authority}}
-                  </option>
-
-                </select>
-
-              </div>
-            </div>
+</div>
 
 
-
-           </div>
-            <!-- Grid column -->
-
-
-              <!-- Default checked -->
-              <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" formControlName="activeUser" id="customSwitch1" checked>
-                <label class="custom-control-label" for="customSwitch1">User activity</label>
-              </div>
-
-
-
-
-        </mdb-card-body>
-
-        <mdb-card-footer>
-
-          <div class="form-row">
-            <div class="col-md-2">
-              <!-- Material input -->
-              <div class="md-form form-group">
-                <button mdbBtn color="default" mat-button routerLink="/user" >Annuler</button>
-              </div>
-            </div>
-            <div class="col-md-2">
-              <!-- Material input -->
-              <div class="md-form form-group">
-                <button mdbBtn color="success" mat-button  (click)="OnSave()">Valider</button>
-              </div>
-            </div>
-          </div>
-
-
-        </mdb-card-footer>
-
-    </mdb-card>
-      <!-- Material form register -->
-
-</form>
-<!-- Form -->

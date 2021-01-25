@@ -85,15 +85,28 @@ export class SchoolService {
     return this.http.get(this.host+ "classes", {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
   }
 
+  // Cours =====================================================================>>>>>
+
   getCours(){
     if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
-    return this.http.get(this.host+ "courses", {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
+    return this.http.get(this.host+ "listCours", {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
+  }
+
+  getPostCours(data){
+    if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
+    return this.http.post(this.host+ "saveCours",data, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
   }
 
 
+   // Users =====================================================================>>>>>
   getUsers(){
     if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
-    return this.http.get(this.host+ "agentUsers", {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
+    return this.http.get(this.host+ "listUsers", {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
+  }
+
+  getOneUser(id){
+    if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
+    return this.http.get(this.host+ "users/"+id, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
   }
 
   getRoles(){

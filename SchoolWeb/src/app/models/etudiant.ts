@@ -19,8 +19,8 @@ export class Etudiant{
     photo: string;
     fraisInscription: number;
     feesPays: boolean;
-    tuteur: Tuteur ;
-    inscrit: Inscription;
+    tuteur: Tuteur = new Tuteur();
+
 }
 
 

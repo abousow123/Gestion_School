@@ -32,6 +32,7 @@ export class AgendaComponent implements OnInit {
           EndTime: new Date(2020, 1, 24, 17, 0),
           StartTimezone: 'Europe/Moscow',
           EndTimezone: 'Europe/Moscow',
+          nom:"test",
           City: 'Moscow',
           CategoryColor: '#1aaa55',
           GroupId: 1
@@ -43,22 +44,30 @@ export class AgendaComponent implements OnInit {
           EndTime: new Date(2020, 1, 25, 14, 0),
           StartTimezone: 'Asia/Yekaterinburg',
           EndTimezone: 'Asia/Yekaterinburg',
+          nom:"test",
           City: 'Ekaterinburg',
           CategoryColor: '#1aaa55',
           GroupId: 1
       }
   ] ;
 
-  public selectedDate: Date = new Date();
+  public selectedDate: Date = new Date(2018, 1, 11);
   public currentView: View = 'Month';
 
 
 
   public eventSettings: EventSettingsModel = {
-    dataSource: this.data1
+    dataSource: scheduleData,
+    fields: {
+      id: 'Id',
+      subject: { name: 'EventName' },
+      isAllDay: { name: 'IsAllDay' },
+      startTime: { name: 'StartTime' },
+      endTime: { name: 'EndTime' },
+
+    }
 
   }
-
 
 
   constructor() { }
@@ -77,6 +86,7 @@ export let scheduleData: Object[] = [
       Subject: 'Explosion of Betelgeuse Star',
       StartTime: new Date(2018, 1, 11, 9, 30),
       EndTime: new Date(2018, 1, 11, 11, 0),
+      nom:"test",
       CategoryColor: '#1aaa55'
   }, {
       Id: 2,
@@ -89,30 +99,35 @@ export let scheduleData: Object[] = [
       Subject: 'Blue Moon Eclipse',
       StartTime: new Date(2018, 1, 13, 9, 30),
       EndTime: new Date(2018, 1, 13, 11, 0),
+      nom:"test",
       CategoryColor: '#7fa900'
   }, {
       Id: 4,
       Subject: 'Meteor Showers in 2018',
       StartTime: new Date(2018, 1, 14, 13, 0),
       EndTime: new Date(2018, 1, 14, 14, 30),
+      nom:"test",
       CategoryColor: '#ea7a57'
   }, {
       Id: 5,
       Subject: 'Milky Way as Melting pot',
       StartTime: new Date(2018, 1, 15, 12, 0),
       EndTime: new Date(2018, 1, 15, 14, 0),
+      nom:"test",
       CategoryColor: '#00bdae'
   }, {
       Id: 6,
       Subject: 'Mysteries of Bermuda Triangle',
       StartTime: new Date(2018, 1, 15, 9, 30),
       EndTime: new Date(2018, 1, 15, 11, 0),
+      nom:"test",
       CategoryColor: '#f57f17'
   }, {
       Id: 7,
       Subject: 'Glaciers and Snowflakes',
       StartTime: new Date(2018, 1, 16, 11, 0),
       EndTime: new Date(2018, 1, 16, 12, 30),
+      nom:"test",
       CategoryColor: '#1aaa55'
   }, {
       Id: 8,

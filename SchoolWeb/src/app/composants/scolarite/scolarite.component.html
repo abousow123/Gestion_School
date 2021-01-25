@@ -1,15 +1,18 @@
-<div class="row">
-  <div class="col-md-2">
-    <ul class="list-group">
-      <a><li class="list-group-item" routerLink="etudiant" [ngClass]="currentActive==1?'active':''" (click)="onStudients()">Studients</li></a>
-      <a><li class="list-group-item" routerLink="cours" [ngClass]="currentActive==2?'active':''" (click)="onCours()">Cours</li></a>
-      <a ><li class="list-group-item" routerLink="classe" [ngClass]="currentActive==3?'active':''" (click)="onClasses()">Classes</li></a>
-    </ul>
+<div class="container">
+  <div class="row">
+    <div class="col-md-2">
+      <ul class="list-group">
+        <a><li class="list-group-item" routerLink="etudiant" [ngClass]="currentActive==1?'active':''" (click)="onStudients()">Studients</li></a>
+        <a><li class="list-group-item" routerLink="cours" [ngClass]="currentActive==2?'active':''" (click)="onCours()">Cours</li></a>
+        <a ><li class="list-group-item" routerLink="classe" [ngClass]="currentActive==3?'active':''" (click)="onClasses()">Classes</li></a>
+      </ul>
 
-  </div>
+    </div>
 
-  <div class="col-md-10">
-    <router-outlet></router-outlet>
+    <div class="col-md-10">
+      <router-outlet></router-outlet>
+    </div>
+
   </div>
 
 </div>

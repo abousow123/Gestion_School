@@ -23,8 +23,9 @@ public class Cours implements Serializable {
     private String libelle;
     private String description;
 
+
     @ManyToOne
-    private Classe classe;
+    private Programme programme ;
     @ManyToOne
     private AgentUser user ;
 
@@ -69,14 +70,6 @@ public class Cours implements Serializable {
         this.heureFin = heureFin;
     }
 
-    public Classe getClasse() {
-        return classe;
-    }
-
-    public void setClasse(Classe classe) {
-        this.classe = classe;
-    }
-
     public void setDate_cours(Date date_cours) {
         this.date_cours = date_cours;
     }
@@ -111,5 +104,13 @@ public class Cours implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Programme getProgramme() {
+        return programme;
+    }
+
+    public void setProgramme(Programme programme) {
+        this.programme = programme;
     }
 }

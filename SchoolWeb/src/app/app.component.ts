@@ -23,13 +23,13 @@ export class AppComponent {
   user: User = new User();
   userLogin: UserLogin = new UserLogin();
   mode: number = 0 ;
+
   codeError: number = 0 ;
 
 
   constructor(private schoolService: SchoolService,public authService: AuthenticationService, private router: Router,
     private _formBuilder: FormBuilder, private _snackBar: MatSnackBar){}
   ngOnInit() {
-
     this.userForm = this._formBuilder.group({
       login:([this.user.login, Validators.required]),
       password:([this.user.password, Validators.required]),
@@ -64,6 +64,7 @@ export class AppComponent {
       this.mode = 0;
       this.username = 1 ;
       this.isEmployer() ;
+      this.router.navigateByUrl("/home")
 
       this._snackBar.open(this.authService.isuserName(), ', vous etes connecté avec succés !!!', {
         duration: 3000,
@@ -78,7 +79,7 @@ export class AppComponent {
     },err =>{
 
       this.codeError = 1 ;
-      this.mode = 1 ;
+    //  this.mode = 1 ;
     }
     )
   }
@@ -86,22 +87,27 @@ export class AppComponent {
   onHome(){
     this.mode = 0 ;
     this.router.navigateByUrl('/home') ;
+
   }
   onRegister(){
     this.mode = 0 ;
     this.router.navigateByUrl('/newEtudiant') ;
+
   }
   onGallery(){
     this.mode = 0 ;
-    this.router.navigateByUrl('/home') ;
+    this.router.navigateByUrl('/all') ;
+
   }
   onAbout(){
     this.mode = 0 ;
     this.router.navigateByUrl('/about') ;
+
   }
   onAppointment(){
     this.mode = 0 ;
     this.router.navigateByUrl('/agenda') ;
+
   }
 
 
@@ -112,6 +118,7 @@ export class AppComponent {
      this.username = 0 ;
      this.admin = 0 ;
      this.router.navigateByUrl('/home') ;
+
      this._snackBar.open(this.authService.isuserName(), ', vous etes déconnecté avec succés !!!', {
       duration: 3000,
     });

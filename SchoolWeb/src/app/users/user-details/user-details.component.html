@@ -1,0 +1,166 @@
+
+
+<div class="container">
+
+  <!-- ======= Breadcrumbs Section ======= -->
+<mdb-breadcrumb>
+  <mdb-breadcrumb-item class="blue-text">Scolarite</mdb-breadcrumb-item>
+  <mdb-breadcrumb-item class="blue-text">Student</mdb-breadcrumb-item>
+  <mdb-breadcrumb-item class="active">Details Student</mdb-breadcrumb-item>
+</mdb-breadcrumb><!-- Breadcrumbs Section -->
+
+
+<div class="row">
+  <div class="col-md-3">
+            <!-- Grid column -->
+    <div >
+       <!--  <img src="assets/images/1.jpg" alt="thumbnail"  style="width: 200px"> -->
+        <img *ngIf="user.photo" src="{{user.photo}}" class="img-fluid z-depth-1 rounded-circle"
+      alt="Responsive image">
+
+      <img *ngIf="user.photo == null" src="assets/images/profil.jpeg" class="img-fluid z-depth-1 rounded-circle"
+      alt="Responsive image">
+      <p></p>
+      <p class="text-center">{{user.username}}</p>
+      <p></p>
+      <p></p>
+      <button class="position-relative" *ngIf="user.userActive" mdbBtn type="button"  color="default" rounded="true" outline="true" mdbWavesEffect>deactivated</button>
+      <button class="position-relative" *ngIf="!user.userActive" mdbBtn type="button" color="danger" rounded="true" outline="true" mdbWavesEffect>activated</button>
+
+    </div>
+
+
+
+  </div>
+
+
+  <div class="col-md-9">
+
+    <mat-tab-group>
+
+
+
+      <mat-tab label="contact">
+
+          <mdb-card>
+
+            <!--Card content-->
+            <mdb-card-body class="px-lg-5">
+
+              <!-- Form -->
+              <form class="text-center" style="color: #757575;">
+
+
+                <!-- Name -->
+                 <div class="md-form mt-3">
+                  <input type="text" id="materialSubscriptionFormFirstName" class="form-control" disabled="true" value="{{user.firstName}}" mdbInput>
+                  <label for="materialSubscriptionFormFirstName">FirstName</label>
+                </div>
+
+                  <!-- Name -->
+                  <div class="md-form mt-3">
+                    <input type="text" id="materialSubscriptionFormLastName" class="form-control" disabled="true" value="{{user.lastName}}" mdbInput>
+                    <label for="materialSubscriptionFormLastName">LastName</label>
+                  </div>
+
+                <!-- E-mai -->
+                <div class="md-form">
+                  <input type="email" id="materialSubscriptionFormEmail" class="form-control" disabled="true" value="{{user.login}}" mdbInput>
+                  <label for="materialSubscriptionFormEmail">E-mail</label>
+                </div>
+
+                  <!-- E-mai -->
+                  <div class="md-form">
+                    <input type="text" id="materialRegisterFormTel" class="form-control" disabled="true" value="{{user.tel}}" mdbInput>
+                    <label for="materialRegisterFormTel">Phone number</label>
+                  </div>
+
+
+              </form>
+              <!-- Form -->
+
+            </mdb-card-body>
+            <mdb-card-footer>
+              <button mdbBtn type="button" color="primary" mdbWavesEffect>Update</button>
+            </mdb-card-footer>
+
+          </mdb-card>
+          <!-- Material form subscription -->
+
+      </mat-tab>
+
+
+      <mat-tab label="roles">
+
+        <mdb-card>
+
+          <!--Card content-->
+          <mdb-card-body class="px-lg-5">
+
+            <table mdbTable>
+
+              <tbody>
+                <tr mdbTableCol *ngFor="let el of user.roles">
+                  <th scope="row">{{el.authority}}</th>
+                  <td><a (click)="onRemove(el)"><mdb-icon fas icon="times"></mdb-icon></a>
+
+                  </td>
+
+                </tr>
+              </tbody>
+            </table>
+
+
+          </mdb-card-body>
+          <mdb-card-footer>
+            <button mdbBtn type="button" color="primary" mdbWavesEffect>Add role</button>
+          </mdb-card-footer>
+
+        </mdb-card>
+        <!-- Material form subscription -->
+
+    </mat-tab>
+
+    <mat-tab label="Change password">
+
+      <mdb-card>
+
+        <!--Card content-->
+        <mdb-card-body class="px-lg-5">
+
+          <ul class="list-group list-group-horizontal-xl">
+            <li class="list-group-item">Admin</li> &nbsp; &nbsp; &nbsp;
+            <li class="list-group-item">Employer</li>&nbsp; &nbsp; &nbsp;
+            <li class="list-group-item">Student</li>
+          </ul>
+
+        </mdb-card-body>
+        <mdb-card-footer>
+          <button mdbBtn type="button" color="primary" mdbWavesEffect>Update</button>
+        </mdb-card-footer>
+
+      </mdb-card>
+      <!-- Material form subscription -->
+
+  </mat-tab>
+
+
+
+    </mat-tab-group>
+
+    <!-- <router-outlet></router-outlet> -->
+  </div>
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+

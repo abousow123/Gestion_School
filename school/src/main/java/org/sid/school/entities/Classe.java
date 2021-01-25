@@ -22,7 +22,7 @@ public class Classe implements Serializable {
     //Relation
     @OneToMany(mappedBy = "classe")
     private Collection<Inscription> inscriptions;
-    @OneToMany(mappedBy = "classe")
+    @OneToMany
     private Collection<Cours> cours;
     @ManyToOne
     private AgentUser user ;

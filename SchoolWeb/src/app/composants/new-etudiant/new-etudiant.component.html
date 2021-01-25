@@ -1,140 +1,155 @@
+<div class="container">
+
+      <mdb-breadcrumb>
+        <mdb-breadcrumb-item class="blue-text">Home</mdb-breadcrumb-item>
+        <mdb-breadcrumb-item class="blue-text">Registration</mdb-breadcrumb-item>
+        <mdb-breadcrumb-item class="active">New studient</mdb-breadcrumb-item>
+      </mdb-breadcrumb>
+
+      <mat-horizontal-stepper linear #stepper>
+        <form [formGroup]="etudiantForm">
+        <mat-step [stepControl]="etudiantForm" >
+
+            <ng-template matStepLabel>Student Informations</ng-template>
+            <mdb-card>
+
+              <mdb-card-header>
+                  <!--Card image-->
+                  <img src="assets/images/profil.jpeg" width="200px" *ngIf="dataimage == undefined">
+                  <img src="{{dataimage}}" width="200px" >
+                  <!--Card content-->
 
 
-<mdb-breadcrumb>
-  <mdb-breadcrumb-item class="blue-text">Home</mdb-breadcrumb-item>
-  <mdb-breadcrumb-item class="blue-text">Registration</mdb-breadcrumb-item>
-  <mdb-breadcrumb-item class="active">New studient</mdb-breadcrumb-item>
-</mdb-breadcrumb>
+                    <!--Title-->
+                    <mdb-card-title>
+                      <h4>Profile picture</h4>
+                    </mdb-card-title>
 
-<mat-horizontal-stepper linear #stepper>
-  <mat-step [stepControl]="etudiantForm" >
-    <form [formGroup]="etudiantForm">
-      <ng-template matStepLabel>Fill out your name</ng-template>
-      <mdb-card>
+                    <mat-form-field>
+                      <div>
+                        <mat-toolbar>
+                          <!-- Display files names -->
+                          <input matInput  readonly name="name" />
 
-        <mdb-card-header>
-          <h4>Student Informations</h4>
-        </mdb-card-header>
+                          <!-- Browse Button -->
+                          <button mat-flat-button color="primary">
+                            Choose picture
+                          </button>
+                        </mat-toolbar>
 
-        <mdb-card-body>
+                        <!-- Fetch selected filed on change -->
+                        <input type="file" #fileInput id="uploadFile" (change)="uploadFileEvt($event)" name="uploadFile"
+                          accept="image/*"  />
+                      </div>
+                    </mat-form-field>
+              </mdb-card-header>
+
+              <mdb-card-body>
 
 
-            <!--Card image-->
-            <img src="assets/images/profil.jpeg" width="200px" *ngIf="dataimage == undefined">
-            <img src="{{dataimage}}" width="200px" >
-            <!--Card content-->
+
+      <p></p>
+
+                  <!-- Grid row -->
+                  <div class="form-row">
+                    <!-- Grid column -->
+                    <div class="col-md-6">
+                      <!-- Material input -->
+                      <div class="md-form form-group">
+                        <input mdbInput type="text" class="form-control" id="inputName4" formControlName="firstName"  placeholder="" >
+                        <label for="inputEmail4MD">FirstName</label>
+                      </div>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-6">
+                      <!-- Material input -->
+                      <div class="md-form form-group">
+                        <input mdbInput type="text" id="inputName5" class="form-control" formControlName="lastName"  placeholder="">
+                        <label for="inputPassword4MD">LastName</label>
+                      </div>
+                  </div>
+                    <!-- Grid column -->
+                  </div>
+                  <!-- Grid row -->
+
+                  <!-- Grid row -->
+                  <div class="row">
+                    <!-- Grid column -->
+                    <div class="col-md-6">
+                      <!-- Material input -->
+                      <div class="md-form form-group">
+                        <input mdbInput type="text" class="form-control" id="inputAddress" formControlName="address"  placeholder="">
+                        <label for="inputAddressMD">Address</label>
+                      </div>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-6">
+                      <!-- Material input -->
+                      <div class="md-form form-group">
+                        <input mdbInput type="text" class="form-control" id="inputCity" formControlName="nationalite"  placeholder="">
+                        <label for="inputAddress2MD">City</label>
+                      </div>
+                    </div>
+                    <!-- Grid column -->
+                  </div>
+                  <!-- Grid row -->
+
+                  <!-- Grid row -->
+                  <div class="form-row">
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-6">
+                      <!-- Material input -->
+                      <div class="md-form form-group">
+                        <input mdbInput type="number" class="form-control"  id="inputTel4" formControlName="tel"  placeholder="">
+                        <label for="inputZipMD">Phone Number</label>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <!-- Material input -->
+                      <div class="md-form">
+                        <input mdbInput  type="email" class="form-control" id="form8" formControlName="email"  placeholder="exemple@exemple.com">
+                        <label for="form8">Email</label>
+                      </div>
+                    </div>
 
 
-              <!--Title-->
-              <mdb-card-title>
-                <h4>Profile picture</h4>
-              </mdb-card-title>
+                    <!-- Grid column -->
+                    <!-- Grid column -->
+                  </div>
+                  <!-- Grid row -->
 
-              <mat-form-field>
+
+              </mdb-card-body>
+
+
+
+              <mdb-card-footer>
                 <div>
-                  <mat-toolbar>
-                    <!-- Display files names -->
-                    <input matInput  readonly name="name" />
-
-                    <!-- Browse Button -->
-                    <button mat-flat-button color="primary">
-                      Choose picture
-                    </button>
-                  </mat-toolbar>
-
-                  <!-- Fetch selected filed on change -->
-                  <input type="file" #fileInput id="uploadFile" (change)="uploadFileEvt($event)" name="uploadFile"
-                    accept="image/*"  />
+                  <button mdbBtn color="success" mat-button matStepperNext>Next</button>
                 </div>
-              </mat-form-field>
-<p></p>
-
-             <!-- Grid row -->
-             <div class="form-row">
-              <!-- Grid column -->
-              <div class="col-md-6">
-                <!-- Material input -->
-                <div class="md-form form-group">
-                  <input mdbInput type="text" class="form-control" id="inputName4" formControlName="firstName"  placeholder="" >
-                  <label for="inputEmail4MD">FirstName</label>
-                </div>
-              </div>
-              <!-- Grid column -->
-
-              <!-- Grid column -->
-              <div class="col-md-6">
-                <!-- Material input -->
-                <div class="md-form form-group">
-                  <input mdbInput type="text" id="inputName5" class="form-control" formControlName="lastName"  placeholder="">
-                  <label for="inputPassword4MD">LastName</label>
-                </div>
-            </div>
-              <!-- Grid column -->
-            </div>
-            <!-- Grid row -->
-
-            <!-- Grid row -->
-            <div class="row">
-              <!-- Grid column -->
-              <div class="col-md-6">
-                <!-- Material input -->
-                <div class="md-form form-group">
-                  <input mdbInput type="text" class="form-control" id="inputAddress" formControlName="address"  placeholder="">
-                  <label for="inputAddressMD">Address</label>
-                </div>
-              </div>
-              <!-- Grid column -->
-
-              <!-- Grid column -->
-              <div class="col-md-6">
-                <!-- Material input -->
-                <div class="md-form form-group">
-                  <input mdbInput type="text" class="form-control" id="inputCity" formControlName="nationalite"  placeholder="">
-                  <label for="inputAddress2MD">City</label>
-                </div>
-              </div>
-              <!-- Grid column -->
-            </div>
-            <!-- Grid row -->
-
-            <!-- Grid row -->
-            <div class="form-row">
-              <!-- Grid column -->
-
-              <!-- Grid column -->
-              <div class="col-md-6">
-                <!-- Material input -->
-                <div class="md-form form-group">
-                  <input mdbInput type="number" class="form-control"  id="inputTel4" formControlName="tel"  placeholder="">
-                  <label for="inputZipMD">Phone Number</label>
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <!-- Material input -->
-                <div class="md-form">
-                  <input mdbInput  type="email" class="form-control" id="form8" formControlName="email"  placeholder="exemple@exemple.com">
-                  <label for="form8">Email</label>
-                </div>
-              </div>
+              </mdb-card-footer>
 
 
-              <!-- Grid column -->
-              <!-- Grid column -->
-            </div>
-            <!-- Grid row -->
 
+            </mdb-card>
 
-        </mdb-card-body>
+          </mat-step>
 
+          <mat-step [stepControl]="etudiantForm" >
+            <mdb-card>
+              <ng-template matStepLabel>Reference contact Informations</ng-template>
 
-               <mdb-card-header>
-                <h4>Reference contact Informations</h4>
-               </mdb-card-header>
-               <mdb-card-body>
+              <mdb-card-body>
 
-                 <!-- Grid row -->
-                 <div class="form-row">
+                <!-- Grid row -->
+                <div class="form-row">
                   <!-- Grid column -->
                   <div class="col-md-6">
                     <!-- Material input -->
@@ -148,7 +163,7 @@
                       </select>
                     </div>
                   </div>
-                 </div>
+                </div>
                   <!-- Grid column -->
 
 
@@ -202,89 +217,276 @@
                 <!-- Grid row -->
 
 
-        </mdb-card-body>
+              </mdb-card-body>
 
-        <mdb-card-footer>
-          <div>
-            <button mdbBtn color="success" mat-button matStepperNext>Next</button>
-          </div>
-        </mdb-card-footer>
+              <mdb-card-footer>
+                <div>
+                  <button mdbBtn color="success" mat-button matStepperNext>Next</button>
+                </div>
+              </mdb-card-footer>
+
+            </mdb-card>
+          </mat-step>
+
+
+          </form>
 
 
 
-      </mdb-card>
+        <mat-step [stepControl]="cardFormGroup" label="Registration fees" [optional]="isOptional">
+          <form [formGroup]="cardFormGroup">
 
-    </form>
+            <mdb-card>
 
-  </mat-step>
+              <mdb-card-header>
+                <h4> <strong>Registration fees =$120 no refundable</strong>  </h4>
+              </mdb-card-header>
 
-  <mat-step [stepControl]="cardFormGroup" label="Registration fees" [optional]="isOptional">
-    <form [formGroup]="cardFormGroup">
+              <mdb-card-body>
 
-      <mdb-card>
+                      <!-- Grid row -->
+                  <div class="form-row">
+                    <!-- Grid column -->
+                    <div class="col-md-12">
+                      <!-- Material input -->
+                      <div class="md-form form-group">
+                        <p>Mode de paiment</p>
+                        <select (click)="onOption()"  class="browser-default custom-select"  class="form-control" formControlName="firstCtrl" >
+                          <option  *ngFor="let val of optionPay" value="{{val.value}}">{{val.value}}</option>
+                        </select>
 
+
+                      </div>
+                    </div>
+                  </div>
+
+              </mdb-card-body>
+
+
+
+                <div *ngIf="op == 0">
+
+                  <div class="form-row">
+                    <div class="col-md-12">
+                      <!-- Material input -->
+                      <div class="md-form form-group">
+                        <input mdbInput type="text" class="form-control" id="inputNameCard" formControlName="cardNumber"  placeholder="">
+                        <label for="inputCard4MD">Card Number</label>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Grid row -->
+
+                  <p></p>
+                  <div class="form-row">
+                    <div class="col-md-6">
+                      <!-- Material input -->
+                      <div class="md-form form-group">
+                        <input mdbInput type="text" class="form-control" id="inputNameExpiraty" formControlName="expiratyDate"  placeholder="">
+                        <label for="inputExpiraty4MD">Expiry date</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <!-- Material input -->
+                      <div class="md-form form-group">
+                        <input mdbInput type="text" class="form-control" id="inputNameCvv" formControlName="cvv"  placeholder="">
+                        <label for="inputCvv4MD">CVV</label>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div *ngIf="op == 1">
+                  <p>You have chosen payment by ticketing.</p>
+                </div>
+
+              <mdb-card-footer>
+
+                <div class="form-row">
+                  <div class="col-md-2">
+                    <!-- Material input -->
+                    <div class="md-form form-group">
+                      <button mdbBtn color="default" mat-button matStepperPrevious>Back</button>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <!-- Material input -->
+                    <div class="md-form form-group">
+                      <button mdbBtn color="success" mat-button matStepperNext (click)="saveEtudiant(etudiantForm)">Validate</button>
+                    </div>
+                  </div>
+                </div>
+
+
+
+              </mdb-card-footer>
+
+
+            </mdb-card>
+
+
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Done</ng-template>
+          <p>You are now done.</p>
+
+        <!-- Details Etudiant-->
+        <mdb-card>
         <mdb-card-header>
-          <h4> <strong>Registration fees =$120 no refundable</strong>  </h4>
+          <h4>Infos Student</h4>
         </mdb-card-header>
 
         <mdb-card-body>
 
-                <!-- Grid row -->
+            <!-- Grid row -->
             <div class="form-row">
               <!-- Grid column -->
-              <div class="col-md-12">
+              <div class="col-md-6">
                 <!-- Material input -->
                 <div class="md-form form-group">
-                  <p>Mode de paiment</p>
-                  <select (click)="onOption()"  class="browser-default custom-select"  class="form-control" formControlName="firstCtrl" >
-                    <option  *ngFor="let val of optionPay" value="{{val.value}}">{{val.value}}</option>
-                  </select>
-
-
+                  <input disabled='true' value="{{detailEtudiant.firstName}}" mdbInput type="text" class="form-control"  >
+                  <label for="inputEmail4MD">FirstName</label>
                 </div>
               </div>
-            </div>
+              <!-- Grid column -->
 
-        </mdb-card-body>
-
-
-
-          <div *ngIf="op == 0">
-
-            <div class="form-row">
-              <div class="col-md-12">
+              <!-- Grid column -->
+              <div class="col-md-6">
                 <!-- Material input -->
                 <div class="md-form form-group">
-                  <input mdbInput type="text" class="form-control" id="inputNameCard" formControlName="cardNumber"  placeholder="">
-                  <label for="inputCard4MD">Card Number</label>
+                  <input mdbInput type="text"  class="form-control"   disabled='true' value="{{detailEtudiant.lastName}}">
+                  <label for="inputPassword4MD">LastName</label>
                 </div>
               </div>
+              <!-- Grid column -->
             </div>
             <!-- Grid row -->
 
-            <p></p>
-            <div class="form-row">
+            <!-- Grid row -->
+            <div class="row">
+              <!-- Grid column -->
               <div class="col-md-6">
                 <!-- Material input -->
                 <div class="md-form form-group">
-                  <input mdbInput type="text" class="form-control" id="inputNameExpiraty" formControlName="expiratyDate"  placeholder="">
-                  <label for="inputExpiraty4MD">Expiry date</label>
+                  <input mdbInput type="text" class="form-control"    disabled='true' value="{{detailEtudiant.address}}">
+                  <label for="inputAddressMD">Address</label>
                 </div>
               </div>
+              <!-- Grid column -->
+
+              <!-- Grid column -->
               <div class="col-md-6">
                 <!-- Material input -->
                 <div class="md-form form-group">
-                  <input mdbInput type="text" class="form-control" id="inputNameCvv" formControlName="cvv"  placeholder="">
-                  <label for="inputCvv4MD">CVV</label>
+                  <input mdbInput type="text" class="form-control"    disabled='true' value="{{detailEtudiant.nationalite}}">
+                  <label for="inputAddress2MD">City</label>
                 </div>
               </div>
+              <!-- Grid column -->
             </div>
+            <!-- Grid row -->
 
-          </div>
+            <!-- Grid row -->
+            <div class="form-row">
+              <!-- Grid column -->
 
-          <div *ngIf="op == 1">
-            <p>You have chosen payment by ticketing.</p>
-          </div>
+              <!-- Grid column -->
+              <div class="col-md-6">
+                <!-- Material input -->
+                <div class="md-form form-group">
+                  <input mdbInput type="number" class="form-control"     disabled='true' value="{{detailEtudiant.tel}}">
+                  <label for="inputZipMD">Phone Number</label>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <!-- Material input -->
+                <div class="md-form form-group">
+                  <input mdbInput type="email" class="form-control"   disabled='true' value="{{detailEtudiant.email}}">
+                  <label for="inputCityMD">Email</label>
+                </div>
+              </div>
+
+
+              <!-- Grid column -->
+              <!-- Grid column -->
+            </div>
+            <!-- Grid row -->
+        </mdb-card-body>
+
+
+              <mdb-card-header>
+                <h4>Infos Tuteur</h4>
+              </mdb-card-header>
+              <mdb-card-body>
+
+                <!-- Grid row -->
+                <div class="form-row">
+                  <!-- Grid column -->
+                  <div class="col-md-6">
+                    <!-- Material input -->
+                    <div class="md-form form-group">
+                      <p>Type de tuteur</p>
+                      <input mdbInput type="email" class="form-control"   disabled='true' value="{{detailEtudiant.tuteur.typeTuteur}}">
+                    </div>
+                  </div>
+                </div>
+                  <!-- Grid column -->
+
+
+                <!-- Grid row -->
+                <div class="form-row">
+                  <!-- Grid column -->
+                  <div class="col-md-6">
+                    <!-- Material input -->
+                    <div class="md-form form-group">
+                      <input mdbInput type="text" class="form-control"   disabled='true' value="{{detailEtudiant.tuteur.prenom}}">
+                      <label for="inputEmail4MD">FirstName</label>
+                    </div>
+                  </div>
+                  <!-- Grid column -->
+
+                  <!-- Grid column -->
+                  <div class="col-md-6">
+                    <!-- Material input -->
+                    <div class="md-form form-group">
+                      <input mdbInput type="text"  class="form-control"  disabled='true' value="{{detailEtudiant.tuteur.nom}}">
+                      <label for="inputPassword4MD">LastName</label>
+                    </div>
+                  </div>
+                  <!-- Grid column -->
+                </div>
+                <!-- Grid row -->
+
+                <!-- Grid row -->
+                <div class="form-row">
+                  <!-- Grid column -->
+
+                  <!-- Grid column -->
+                  <div class="col-md-6">
+                    <!-- Material input -->
+                    <div class="md-form form-group">
+                      <input mdbInput type="tel" class="form-control"    disabled='true' value="{{detailEtudiant.tuteur.tel}}">
+                      <label for="inputZipMD">Phone Number</label>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <!-- Material input -->
+                    <div class="md-form form-group">
+                      <input mdbInput type="email"  class="form-control"   disabled='true' value="{{detailEtudiant.tuteur.email}}">
+                      <label for="inputCityMD">Email</label>
+                    </div>
+                  </div>
+                  <!-- Grid column -->
+                  <!-- Grid column -->
+                </div>
+                <!-- Grid row -->
+
+
+        </mdb-card-body>
 
         <mdb-card-footer>
 
@@ -292,211 +494,26 @@
             <div class="col-md-2">
               <!-- Material input -->
               <div class="md-form form-group">
-                <button mdbBtn color="default" mat-button matStepperPrevious>Back</button>
+                <button mdbBtn color="default" mat-button matStepperPrevious>Update</button>
               </div>
             </div>
             <div class="col-md-2">
               <!-- Material input -->
               <div class="md-form form-group">
-                <button mdbBtn color="success" mat-button matStepperNext (click)="saveEtudiant(etudiantForm)">Validate</button>
+                <button mdbBtn color="success" mat-button matStepperNext (click)="stepper.reset()">Ok</button>
               </div>
             </div>
           </div>
-
 
 
         </mdb-card-footer>
 
+        </mdb-card>
 
-      </mdb-card>
+        <!--End details Etudiant-->
 
-
-    </form>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    <p>You are now done.</p>
-
-   <!-- Details Etudiant-->
-  <mdb-card>
-   <mdb-card-header>
-    <h4>Infos Student</h4>
-  </mdb-card-header>
-
-  <mdb-card-body>
-
-       <!-- Grid row -->
-       <div class="form-row">
-        <!-- Grid column -->
-        <div class="col-md-6">
-          <!-- Material input -->
-          <div class="md-form form-group">
-            <input disabled='true' value="{{detailEtudiant.firstName}}" mdbInput type="text" class="form-control"  >
-            <label for="inputEmail4MD">FirstName</label>
-          </div>
-        </div>
-        <!-- Grid column -->
-
-        <!-- Grid column -->
-        <div class="col-md-6">
-          <!-- Material input -->
-          <div class="md-form form-group">
-            <input mdbInput type="text"  class="form-control"   disabled='true' value="{{detailEtudiant.lastName}}">
-            <label for="inputPassword4MD">LastName</label>
-          </div>
-        </div>
-        <!-- Grid column -->
-      </div>
-      <!-- Grid row -->
-
-      <!-- Grid row -->
-      <div class="row">
-        <!-- Grid column -->
-        <div class="col-md-6">
-          <!-- Material input -->
-          <div class="md-form form-group">
-            <input mdbInput type="text" class="form-control"    disabled='true' value="{{detailEtudiant.address}}">
-            <label for="inputAddressMD">Address</label>
-          </div>
-        </div>
-        <!-- Grid column -->
-
-        <!-- Grid column -->
-        <div class="col-md-6">
-          <!-- Material input -->
-          <div class="md-form form-group">
-            <input mdbInput type="text" class="form-control"    disabled='true' value="{{detailEtudiant.nationalite}}">
-            <label for="inputAddress2MD">City</label>
-          </div>
-        </div>
-        <!-- Grid column -->
-      </div>
-      <!-- Grid row -->
-
-      <!-- Grid row -->
-      <div class="form-row">
-        <!-- Grid column -->
-
-        <!-- Grid column -->
-        <div class="col-md-6">
-          <!-- Material input -->
-          <div class="md-form form-group">
-            <input mdbInput type="number" class="form-control"     disabled='true' value="{{detailEtudiant.tel}}">
-            <label for="inputZipMD">Phone Number</label>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <!-- Material input -->
-          <div class="md-form form-group">
-            <input mdbInput type="email" class="form-control"   disabled='true' value="{{detailEtudiant.email}}">
-            <label for="inputCityMD">Email</label>
-          </div>
-        </div>
+        </mat-step>
+      </mat-horizontal-stepper>
 
 
-        <!-- Grid column -->
-        <!-- Grid column -->
-      </div>
-      <!-- Grid row -->
-  </mdb-card-body>
-
-
-         <mdb-card-header>
-          <h4>Infos Tuteur</h4>
-         </mdb-card-header>
-         <mdb-card-body>
-
-           <!-- Grid row -->
-           <div class="form-row">
-            <!-- Grid column -->
-            <div class="col-md-6">
-              <!-- Material input -->
-              <div class="md-form form-group">
-                <p>Type de tuteur</p>
-                <input mdbInput type="email" class="form-control"   disabled='true' value="{{detailEtudiant.tuteur.typeTuteur}}">
-              </div>
-            </div>
-           </div>
-            <!-- Grid column -->
-
-
-          <!-- Grid row -->
-          <div class="form-row">
-            <!-- Grid column -->
-            <div class="col-md-6">
-              <!-- Material input -->
-              <div class="md-form form-group">
-                <input mdbInput type="text" class="form-control"   disabled='true' value="{{detailEtudiant.tuteur.prenom}}">
-                <label for="inputEmail4MD">FirstName</label>
-              </div>
-            </div>
-            <!-- Grid column -->
-
-            <!-- Grid column -->
-            <div class="col-md-6">
-              <!-- Material input -->
-              <div class="md-form form-group">
-                <input mdbInput type="text"  class="form-control"  disabled='true' value="{{detailEtudiant.tuteur.nom}}">
-                <label for="inputPassword4MD">LastName</label>
-              </div>
-            </div>
-            <!-- Grid column -->
-          </div>
-          <!-- Grid row -->
-
-          <!-- Grid row -->
-          <div class="form-row">
-            <!-- Grid column -->
-
-            <!-- Grid column -->
-            <div class="col-md-6">
-              <!-- Material input -->
-              <div class="md-form form-group">
-                <input mdbInput type="tel" class="form-control"    disabled='true' value="{{detailEtudiant.tuteur.tel}}">
-                <label for="inputZipMD">Phone Number</label>
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <!-- Material input -->
-              <div class="md-form form-group">
-                <input mdbInput type="email"  class="form-control"   disabled='true' value="{{detailEtudiant.tuteur.email}}">
-                <label for="inputCityMD">Email</label>
-              </div>
-            </div>
-            <!-- Grid column -->
-            <!-- Grid column -->
-          </div>
-          <!-- Grid row -->
-
-
-  </mdb-card-body>
-
-   <mdb-card-footer>
-
-    <div class="form-row">
-      <div class="col-md-2">
-        <!-- Material input -->
-        <div class="md-form form-group">
-          <button mdbBtn color="default" mat-button matStepperPrevious>Update</button>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <!-- Material input -->
-        <div class="md-form form-group">
-          <button mdbBtn color="success" mat-button matStepperNext (click)="stepper.reset()">Ok</button>
-        </div>
-      </div>
-    </div>
-
-
-   </mdb-card-footer>
-
-  </mdb-card>
-
-   <!--End details Etudiant-->
-
-  </mat-step>
-</mat-horizontal-stepper>
-
+</div>

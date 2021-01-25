@@ -1,3 +1,4 @@
+import { Programme } from './programme';
 export class Cours{
     code: string = "";
     date_cours: Date;
@@ -5,5 +6,5 @@ export class Cours{
     heureFin: Date;
     libelle: string = "" ;
     description: string = "" ;
-
+    programme: Programme = new Programme() ;
 }

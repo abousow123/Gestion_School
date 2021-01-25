@@ -1,0 +1,161 @@
+<div class="container">
+
+  <mdb-breadcrumb>
+    <mdb-breadcrumb-item class="blue-text">Home</mdb-breadcrumb-item>
+    <mdb-breadcrumb-item class="blue-text">Registration</mdb-breadcrumb-item>
+    <mdb-breadcrumb-item class="active">New studient</mdb-breadcrumb-item>
+  </mdb-breadcrumb>
+
+  <!-- ======= Portfolio Section ======= -->
+  <section mdbScrollSpyElement="scrollspy1" id="home" id="portfolio" class="portfolio">
+    <div class="container" data-aos="fade-up">
+
+    <div class="section-title">
+    <h2>Gallery</h2>
+    <h3>Check our <span>Gallery</span></h3>
+    <!-- <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p> -->
+    </div>
+
+    <div class="row" data-aos="fade-up" data-aos-delay="100">
+    <div class="col-lg-12 d-flex justify-content-center">
+    <ul id="portfolio-flters">
+      <li  class="filter-active" (click)="All()">All</li>
+      <li  (click)="Conroe()">Conroe</li>
+      <li  (click)="Boxbraids()">Box braids</li>
+      <li  (click)="Twist()">Twist</li>
+      <li  (click)="Crochet()">Crochet</li>
+      <li  (click)="Sewin()">Sew in</li>
+      <li  (click)="Dreadlocs()">Dread locs</li>
+    </ul>
+    </div>
+    </div>
+
+    <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200" *ngIf="numGallery == 0">
+
+    <div class="col-lg-4 col-md-6 portfolio-item" *ngFor="let img of imageData">
+      <p class="container" gallerize>
+        <img [src]="img.srcUrl" class="img-fluid" alt="">
+      </p>
+
+      <div class="portfolio-info">
+        <h4>App 1</h4>
+        <p>App</p>
+        <a [href]="img.srcUrl" data-gall="portfolioGallery" class="venobox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
+        <a routerLink="/conroe" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+      </div>
+
+    </div>
+    </div>
+
+    <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200" *ngIf="numGallery == 1">
+
+        <div class="col-lg-4 col-md-6 portfolio-item" *ngFor="let img of imageData">
+          <p class="container" gallerize>
+            <img [src]="img.srcUrl" class="img-fluid" alt="">
+          </p>
+
+          <div class="portfolio-info">
+            <h4>App 1</h4>
+            <p>App</p>
+            <a [href]="img.srcUrl" data-gall="portfolioGallery" class="venobox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
+            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+          </div>
+
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item">
+          <a href="#" mdbBtn color="primary" mdbWavesEffect>Button</a>
+        </div>
+
+    </div>
+
+
+    <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200" *ngIf="numGallery == 2">
+
+    <div class="col-lg-4 col-md-6 portfolio-item" *ngFor="let img of imageData">
+    <p class="container" gallerize>
+    <img [src]="img.srcUrl" class="img-fluid" alt="">
+    </p>
+
+    <div class="portfolio-info">
+    <h4>App 1</h4>
+    <p>App</p>
+    <a [href]="img.srcUrl" data-gall="portfolioGallery" class="venobox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
+    <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+    </div>
+
+    </div>
+    </div>
+
+    <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200" *ngIf="numGallery == 3">
+
+    <div class="col-lg-4 col-md-6 portfolio-item" *ngFor="let img of imageData">
+    <p class="container" gallerize>
+    <img [src]="img.srcUrl" class="img-fluid" alt="">
+    </p>
+
+    <div class="portfolio-info">
+    <h4>App 1</h4>
+    <p>App</p>
+    <a [href]="img.srcUrl" data-gall="portfolioGallery" class="venobox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
+    <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+    </div>
+
+    </div>
+    </div>
+
+    <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200" *ngIf="numGallery == 4">
+
+    <div class="col-lg-4 col-md-6 portfolio-item" *ngFor="let img of imageData">
+    <p class="container" gallerize>
+    <img [src]="img.srcUrl" class="img-fluid" alt="">
+    </p>
+
+    <div class="portfolio-info">
+    <h4>App 1</h4>
+    <p>App</p>
+    <a [href]="img.srcUrl" data-gall="portfolioGallery" class="venobox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
+    <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+    </div>
+
+    </div>
+    </div>
+
+    <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200" *ngIf="numGallery == 5">
+
+    <div class="col-lg-4 col-md-6 portfolio-item" *ngFor="let img of imageData">
+    <p class="container" gallerize>
+    <img [src]="img.srcUrl" class="img-fluid" alt="">
+    </p>
+
+    <div class="portfolio-info">
+    <h4>App 1</h4>
+    <p>App</p>
+    <a [href]="img.srcUrl" data-gall="portfolioGallery" class="venobox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
+    <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+    </div>
+
+    </div>
+    </div>
+
+    <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200" *ngIf="numGallery == 6">
+
+    <div class="col-lg-4 col-md-6 portfolio-item" *ngFor="let img of imageData">
+    <p class="container" gallerize>
+    <img [src]="img.srcUrl" class="img-fluid" alt="">
+    </p>
+
+    <div class="portfolio-info">
+    <h4>App 1</h4>
+    <p>App</p>
+    <a [href]="img.srcUrl" data-gall="portfolioGallery" class="venobox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
+    <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+    </div>
+
+    </div>
+    </div>
+
+
+    </div>
+    </section><!-- End Portfolio Section -->
+</div>

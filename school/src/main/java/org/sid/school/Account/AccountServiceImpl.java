@@ -43,7 +43,7 @@ public class AccountServiceImpl implements AccountService {
             throw new RuntimeException("Svp confirmĂ© votre mot de passe");
         AgentUser compte = user;
         compte.setId(user.getId());
-        compte.setUsername(user.getFirstName() + " " + user.getLastName());
+        compte.setUsername(user.getFirstName() + "_" + user.getLastName());
 
         compte.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         //compte.setUserActive(true);
@@ -73,6 +73,12 @@ public class AccountServiceImpl implements AccountService {
         AgentUser compte = compteRepository.findByLogin(login);
         Role role = roleRepository.findByAuthority(nomrole);
         compte.getRoles().add(role) ;
+    }
+
+    @Override
+    public AgentUser updateCompte(String id, AgentUser agentUser) {
+        agentUser.setId(id);
+        return compteRepository.saveAndFlush(agentUser);
     }
 
 }

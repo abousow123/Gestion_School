@@ -15,4 +15,6 @@ public interface AccountService {
 	
 	public void addRoleToCompte(String login,String nomrole) ;
 
+	public AgentUser updateCompte(String id, AgentUser agentUser);
+
 }

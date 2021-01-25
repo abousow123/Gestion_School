@@ -1,23 +1,19 @@
-import { Component, OnInit, EventEmitter, AfterViewInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
-import { Gallery, GalleryItem, ImageItem, ImageSize, ThumbnailsPosition } from 'ng-gallery';
+import { Gallery, GalleryItem, ImageItem } from 'ng-gallery';
 import { Lightbox } from 'ngx-lightbox';
 
-declare var jarallax: any;
-
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-all',
+  templateUrl: './all.component.html',
+  styleUrls: ['./all.component.scss']
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class AllComponent implements OnInit {
 
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
 
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
+
   isEditable = false;
   numGallery: number = 0;
 
@@ -46,25 +42,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
 ]
 
+  constructor(public gallery: Gallery, public lightbox: Lightbox) { }
 
-
-  constructor(private _formBuilder: FormBuilder,public gallery: Gallery, public lightbox: Lightbox) {}
-
-  ngAfterViewInit() {
-    jarallax(document.querySelectorAll('.jarallax'), {
-      speed: 0.2
-    });
-  }
-
-  ngOnInit() {
-
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
-    });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
-    });
-
+  ngOnInit(): void {
     /** Basic Gallery Example */
 
     // Creat gallery items
@@ -122,6 +102,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   }
 
+
   All(){
     this.imageData = data
     this.numGallery = 0 ;
@@ -152,8 +133,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.numGallery = 6 ;
   }
 
-
 }
+
 
 const data = [
   {
@@ -183,11 +164,6 @@ const data = [
     srcUrl: 'assets/images/gallery/11.jpeg',
     name: 'Conroe',
     previewUrl: 'assets/images/gallery/11.jpeg'
-  },
-
-  {
-    srcUrl: 'assets/images/gallery/7.jpeg',
-    previewUrl: 'https://preview.ibb.co/kZGsLm/img8.jpeg'
   }
 ];
 

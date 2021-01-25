@@ -1,6 +1,6 @@
 
 
-
+<div class="container">
 
 
 <form [formGroup]="etudiantForm">
@@ -45,13 +45,13 @@
     <!-- Subject -->
     <label>Mode de paiement</label>
     <select class="browser-default custom-select mb-4">
-      <option value="" disabled>Choose option</option> 
+      <option value="" disabled>Choose option</option>
       <option value="1">debit card</option>
       <option value="2">credit cards</option>
       <option value="3">PayPal</option>
       <option value="4">cash</option>
     </select>
-  
+
 
   <!-- Sign up button -->
   <button mdbBtn color="Default" block="true" class="my-2" type="submit" (click)="saveEtudiant(etudiantForm)">Enregistrer</button>
@@ -69,3 +69,5 @@
 
 
 
+
+</div>
