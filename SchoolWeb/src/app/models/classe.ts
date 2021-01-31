@@ -4,4 +4,5 @@ export class Classe{
     code: string = "";
     libelle: string = "";
     nbre_max_etudiant: number;
+    date_created: Date;
 }

@@ -32,16 +32,28 @@ export class CoursComponent implements OnInit {
 
   programmes: any ;
   resp: any ;
-  idProgramme: number = 0;
+  idProgramme: number = 1;
   programme: Programme = new Programme();
   cour: Cours = new Cours() ;
 
   demandeFile: any = File;
 
   @ViewChild('fileInput') fileInput: ElementRef;
- fileAttr = 'Choose File';
+ fileAttr = 'Choose1 File';
 
  coursForm: FormGroup;
+
+ contactMethods = [
+  { id: 1, label: "Email" },
+  { id: 2, label: "Phone" }
+]
+
+contact = {
+  firstName: "CFR",
+  comment: "No comment",
+  subscribe: true,
+  contactMethod: 2 // this id you'll send and get from backend
+}
 
   constructor(private cdRef: ChangeDetectorRef, private etudiantService: SchoolService,iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,private _formBuilder: FormBuilder) {
     iconRegistry.addSvgIcon(
@@ -69,7 +81,19 @@ export class CoursComponent implements OnInit {
       this.elements.push({id: i.toString(), first: 'Wpis ' + i, last: 'Last ' + i, handle: 'Handle ' + i});
     }
 
+    this.getListCours() ;
+    this.getProgrammes() ;
 
+    this.coursForm = this._formBuilder.group({
+      code:([this.cour.code, Validators.required]),
+      libelle:([this.cour.libelle, Validators.required]),
+      description:([this.cour.description, Validators.required]),
+    });
+
+
+  }
+
+  getListCours(){
     this.etudiantService.getCours()
     .subscribe(data=>{
       this.etu = data;
@@ -83,18 +107,7 @@ export class CoursComponent implements OnInit {
       console.log(err);
 
     })
-
-    this.getProgrammes() ;
-
-    this.coursForm = this._formBuilder.group({
-      code:([this.cour.code, Validators.required]),
-      libelle:([this.cour.libelle, Validators.required]),
-      description:([this.cour.description, Validators.required]),
-    });
-
-
   }
-
   ngAfterViewInit() {
 
     this.mdbTablePagination.setMaxVisibleItemsNumberTo(this.maxVisibleItems);
@@ -152,8 +165,14 @@ export class CoursComponent implements OnInit {
     });
   }
 
-  remove(){
+  deleteCours(cours){
+    this.etudiantService.deleteCours(cours.id)
+    .subscribe(data=> {
+      this.getListCours();
+    },err=>{
+      console.log(err);
 
+    })
   }
 
 
@@ -211,7 +230,7 @@ export class CoursComponent implements OnInit {
 
   }
 
-  uploadFileEvt(imgFile: any) {
+   uploadFileEvt(imgFile: any) {
 
     if (imgFile.target.files && imgFile.target.files[0]) {
 
@@ -239,7 +258,7 @@ export class CoursComponent implements OnInit {
       // Reset if duplicate image uploaded again
       this.fileInput.nativeElement.value = "";
     } else {
-      this.fileAttr = 'Choose File';
+      this.fileAttr = 'Choose File1';
     }
 
   }
@@ -248,6 +267,33 @@ export class CoursComponent implements OnInit {
   onSelectFile(event) {
     const file = event.target.files[0];
     this.demandeFile = file;
+  }
+
+  updateCours(cours){
+    this.idProgramme = cours.programme.id;
+    this.cour.id = cours.id;
+    this.coursForm.setValue({code:cours.code,libelle:cours.libelle,description: cours.description})
+
+  }
+
+  postUpdate(){
+    this.cour.code = this.coursForm.value.code ;
+    this.cour.libelle = this.coursForm.value.libelle ;
+    this.cour.description = this.coursForm.value.description ;
+
+
+    this.cour.programme = this.programme;
+
+    this.etudiantService.editCours(this.cour.id,this.cour)
+    .subscribe(data =>{
+      this.getListCours();
+    },err=>{
+      console.log(err);
+
+    });
+
+
+
   }
 
 

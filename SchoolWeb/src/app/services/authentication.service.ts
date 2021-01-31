@@ -52,17 +52,31 @@ export class AuthenticationService {
   }
 
   isEmployer(){
-    if(this.roles != null){
-      for(let r of this.roles){
-        if(r=='Admin' || r == 'User') return true ;
+    this.jwtToken = this.loadToken() ;
 
+    if(this.jwtToken){
+      this.roles = this.jwtHelper.decodeToken(this.jwtToken).roles ;
+      if(this.roles != null){
+        for(let r of this.roles){
+          if(r=='Admin' || r == 'User') return true ;
+
+        }
+        return false ;
       }
-      return false ;
     }
+
+
   }
 
   isuserName(){
+    this.jwtToken = this.loadToken() ;
+    if(this.jwtToken!=null){
+      this.userName = this.jwtHelper.decodeToken(this.jwtToken).sub ;
       return this.userName ;
+    }else{
+      return "";
+    }
+
   }
 
 }

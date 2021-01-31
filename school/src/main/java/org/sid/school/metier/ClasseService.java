@@ -9,5 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 public interface ClasseService {
-    ResponseEntity<Classe> postClasse( Classe classe) throws JsonParseException, JsonMappingException, IOException;
+    Classe postClasse( Classe classe) throws JsonParseException, JsonMappingException, IOException;
+    Classe updateClasse(Long id, Classe classe);
 }

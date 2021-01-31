@@ -28,7 +28,10 @@ export class AppComponent {
 
 
   constructor(private schoolService: SchoolService,public authService: AuthenticationService, private router: Router,
-    private _formBuilder: FormBuilder, private _snackBar: MatSnackBar){}
+    private _formBuilder: FormBuilder, private _snackBar: MatSnackBar){
+
+    }
+
   ngOnInit() {
     this.userForm = this._formBuilder.group({
       login:([this.user.login, Validators.required]),
@@ -40,6 +43,9 @@ export class AppComponent {
       loginFormModalEmail: new FormControl('', Validators.email),
       loginFormModalPassword: new FormControl('', Validators.required)
     });
+
+    this.isEmployer();
+    this.isUserName();
 
   }
 

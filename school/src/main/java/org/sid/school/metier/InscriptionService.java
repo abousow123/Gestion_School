@@ -14,5 +14,6 @@ import java.util.List;
 public interface InscriptionService {
     List<Inscription> getInscription() ;
     public Inscription postInscription(String etudiant,String programme,String classe) throws JsonParseException, JsonMappingException, IOException;
+    public Inscription getInscriptionByStudent(String idStudent);
 
 }

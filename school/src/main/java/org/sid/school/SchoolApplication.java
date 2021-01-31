@@ -4,6 +4,7 @@ import org.apache.commons.math3.random.RandomDataGenerator;
 import org.sid.school.Account.AccountService;
 import org.sid.school.dao.*;
 import org.sid.school.entities.*;
+import org.sid.school.metier.CoursService;
 import org.sid.school.metier.EtudiantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -13,6 +14,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import javax.servlet.ServletContext;
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -38,6 +41,11 @@ public class SchoolApplication implements CommandLineRunner {
     AccountService accountService;
     @Autowired
     EtudiantService etudiantService;
+    @Autowired
+    CoursService coursService;
+
+    @Autowired
+    ServletContext context;
 
     @Autowired
     private RepositoryRestConfiguration restConfiguration;
@@ -301,15 +309,16 @@ public class SchoolApplication implements CommandLineRunner {
 
         });
 
-
-        for (int i = 1; i < 10; i++) {
+        String filesPath = context.getRealPath("/images/cv_Abou_Sow_1610398121058.pdf");
+        for (int i = 1; i < 7; i++) {
             Cours cours = new Cours();
             cours.setCode("cours " + i);
             cours.setDate_cours(new Date());
             cours.setLibelle("Cours test " + i);
             cours.setProgramme(programme);
+            cours.setFile(filesPath);
             cours.setDescription("Description " + i);
-     //       classe.setClasse(c);
+
             Cours c = coursRepository.save(cours);
 
         }

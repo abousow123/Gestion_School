@@ -178,9 +178,9 @@ export class UserComponent implements OnInit {
   }
   onRemove(el){
     this.d = el as User ;
-    console.log("test user =====>>>>"+JSON.stringify(this.d._links.agentUser.href));
+    console.log("test user =====>>>>"+JSON.stringify(this.d));
 
-    this.etudiantService.deleteUser(this.d._links.agentUser.href)
+    this.etudiantService.deleteUser(this.d.id)
     .subscribe(data=>{
       this.getListUsers();
 

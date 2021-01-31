@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -7,6 +8,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { MdbTableDirective, MdbTablePaginationComponent } from 'angular-bootstrap-md';
 import { Classe } from 'src/app/models/classe';
 import { SchoolService } from 'src/app/services/school.service';
+
 
 
 
@@ -23,6 +25,8 @@ export class ClasseComponent implements OnInit {
   @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
   @ViewChild('row', { static: true }) row: ElementRef;
 
+
+
   classes: any = [] ;
   etu: any ;
 
@@ -32,12 +36,17 @@ export class ClasseComponent implements OnInit {
   searchText: string = '';
   previous: string;
 
+  classeForm: FormGroup;
+
 
   maxVisibleItems: number = 15;
 
+  classe: Classe = new Classe();
 
 
-  constructor(private cdRef: ChangeDetectorRef, private etudiantService: SchoolService,iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+
+  constructor(private cdRef: ChangeDetectorRef, private etudiantService: SchoolService,iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,
+    private _formBuilder: FormBuilder) {
 
 
      iconRegistry.addSvgIcon(
@@ -61,11 +70,23 @@ export class ClasseComponent implements OnInit {
     this.mdbTablePagination.searchText = this.searchText;
   }
   ngOnInit() {
+
+    this.classeForm = this._formBuilder.group({
+      code:([this.classe.code, Validators.required]),
+      libelle:([this.classe.libelle, Validators.required]),
+      nbre_max_etudiant:([this.classe.nbre_max_etudiant, Validators.required]),
+    });
+
     for (let i = 1; i <= 25; i++) {
       this.elements.push({id: i.toString(), first: 'Wpis ' + i, last: 'Last ' + i, handle: 'Handle ' + i});
     }
 
+    this.getClasses();
 
+
+  }
+
+  getClasses(){
     this.etudiantService.getClasses()
     .subscribe(data=>{
       this.etu = data;
@@ -77,11 +98,6 @@ export class ClasseComponent implements OnInit {
     },err=>{
       console.log(err);
     })
-
-
-
-
-
   }
 
   ngAfterViewInit() {
@@ -93,23 +109,6 @@ export class ClasseComponent implements OnInit {
 
   }
 
-  /* addNewRow() {
-    this.mdbTable.addRow({
-      id: this.elements.length.toString(),
-      first: 'Wpis ' + this.elements.length,
-      last: 'Last ' + this.elements.length,
-      handle: 'Handle ' + this.elements.length
-    });
-    this.emitDataSourceChange();
-  } */
-
- /*  addNewRowAfter() {
-    this.mdbTable.addRowAfter(1, {id: '2', first: 'Nowy', last: 'Row', handle: 'Kopytkowy'});
-    this.mdbTable.getDataSource().forEach((el: any, index: any) => {
-      el.id = (index + 1).toString();
-    });
-    this.emitDataSourceChange();
-  } */
 
   removeLastRow() {
     this.mdbTable.removeLastRow();
@@ -161,7 +160,54 @@ export class ClasseComponent implements OnInit {
   editRow(t){
 
   }
-  removeRow1(el){
+
+  deleteClasses(el){
+
+    this.etudiantService.deleteClasse(el._links.classe.href)
+    .subscribe(data=>{
+      this.getClasses();
+    },err=>{
+      console.log(err);
+
+    })
+
+  }
+
+  postClasse(){
+    this.classe.code = this.classeForm.value.code;
+    this.classe.libelle = this.classeForm.value.libelle;
+    this.classe.nbre_max_etudiant = this.classeForm.value.nbre_max_etudiant;
+
+    this.etudiantService.saveClasse(this.classe)
+    .subscribe(data=>{
+      this.getClasses();
+    },err=>{
+      console.log(err);
+
+    })
+
+  }
+
+  updateclasseForm(el){
+
+    this.classe.id = el.id;
+    this.classeForm.setValue({code:el.code,libelle: el.libelle,nbre_max_etudiant: el.nbre_max_etudiant})
+
+  }
+
+  updateClasse(){
+
+    this.classe.code = this.classeForm.value.code;
+    this.classe.libelle = this.classeForm.value.libelle;
+    this.classe.nbre_max_etudiant = this.classeForm.value.nbre_max_etudiant;
+
+    this.etudiantService.editClasse(this.classe.id,this.classe)
+    .subscribe(data=>{
+      this.getClasses();
+    },err=>{
+      console.log(err);
+
+    })
 
   }
 }

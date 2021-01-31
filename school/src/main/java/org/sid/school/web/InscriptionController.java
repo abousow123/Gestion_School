@@ -25,6 +25,11 @@ public class InscriptionController {
 
     }
 
+    @GetMapping("/inscription/{idStudent}")
+    public Inscription getByStudent(@PathVariable("idStudent") String idStudent){
+        return inscriptionService.getInscriptionByStudent(idStudent);
+    }
+
     @PostMapping("/saveInscription")
     public Inscription saveInscription(@RequestParam("etudiant") String etudiant,@RequestParam("classe") String classe,
                                        @RequestParam("programme") String programme) throws Exception {

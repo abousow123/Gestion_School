@@ -5,10 +5,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import org.sid.school.entities.Cours;
 import org.sid.school.metier.CoursService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -29,5 +26,10 @@ public class CoursController {
     @GetMapping("/listCours")
     public List<Cours> getCours(){
         return coursService.getCours();
+    }
+
+    @PutMapping("/updateCours/{id}")
+    public Cours updateCours(@PathVariable("id") Long id, @RequestBody Cours cours){
+        return coursService.updateCours(id,cours) ;
     }
 }

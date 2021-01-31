@@ -50,4 +50,10 @@ public class InscriptionImpl implements InscriptionService{
         return null ;
 
     }
+
+
+    @Override
+    public Inscription getInscriptionByStudent(String idStudent) {
+        return inscriptionRepository.findByStudent(idStudent);
+    }
 }

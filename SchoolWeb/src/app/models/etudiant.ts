@@ -29,8 +29,8 @@ export class Inscription{
 
   id: string = '' ;
   dateInscrit: Date;
-  classe: Classe;
-  etudiant: Etudiant;
-  programme: Programme;
+  classe: Classe = new Classe();
+  etudiant: Etudiant = new Etudiant();
+  programme: Programme = new Programme();
 
 }

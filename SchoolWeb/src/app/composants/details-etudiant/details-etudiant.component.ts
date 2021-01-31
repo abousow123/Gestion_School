@@ -28,7 +28,9 @@ export class DetailsEtudiantComponent implements OnInit {
   programme: Programme = new Programme();
   classe: Classe = new Classe();
 
-  inscrit: Inscription ;
+  selected = 'option2';
+
+  inscrit: Inscription = new Inscription();
 
 
 
@@ -72,6 +74,8 @@ export class DetailsEtudiantComponent implements OnInit {
   }
 
   getOneProgramme(){
+    console.log("test select"+ this.selected);
+
     this.etudiantService.getOneProgramme(this.idProgramme)
     .subscribe(data =>{
       this.resp = data;
@@ -153,6 +157,7 @@ export class DetailsEtudiantComponent implements OnInit {
     .subscribe(data =>{
       this.resp = data;
       this.inscrit = this.resp;
+      //this.programme.prix = this.inscrit.programme.prix;
 
     },err=>{
       console.log(err);

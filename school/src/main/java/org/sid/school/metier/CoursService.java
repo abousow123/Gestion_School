@@ -11,4 +11,5 @@ import java.util.List;
 public interface CoursService {
     public Cours postCours(MultipartFile file, String cours, String programme) throws JsonParseException, JsonMappingException, IOException;
     public List<Cours> getCours();
+    public Cours updateCours(Long id,Cours cours);
 }

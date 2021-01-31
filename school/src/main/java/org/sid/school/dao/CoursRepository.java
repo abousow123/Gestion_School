@@ -6,5 +6,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RepositoryRestResource
-public interface CoursRepository extends JpaRepository<Cours, String> {
+public interface CoursRepository extends JpaRepository<Cours, Long> {
 }

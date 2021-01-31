@@ -36,10 +36,7 @@ export class SchoolService {
     return this.http.put(this.host+ "editEtudiant/"+id,etudiant, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
   }
 
-  getInscriptionByStudent(idStudient){
-    if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
-    return this.http.get(this.host+ "registreStudent/"+idStudient, {headers: new HttpHeaders({'Authorization': this.jwtToken})});
-  }
+
 
   getEtudiantsByFilter(data){
     if(this.jwtToken == null) this.jwtToken = this.autService.loadToken() ;
@@ -75,6 +72,10 @@ export class SchoolService {
     return this.http.get(this.host+ "programmes", {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
   }
 
+
+
+   // Classe =====================================================================>>>>>
+
   getOneClasse(id: number){
     if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
     return this.http.get(this.host+ "classes/"+id, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
@@ -83,6 +84,20 @@ export class SchoolService {
   getClasses(){
     if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
     return this.http.get(this.host+ "classes", {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
+  }
+
+  saveClasse(tuteur){
+    if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
+    return this.http.post(this.host+ "saveClasse",tuteur, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
+  }
+
+  deleteClasse(id){
+    return this.http.delete(id, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
+  }
+
+  editClasse(id: number, classe){
+    if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
+    return this.http.put(this.host+ "editClasse/"+id,classe, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
   }
 
   // Cours =====================================================================>>>>>
@@ -95,6 +110,15 @@ export class SchoolService {
   getPostCours(data){
     if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
     return this.http.post(this.host+ "saveCours",data, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
+  }
+
+  deleteCours(id){
+    return this.http.delete(this.host+ "courses/"+ id, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
+  }
+
+  editCours(id: number, cours){
+    if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
+    return this.http.put(this.host+ "updateCours/"+id,cours, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
   }
 
 
@@ -130,7 +154,7 @@ export class SchoolService {
   }
 
   deleteUser(id){
-    return this.http.delete(id, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
+    return this.http.delete(this.host+ "agentUsers/"+ id, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
   }
 
 
@@ -139,6 +163,11 @@ export class SchoolService {
   postInscription(inscription){
       if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
       return this.http.post(this.host+ "saveInscription",inscription, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
+  }
+
+  getInscriptionByStudent(idStudient){
+    if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
+    return this.http.get(this.host+ "registreStudent/"+idStudient, {headers: new HttpHeaders({'Authorization': this.jwtToken})});
   }
 
 }

@@ -68,4 +68,54 @@ public class UtilsImlp implements UtilsService{
         }
         return modifyFileName ;
     }
+
+    @Override
+    public String getFile(String fileName) {
+        String fichier = null;
+        String filesPath = context.getRealPath("/fichier");
+        File fileFolder = new File(filesPath);
+        if (fileFolder != null) {
+            for (final File file : fileFolder.listFiles()) {
+                if (!file.isDirectory()) {
+                    String encodeBase64 = null;
+                    try {
+                        if (fileName.equals(file.getName())) {
+                            String extension = FilenameUtils.getExtension(file.getName());
+                            // String nom =
+                            // FilenameUtils.getBaseName(file.getName()) ;
+                            // System.out.println("nom photo = " + file.getName());
+                            FileInputStream fileInputStream = new FileInputStream(file);
+                            byte[] bytes = new byte[(int) file.length()];
+                            fileInputStream.read(bytes);
+                            encodeBase64 = Base64.getEncoder().encodeToString(bytes);
+                            fichier = "data:fichier/" + extension + ";base64," + encodeBase64;
+                            fileInputStream.close();
+                        }
+                    } catch (Exception e) {
+                        // TODO: handle exception
+                    }
+                }
+            }
+        }
+        // System.out.println(image);
+        return fichier;
+    }
+
+    @Override
+    public String modifyFileNameFichier(MultipartFile file) throws JsonParseException, JsonMappingException, IOException {
+        boolean isExist = new File(context.getRealPath("/fichier/")).exists();
+        if (!isExist) {
+            new File(context.getRealPath("/fichier/")).mkdir();
+        }
+        String fileName = file.getOriginalFilename();
+        String modifyFileName = FilenameUtils.getBaseName(fileName) + "_" + System.currentTimeMillis() + "."
+                + FilenameUtils.getExtension(fileName);
+        File serverFile = new File(context.getRealPath("/fichier/" + File.separator + modifyFileName));
+        try {
+            FileUtils.writeByteArrayToFile(serverFile, file.getBytes());
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        return modifyFileName ;
+    }
 }

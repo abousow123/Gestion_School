@@ -9,4 +9,7 @@ import java.io.IOException;
 public interface UtilsService {
     public String getPhoto(String fileName);
     public String modifyFileName(MultipartFile file) throws JsonParseException, JsonMappingException, IOException;
+
+    public String getFile(String fileName);
+    public String modifyFileNameFichier(MultipartFile file) throws JsonParseException, JsonMappingException, IOException;
 }
