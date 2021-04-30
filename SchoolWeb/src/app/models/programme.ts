@@ -3,6 +3,6 @@ export class Programme{
     id: number ;
     code_programme: string = "" ;
     libelle: string = "" ;
-    prix: number;
-    dropOff: number ;
+    prix: number = 0.0;
+    dropOff: number = 0.0;
 }

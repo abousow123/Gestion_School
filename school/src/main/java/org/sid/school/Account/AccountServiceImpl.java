@@ -2,9 +2,12 @@ package org.sid.school.Account;
 
 
 import ch.qos.logback.core.CoreConstants;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.sid.school.dao.RoleRepository;
 import org.sid.school.dao.UserRepository;
 import org.sid.school.entities.AgentUser;
+import org.sid.school.entities.Etudiant;
 import org.sid.school.entities.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -79,6 +82,14 @@ public class AccountServiceImpl implements AccountService {
     public AgentUser updateCompte(String id, AgentUser agentUser) {
         agentUser.setId(id);
         return compteRepository.saveAndFlush(agentUser);
+    }
+
+    @Override
+    public AgentUser removeRole(String role, String agentUser) throws JsonProcessingException {
+        Role role1 = new ObjectMapper().readValue(role, Role.class) ;
+        AgentUser agentUser1 = new ObjectMapper().readValue(agentUser,AgentUser.class) ;
+
+        return updateCompte(agentUser1.getId(),agentUser1);
     }
 
 }

@@ -22,7 +22,7 @@ export class SettingsComponent implements OnInit {
     this.currentActive = 2
   }
 
-  onClasses(){
+  onGallery(){
     this.currentActive = 3
   }
 

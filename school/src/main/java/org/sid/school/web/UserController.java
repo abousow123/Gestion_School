@@ -1,5 +1,6 @@
 package org.sid.school.web;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.sid.school.Account.AccountService;
 import org.sid.school.entities.AgentUser;
 import org.sid.school.entities.Etudiant;
@@ -34,5 +35,16 @@ public class UserController {
     @GetMapping("/users/{id}")
     public Optional<AgentUser> getUser(@PathVariable("id") String id){
         return userService.getUser(id);
+    }
+
+    @PutMapping("/userUpdate/{id}")
+    public AgentUser updateUser(@PathVariable("id") String id, @RequestBody AgentUser agentUser){
+        return accountService.updateCompte(id,agentUser) ;
+    }
+
+    @PostMapping("/removeRole")
+    public AgentUser removeRole(@RequestParam("role") String role,@RequestParam("agentUser") String agentUser) throws JsonProcessingException {
+        System.out.println("test 1========>");
+        return accountService.removeRole(role,agentUser);
     }
 }

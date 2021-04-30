@@ -56,4 +56,11 @@ public class InscriptionImpl implements InscriptionService{
     public Inscription getInscriptionByStudent(String idStudent) {
         return inscriptionRepository.findByStudent(idStudent);
     }
+
+    @Override
+    @Transactional
+    public Inscription updateInscription(Long id, Inscription inscription) {
+        inscription.setId(id);
+        return inscriptionRepository.saveAndFlush(inscription);
+    }
 }

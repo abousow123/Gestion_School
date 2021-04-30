@@ -35,7 +35,6 @@ public class EtudiantController {
     @GetMapping("/listEtudiantsByFilter")
     public List<Etudiant> getEtudiantByFilter(@SearchSpec Specification<Inscription> specs){
         return etudiantService.getInscriptionByFilter(specs) ;
-
     }
 
 

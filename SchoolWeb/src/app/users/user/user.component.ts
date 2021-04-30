@@ -1,9 +1,10 @@
 import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { MdbTableDirective, MdbTablePaginationComponent } from 'angular-bootstrap-md';
-import { User } from 'src/app/models/user';
+import { Role, User } from 'src/app/models/user';
 import { SchoolService } from 'src/app/services/school.service';
 
 @Component({
@@ -32,9 +33,17 @@ export class UserComponent implements OnInit {
   users: any = [] ;
   roles: any = [] ;
 
+  userForm: FormGroup;
+  user: User = new User();
+  role: Role = new Role();
+
+  model: string = '';
+  roles1: any;
+  r:any;
+
 
   constructor(private cdRef: ChangeDetectorRef, private etudiantService: SchoolService,iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,
-    private router: Router) {
+    private router: Router, private _formBuilder: FormBuilder) {
     iconRegistry.addSvgIcon(
       'thumbs-up',
       sanitizer.bypassSecurityTrustResourceUrl('assets/images/create.svg'));
@@ -64,7 +73,28 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userForm = this._formBuilder.group({
+      firstName:([this.user.firstName, Validators.required]),
+      lastName:([this.user.lastName, Validators.required]),
+      password:([this.user.password,Validators.required]),
+      login:([this.user.login,Validators.required]),
+      confirmPassword:(['',Validators.required]),
+      activeUser:([this.user.userActive,Validators.required]),
+      authority:([2,Validators.required]),
+      tel:([this.user.tel,Validators.required])
+    });
+
     this.getListUsers();
+
+    this.etudiantService.getRoles()
+    .subscribe(
+      response => {
+        this.r = response  ;
+        this.roles1 = this.r._embedded.roles
+      },err=>{
+        console.log(err);
+      }
+    );
 
   }
 
@@ -96,6 +126,42 @@ export class UserComponent implements OnInit {
       console.log(err);
 
     }) ;
+
+  }
+
+  test(){
+    // console.log("test id ===> "+ this.userForm.value.authority);
+
+   }
+
+
+  OnSave(){
+    this.user.firstName = this.userForm.value.firstName ;
+    this.user.lastName = this.userForm.value.lastName ;
+    this.user.login = this.userForm.value.login;
+    this.user.password = this.userForm.value.password ;
+    this.user.userActive = this.userForm.value.activeUser ;
+
+    this.etudiantService.getRole(parseInt(this.userForm.value.authority))
+    .subscribe(
+      response => {
+        this.role = response as Role  ;
+        this.user.roles.push(this.role);
+        this.etudiantService.saveUser(this.user)
+        .subscribe(resp => {
+          this.user = resp as User ;
+          this.getListUsers();
+        },err=>{
+          console.log(err);
+        })
+      },err=>{
+        console.log(err);
+      }
+    );
+
+
+
+
 
   }
 

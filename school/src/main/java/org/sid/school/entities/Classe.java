@@ -1,5 +1,7 @@
 package org.sid.school.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
@@ -21,6 +23,7 @@ public class Classe implements Serializable {
 
     //Relation
     @OneToMany(mappedBy = "classe")
+    @JsonIgnore
     private Collection<Inscription> inscriptions;
     @OneToMany
     private Collection<Cours> cours;

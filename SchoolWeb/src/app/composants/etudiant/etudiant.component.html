@@ -64,34 +64,32 @@
   </mdb-card>
   </form>
 
+  <div class="container">
+    <div class="row">
 
-        <div class="row">
-          <div class="col-md-12 mx-auto">
-            <div class="md-form">
-              <input
-                type="text"
-                [(ngModel)]="searchText"
-                class="form-control"
-                (keyup)="searchItems()"
-                id="search"
-                mdbInput
-              />
-              <label for="search">sort by ...</label>
-            </div>
-          </div>
-
+      <div class="col-md-12 mx-auto">
+        <div class="md-form">
+          <input
+            type="text"
+            [(ngModel)]="searchText"
+            class="form-control"
+            (keyup)="searchItems()"
+            id="search"
+            mdbInput
+          />
+          <label for="search">sort by ...</label>
         </div>
+      </div>
 
-
-          <table mdbTable #tableEl="mdbTable" responsive="true" stickyHeader="true" hover="true"  class="z-depth-1">
-            <thead class="sticky-top">
-            <tr>
-              <th *ngFor="let head of headElements; let i = index" [mdbTableSort]="etudiants" [sortBy]="headElements[i]"
-                  scope="col">{{head | titlecase}}
-              </th>
-            </tr>
-            </thead>
-            <tbody #row *ngIf="etudiants">
+      <table mdbTable #tableEl="mdbTable" stickyHeader="true" hover="true" striped="true" class="z-depth-1">
+        <thead class="sticky-top">
+          <tr>
+            <th *ngFor="let head of headElements; let i = index" [mdbTableSort]="etudiants" [sortBy]="headElements[i]"
+                scope="col">{{head | titlecase}}
+            </th>
+          </tr>
+          </thead>
+          <tbody #row *ngIf="etudiants">
             <tr mdbTableCol  *ngFor="let el of etudiants; let i = index">
               <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row" class="text-center">{{el.numStudent}}</th>
               <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">{{el.firstName}}</th>
@@ -121,7 +119,6 @@
             </div>
 
            <!--  <div class="col-md-2">
-
             </div>
 
             <div class="col-md-2">
@@ -138,23 +135,26 @@
 
            </div>
 
-
-                <!-- <button mdbBtn color="warning" size="" mdbWavesEffect (click)="editRow(el)">Edit</button>
-                <button mdbBtn color="danger" size="sm" mdbWavesEffect (click)="removeRow1(el)">R</button>
-                <button mdbBtn color="danger" size="sm" mdbWavesEffect (click)="removeRow1(el)">view</button> -->
               </td>
 
             </tr>
             </tbody>
             <tfoot class="grey lighten-5 w-100">
-            <tr>
-              <td colspan="4">
+              <tr>
+                <td colspan="4">
 
-                <mdb-table-pagination [tableEl]="tableEl" paginationAlign="paginator" [searchDataSource]="etudiants" ></mdb-table-pagination>
-              </td>
-            </tr>
-            </tfoot>
-          </table>
+                  <mdb-table-pagination [tableEl]="tableEl" paginationAlign="paginator" [searchDataSource]="etudiants" ></mdb-table-pagination>
+                </td>
+              </tr>
+              </tfoot>
+      </table>
+
+    </div>
+  </div>
+
+  <!--End-->
+
+
 
 
 </div>

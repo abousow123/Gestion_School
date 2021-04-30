@@ -21,6 +21,11 @@ body {
 
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
+// you must include each plugins' css
+// paths prefixed with ~ signify node_modules
+@import '~@fullcalendar/daygrid/main.css';
+@import '~@fullcalendar/timegrid/main.css';
+
 
 
 

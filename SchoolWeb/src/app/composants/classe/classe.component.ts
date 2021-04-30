@@ -39,7 +39,7 @@ export class ClasseComponent implements OnInit {
   classeForm: FormGroup;
 
 
-  maxVisibleItems: number = 15;
+  maxVisibleItems: number = 5;
 
   classe: Classe = new Classe();
 
@@ -85,6 +85,8 @@ export class ClasseComponent implements OnInit {
 
 
   }
+
+
 
   getClasses(){
     this.etudiantService.getClasses()
@@ -167,6 +169,7 @@ export class ClasseComponent implements OnInit {
     .subscribe(data=>{
       this.getClasses();
     },err=>{
+
       console.log(err);
 
     })

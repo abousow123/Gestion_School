@@ -28,7 +28,7 @@ export class CoursComponent implements OnInit {
   searchText: string = '';
   previous: string;
 
-  maxVisibleItems: number = 8;
+  maxVisibleItems: number = 5;
 
   programmes: any ;
   resp: any ;

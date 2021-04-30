@@ -1,7 +1,10 @@
 package org.sid.school.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import java.util.UUID;
 
@@ -21,6 +24,10 @@ public class Programme implements Serializable {
     private Date date_created;
 
     //Relation
+
+    @OneToMany(mappedBy = "programme")
+    @JsonIgnore
+    private Collection<Inscription> inscriptions;
   /*  @ManyToOne
     private AgentUser user ;*/
 
@@ -84,4 +91,19 @@ public class Programme implements Serializable {
         this.dropOff = dropOff;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Collection<Inscription> getInscriptions() {
+        return inscriptions;
+    }
+
+    public void setInscriptions(Collection<Inscription> inscriptions) {
+        this.inscriptions = inscriptions;
+    }
 }

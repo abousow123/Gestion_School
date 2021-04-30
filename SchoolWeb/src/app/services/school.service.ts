@@ -62,16 +62,31 @@ export class SchoolService {
     return this.http.get(this.host+ "tuitions", {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
   }
 
+
+
+     // Tuteur =====================================================================>>>>>
+
   getOneProgramme(id:number){
     if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
     return this.http.get(this.host+ "programmes/"+id, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
   }
-
   getProgrammes(){
     if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
     return this.http.get(this.host+ "programmes", {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
   }
+  saveProgramme(programme){
+    if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
+    return this.http.post(this.host+ "saveProgramme",programme, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
+  }
 
+  deleteProgramme(id){
+    return this.http.delete(id, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
+  }
+
+  editProgramme(id: number, programme){
+    if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
+    return this.http.put(this.host+ "updateProgramme/"+id,programme, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
+  }
 
 
    // Classe =====================================================================>>>>>
@@ -123,38 +138,42 @@ export class SchoolService {
 
 
    // Users =====================================================================>>>>>
+
   getUsers(){
     if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
     return this.http.get(this.host+ "listUsers", {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
   }
-
   getOneUser(id){
     if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
     return this.http.get(this.host+ "users/"+id, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
   }
-
   getRoles(){
     if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
     return this.http.get(this.host+ "roles", {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
   }
-
   getRolesUser(user){
     if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
     return this.http.get(user._links.roles.href, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
   }
-
   getRole(id){
     if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
     return this.http.get(this.host+"roles/"+id, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
   }
-
   saveUser(user:User){
     if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
     return this.http.post(this.host+ "saveUser",user, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
   }
-
   deleteUser(id){
     return this.http.delete(this.host+ "agentUsers/"+ id, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
+  }
+  editUser(id: string, user){
+    if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
+    return this.http.put(this.host+ "userUpdate/"+id,user, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
+  }
+
+  removeRole(formData){
+    if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
+    return this.http.post(this.host+ "removeRole",formData, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
   }
 
 
@@ -167,7 +186,18 @@ export class SchoolService {
 
   getInscriptionByStudent(idStudient){
     if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
-    return this.http.get(this.host+ "registreStudent/"+idStudient, {headers: new HttpHeaders({'Authorization': this.jwtToken})});
+    return this.http.get(this.host+ "inscription/"+idStudient, {headers: new HttpHeaders({'Authorization': this.jwtToken})});
+  }
+
+  editInscription(id: number, inscription){
+    if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
+    return this.http.put(this.host+ "updateInscription/"+id,inscription, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
+  }
+
+
+  postAgenda(agenda){
+    if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
+    return this.http.post(this.host+ "saveAgenda",agenda, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
   }
 
 }

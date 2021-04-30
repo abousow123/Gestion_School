@@ -2,6 +2,7 @@ package org.sid.school.metier;
 
 import org.sid.school.dao.UserRepository;
 import org.sid.school.entities.AgentUser;
+import org.sid.school.entities.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ public class UsersImpl implements UserService{
     @Autowired
     UserRepository userRepository;
 
+
     @Override
     public List<AgentUser> getUsers() {
         return userRepository.findAll();
@@ -22,5 +24,12 @@ public class UsersImpl implements UserService{
     @Override
     public Optional<AgentUser> getUser(String id) {
         return userRepository.findById(id);
+    }
+
+    public boolean removeRole(Role role, AgentUser agentUser){
+        agentUser.getRoles().remove(role);
+
+
+        return  true;
     }
 }

@@ -28,9 +28,7 @@ import { GalleryModule } from 'ng-gallery';
 import { LightboxModule } from 'ngx-lightbox';
 import { Service, Data } from './app.service';
 import { AgendaComponent } from './composants/agenda/agenda.component';
-import { FullCalendarModule } from '@fullcalendar/angular';
-import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
-import interactionPlugin from '@fullcalendar/interaction'; // a plugin
+
 import { AgendaService, DayService, MonthAgendaService, MonthService, RecurrenceEditor, RecurrenceEditorModule, ScheduleModule, TimelineMonthService, TimelineViewsService, WeekService, WorkWeekService } from '@syncfusion/ej2-angular-schedule';
 import { ConroeComponent } from './composants/gallery/conroe/conroe.component';
 import { BoxBraidsComponent } from './composants/gallery/box-braids/box-braids.component';
@@ -48,13 +46,24 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import {IvyCarouselModule} from 'angular-responsive-carousel';
 import { UserDetailsComponent } from './users/user-details/user-details.component';
 import { AllComponent } from './composants/gallery/all/all.component';
+import { SchedulerComponent } from './composants/scheduler/scheduler.component';
+import { SchedulerDateFormatter, SchedulerModule } from 'angular-calendar-scheduler';
+import { CalendarDateFormatter, CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { GallerySettingsComponent } from './composants/settings/gallery-settings/gallery-settings.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
+import interactionPlugin from '@fullcalendar/interaction'; // a plugin
+
 
 
 
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+
   { path: 'home', component: HomeComponent },
   { path: 'newEtudiant', component: NewEtudiantComponent },
   { path: 'newCours', component: NewCoursComponent },
@@ -64,6 +73,7 @@ const routes: Routes = [
   {path: 'conroe',component: ConroeComponent},
   {path: 'profil',component: ProfilComponent},
   {path: 'all',component: AllComponent},
+  {path: 'schel',component: SchedulerComponent},
 
   {path: 'settings',
   component: SettingsComponent,
@@ -73,7 +83,7 @@ const routes: Routes = [
     { path: 'user',component: UserComponent},
     { path: 'newUser', component: NewUserComponent },
     { path: 'detailUser/:id', component: UserDetailsComponent},
-  //  { path: 'inscription', component: InscriptionComponent },
+    { path: 'gallerySettings', component: GallerySettingsComponent },
 
   ]
   },
@@ -92,10 +102,13 @@ const routes: Routes = [
   ];
 
 
-FullCalendarModule.registerPlugins([ // register FullCalendar plugins
-  dayGridPlugin,
-  interactionPlugin
-]);
+
+  FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+    dayGridPlugin,
+    timeGridPlugin,
+    listPlugin,
+    interactionPlugin
+  ]);
 
 @NgModule({
   declarations: [
@@ -127,16 +140,21 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     CarouselComponent,
     ScolariteComponent,
     UserDetailsComponent,
-    AllComponent
+    AllComponent,
+    SchedulerComponent,
+    GallerySettingsComponent
 
   ],
+
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     LightboxModule,
+    SchedulerModule.forRoot({ locale: 'en', headerDateFormat: 'daysRange' }),
     MDBBootstrapModule.forRoot(),
     RouterModule.forRoot(routes),
     FormsModule,
+    FullCalendarModule,
     ReactiveFormsModule,
     HttpClientModule,
     MaterialModule,
@@ -149,7 +167,6 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     NgxGalleryModule,
     CardsModule,
     GalleryModule,
-    FullCalendarModule,
     ScheduleModule,
     RecurrenceEditorModule,
     InputUtilitiesModule,
@@ -157,14 +174,21 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     TooltipModule,
     PopoverModule,
     NgSelectModule,
-    IvyCarouselModule
+    IvyCarouselModule,
+
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService,
     Service,
-    DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService, TimelineViewsService, TimelineMonthService
+    DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService, TimelineViewsService, TimelineMonthService,
+    {
+      provide: CalendarDateFormatter,
+      useClass: SchedulerDateFormatter
+    }
   ],
   bootstrap: [AppComponent]
 })
+
+
 export class AppModule { }

@@ -24,8 +24,8 @@
       <p class="text-center">{{user.username}}</p>
       <p></p>
       <p></p>
-      <button class="position-relative" *ngIf="user.userActive" mdbBtn type="button"  color="default" rounded="true" outline="true" mdbWavesEffect>deactivated</button>
-      <button class="position-relative" *ngIf="!user.userActive" mdbBtn type="button" color="danger" rounded="true" outline="true" mdbWavesEffect>activated</button>
+      <button class="position-relative" *ngIf="user.userActive" (click)="frame1.show()" mdbBtn type="button"  color="default" rounded="true" outline="true" mdbWavesEffect>deactivated</button>
+      <button class="position-relative" *ngIf="!user.userActive" (click)="frame.show()" mdbBtn type="button"  color="danger" rounded="true" outline="true" mdbWavesEffect>activated</button>
 
     </div>
 
@@ -81,7 +81,7 @@
 
             </mdb-card-body>
             <mdb-card-footer>
-              <button mdbBtn type="button" color="primary" mdbWavesEffect>Update</button>
+              <button mdbBtn type="button" color="primary" (click)="updateUserForm(); basicModalContact.show()" mdbWavesEffect>Update</button>
             </mdb-card-footer>
 
           </mdb-card>
@@ -113,7 +113,7 @@
 
           </mdb-card-body>
           <mdb-card-footer>
-            <button mdbBtn type="button" color="primary" mdbWavesEffect>Add role</button>
+            <button mdbBtn type="button" color="primary" (click)="basicModalRole.show()" mdbWavesEffect>Add role</button>
           </mdb-card-footer>
 
         </mdb-card>
@@ -128,11 +128,46 @@
         <!--Card content-->
         <mdb-card-body class="px-lg-5">
 
-          <ul class="list-group list-group-horizontal-xl">
-            <li class="list-group-item">Admin</li> &nbsp; &nbsp; &nbsp;
-            <li class="list-group-item">Employer</li>&nbsp; &nbsp; &nbsp;
-            <li class="list-group-item">Student</li>
-          </ul>
+            <!-- Form -->
+            <form class="text-center" [formGroup]="myForm" style="color: #757575;">
+
+
+               <!-- Password -->
+            <!--    <div class="md-form">
+                <input type="password" id="materialRegisterFormPasswordCurrent" class="form-control" formControlName="password" aria-describedby="materialRegisterFormPasswordHelpBlock"
+                  mdbInput>
+                <label for="materialRegisterFormPasswordCurrent">Current Password</label>
+
+              </div> -->
+
+                <!-- Password -->
+                <div class="md-form">
+                  <input type="password" id="materialRegisterFormPasswordNew" class="form-control" formControlName="password" aria-describedby="materialRegisterFormPasswordHelpBlock"
+                    mdbInput  >
+                  <label for="materialRegisterFormPasswordNew">New Password</label>
+                  <div *ngIf="f.password.touched && f.password.invalid" class="alert alert-danger">
+                    <div *ngIf="f.password.errors.required">Password is required.</div>
+                </div>
+                  <small id="materialRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+                    At least 8 characters and 1 digit
+                  </small>
+                </div>
+
+
+                <!-- Password -->
+                <div class="md-form">
+                  <input type="password" id="materialRegisterFormPassword" class="form-control" formControlName="confirm_password" aria-describedby="materialRegisterFormPasswordHelpBlock"
+                    mdbInput>
+                  <label for="materialRegisterFormPassword">Password confirmation</label>
+
+                  <div *ngIf="f.confirm_password.touched && f.confirm_password.invalid" class="alert alert-danger">
+                    <div *ngIf="f.confirm_password.errors.required">Password is required.</div>
+                    <div *ngIf="f.confirm_password.errors.confirmedValidator">Password and Confirm Password must be match.</div>
+                </div>
+                </div>
+
+            </form>
+            <!-- Form -->
 
         </mdb-card-body>
         <mdb-card-footer>
@@ -155,7 +190,164 @@
 
 
 
+<div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+  <!--Content-->
+  <div class="modal-content text-center">
+    <!--Header-->
+    <div class="modal-header d-flex justify-content-center">
+      <p class="heading">Are you sure?</p>
+    </div>
 
+    <!--Body-->
+    <div class="modal-body">
+      <mdb-icon fas icon="times" size="4x" class="animated rotateIn"></mdb-icon>
+    </div>
+
+    <!--Footer-->
+    <div class="modal-footer justify-content-center">
+      <a (click)="activedUser(); frame.hide()" mdbBtn color="danger" outline="true" class="waves-effect"
+        mdbWavesEffect>Yes</a>
+      <a type="button" mdbBtn color="danger" class="waves-effect" mdbWavesEffect data-dismiss="modal" (click)="frame.hide()">No</a>
+    </div>
+  </div>
+  <!--/.Content-->
+</div>
+</div>
+
+<div mdbModal #frame1="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+  <!--Content-->
+  <div class="modal-content text-center">
+    <!--Header-->
+    <div class="modal-header d-flex justify-content-center">
+      <p class="heading">Are you sure?</p>
+    </div>
+
+    <!--Body-->
+    <div class="modal-body">
+      <mdb-icon fas icon="times" size="4x" class="animated rotateIn"></mdb-icon>
+    </div>
+
+    <!--Footer-->
+    <div class="modal-footer justify-content-center">
+      <a (click)="deactivedUser(); frame1.hide()" mdbBtn color="danger" outline="true" class="waves-effect"
+        mdbWavesEffect>Yes</a>
+      <a type="button" mdbBtn color="danger" class="waves-effect" mdbWavesEffect data-dismiss="modal" (click)="frame1.hide()">No</a>
+    </div>
+  </div>
+  <!--/.Content-->
+</div>
+</div>
+
+
+<!--Add roles-->
+<div mdbModal #basicModalRole="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModalRole.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">Add Role</h4>
+      </div>
+      <div class="modal-body">
+
+
+
+         <!-- Grid row -->
+         <div class="form-row">
+          <!-- Grid column -->
+          <div class="col">
+            <!-- Material input -->
+            <div class="md-form ">
+              <p>Authority</p>
+
+              <select class="browser-default custom-select"  [(ngModel)]="authority" >
+                <option *ngFor="let r of roles1"  value="{{r.id}}">
+                  {{r.authority}}
+                </option>
+
+              </select>
+
+            </div>
+          </div>
+
+
+
+         </div>
+          <!-- Grid column -->
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModalRole.hide()" mdbWavesEffect>Close</button>
+        <button type="button" mdbBtn color="primary" class="relative waves-light"  (click)=" addRole();basicModalRole.hide()" mdbWavesEffect>add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Update Contact -->
+
+<div mdbModal #basicModalContact="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModalContact.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">Update Contact User</h4>
+      </div>
+      <div class="modal-body">
+
+        <form class="text-center" [formGroup]="userForm" style="color: #757575;">
+
+          <div class="form-row">
+            <div class="col">
+              <!-- First name -->
+              <div class="md-form">
+                <input type="text" id="materialRegisterFormFirstName1" class="form-control" formControlName="firstName" mdbInput>
+                <label for="materialRegisterFormFirstName1">First name</label>
+              </div>
+            </div>
+            <div class="col">
+              <!-- Last name -->
+              <div class="md-form">
+                <input type="email" id="materialRegisterFormLastName1" class="form-control" formControlName="lastName" mdbInput>
+                <label for="materialRegisterFormLastName1">Last name</label>
+              </div>
+            </div>
+          </div>
+            <!-- Tel -->
+            <div class="md-form mt-0">
+              <input type="number" id="materialRegisterFormTel1" class="form-control" formControlName="tel" mdbInput>
+              <label for="materialRegisterFormTel1">Phone number</label>
+            </div>
+
+          <!-- E-mail -->
+          <div class="md-form mt-0">
+            <input type="email" id="materialRegisterFormEmail" class="form-control" formControlName="login" mdbInput>
+            <label for="materialRegisterFormEmail">E-mail</label>
+          </div>
+
+        </form>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModalContact.hide()" mdbWavesEffect>Close</button>
+        <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="updateContactUser()" (click)="basicModalContact.hide()" mdbWavesEffect>Save</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 </div>
 

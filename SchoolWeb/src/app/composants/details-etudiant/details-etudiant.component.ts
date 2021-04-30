@@ -24,13 +24,13 @@ export class DetailsEtudiantComponent implements OnInit {
   classes: any;
   resp: any ;
   idProgramme: number = 0;
-  idClasse: number;
+  idClasse: number = 0;
   programme: Programme = new Programme();
   classe: Classe = new Classe();
 
   selected = 'option2';
 
-  inscrit: Inscription = new Inscription();
+  inscrit: Inscription ;
 
 
 
@@ -40,10 +40,12 @@ export class DetailsEtudiantComponent implements OnInit {
 
     this.id = this.activeRoute.snapshot.params['ref'] ;
 
+
     this.etudiantService.getOneStudent(this.id)
     .subscribe(data=>{
       this.detailEtudiant = data as Etudiant ;
       this.detailTuteur = this.detailEtudiant.tuteur ;
+
       this.getInscriptionByStudent(this.detailEtudiant.id);
 
     },err=>{
@@ -66,7 +68,7 @@ export class DetailsEtudiantComponent implements OnInit {
     this.etudiantService.editEtudiant(this.detailEtudiant.id,this.detailEtudiant)
     .subscribe(data=>{
       this.detailEtudiant = data as Etudiant ;
-      this.router.navigate(['settings/detailEtudiant', this.detailEtudiant.id]) ;
+      this.router.navigate(['scolarite/detailEtudiant', this.detailEtudiant.id]) ;
     },err=>{
       console.log(err);
 
@@ -74,7 +76,6 @@ export class DetailsEtudiantComponent implements OnInit {
   }
 
   getOneProgramme(){
-    console.log("test select"+ this.selected);
 
     this.etudiantService.getOneProgramme(this.idProgramme)
     .subscribe(data =>{
@@ -113,6 +114,8 @@ export class DetailsEtudiantComponent implements OnInit {
     .subscribe(data =>{
       this.resp = data;
       this.programmes = this.resp._embedded.programmes;
+      this.idProgramme = this.programmes[0].id ;
+      this.programme.prix = this.programmes[0].prix ;
 
     },err=>{
       console.log(err);
@@ -125,6 +128,8 @@ export class DetailsEtudiantComponent implements OnInit {
     .subscribe(data =>{
       this.resp = data;
       this.classes = this.resp._embedded.classes;
+      this.idClasse = this.classes[0].id ;
+
     },err=>{
       console.log(err);
 
@@ -142,8 +147,8 @@ export class DetailsEtudiantComponent implements OnInit {
     this.etudiantService.postInscription(formData)
     .subscribe(data =>{
       this.resp = data;
+      this.inscrit = new Inscription();
       this.inscrit = this.resp ;
-
 
     },err=>{
       console.log(err);
@@ -151,13 +156,37 @@ export class DetailsEtudiantComponent implements OnInit {
     });
   }
 
+  updateValInscription(){
+
+    this.idProgramme = this.inscrit.programme.id;
+    this.idClasse = this.inscrit.classe.id ;
+  }
+
+  updateInscription(){
+
+    this.getOneProgramme();
+    this.getOneClasse();
+
+    this.inscrit.programme = this.programme;
+    this.inscrit.classe = this.classe;
+
+    this.etudiantService.editInscription(this.inscrit.id,this.inscrit)
+    .subscribe(data =>{
+      this.resp = data;
+    },err=>{
+      console.log(err);
+    });
+
+
+  }
+
   getInscriptionByStudent(idStudent){
 
     this.etudiantService.getInscriptionByStudent(idStudent)
     .subscribe(data =>{
       this.resp = data;
+      this.inscrit = new Inscription();
       this.inscrit = this.resp;
-      //this.programme.prix = this.inscrit.programme.prix;
 
     },err=>{
       console.log(err);

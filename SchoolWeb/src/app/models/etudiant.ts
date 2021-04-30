@@ -27,7 +27,7 @@ export class Etudiant{
 export class Inscription{
   constructor(){} ;
 
-  id: string = '' ;
+  id: number  ;
   dateInscrit: Date;
   classe: Classe = new Classe();
   etudiant: Etudiant = new Etudiant();

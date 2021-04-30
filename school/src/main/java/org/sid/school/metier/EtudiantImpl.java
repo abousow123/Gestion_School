@@ -68,18 +68,19 @@ public class EtudiantImpl implements EtudiantService{
         if(etudiant1 != null){
             Etudiant etudiant2 = new Etudiant();
 
+            etudiant1.setId(etudiant2.getId());
+            etudiant2 = etudiant1 ;
+
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
             String numEtudiant = formatter.format(new Date()) + UUID.randomUUID().toString().substring(0,4).toUpperCase();
             etudiant2.setNumStudent(numEtudiant);
 
-            etudiant1.setId(etudiant2.getId());
-            etudiant2 = etudiant1 ;
-            if(file !=null) etudiant1.setPhoto(utilsService.modifyFileName(file));
+            if(file !=null) etudiant2.setPhoto(utilsService.modifyFileName(file));
 
             AgentUser user1 = new AgentUser() ;
             user1.setFirstName(etudiant1.getFirstName());
             user1.setLastName(etudiant1.getLastName());
-            user1.setTel(etudiant1.getTel());
+            user1.setTel(etudiant2.getTel());
             user1.setPassword("12345");
             user1.setLogin(etudiant1.getEmail());
             user1.setUserActive(false);
@@ -112,6 +113,7 @@ public class EtudiantImpl implements EtudiantService{
     }
 
     @Override
+    @Transactional
     public Inscription getInscriptionbyStudent(String idStudent) {
         Inscription inscription = inscriptionRepository.findByStudent(idStudent);
         if(inscription != null){

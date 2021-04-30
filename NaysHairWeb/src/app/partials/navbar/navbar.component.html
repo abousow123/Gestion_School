@@ -1,0 +1,36 @@
+
+<nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom headroom--top headroom--pinned navbar-white" style="padding:0px; height: 100px; margin-top: 8px;">
+  <div class="container"style="margin:0; padding:0px; max-width: 100%; ">
+    <div  style="width:100px; margin-left: 200px;">
+      <a class="navbar-brand mr-lg-1" [routerLink]="['/admin/vue360']">
+        <img src="./assets/images/profil1.jpeg" style="height:70px;">
+      </a>
+    </div>
+    <div style="width:100%; text-align:center; font-size:18px; margin-left: 60px;">
+      <ul>
+        <li><a class="active" href="#home">Home</a></li>
+        <li><a href="#news">Apply Now</a></li>
+        <li><a href="#contact">Gallery</a></li>
+        <li><a href="#contact">Appointment</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>   
+    </div>
+    <div style="width:200px; text-align:center; margin-right: 200px;">
+       <img src="./assets/img/pe2022/profil-picture@3x.png" width="60">
+      <br>
+      
+      <div class="" ngbDropdown>
+        
+        <span class="h6" ngbDropdownToggle>
+          
+          Sékou Dramé
+        </span>
+        <div class="" aria-labelledby="dropdownMenuButton" ngbDropdownMenu>
+          <a class="dropdown-item" href="javascript:void(0)">Action</a>
+          <a class="dropdown-item" href="javascript:void(0)">Another action</a>
+          <a class="dropdown-item" href="javascript:void(0)">Something else here</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

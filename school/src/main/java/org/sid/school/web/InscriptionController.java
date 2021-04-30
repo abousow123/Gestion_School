@@ -27,12 +27,19 @@ public class InscriptionController {
 
     @GetMapping("/inscription/{idStudent}")
     public Inscription getByStudent(@PathVariable("idStudent") String idStudent){
-        return inscriptionService.getInscriptionByStudent(idStudent);
+        Inscription inscription = inscriptionService.getInscriptionByStudent(idStudent);
+//        System.out.println("test Ins====> "+inscription.getEtudiant().getEmail());
+        return inscription;
     }
 
     @PostMapping("/saveInscription")
     public Inscription saveInscription(@RequestParam("etudiant") String etudiant,@RequestParam("classe") String classe,
                                        @RequestParam("programme") String programme) throws Exception {
         return inscriptionService.postInscription(etudiant,programme,classe) ;
+    }
+
+    @PutMapping("/updateInscription/{id}")
+    public Inscription updateInscription(@PathVariable("id") Long id, @RequestBody Inscription inscription){
+        return inscriptionService.updateInscription(id,inscription) ;
     }
 }

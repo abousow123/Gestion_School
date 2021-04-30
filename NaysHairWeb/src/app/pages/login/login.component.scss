@@ -1,0 +1,28 @@
+.input, .btn {
+    height: 50px;
+}
+.btn-orange {
+    background-color: #FF7900;
+    border: 1px solid #FF7900;
+    font-size: 0.7rem;
+}
+
+.card-header {
+    border-radius: 7px 7px 0px 0px !important;
+}
+.card-body {
+    border-radius: 0px 0px 7px 7px !important; 
+}
+
+.login-bg1 {
+    background-image: url('src/assets/img/pe2022/login-bg1.png');
+    background-repeat: no-repeat !important;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+
+main {
+    // width: 100vw;
+    height: 100vh;
+}

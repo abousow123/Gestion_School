@@ -15,6 +15,7 @@ export class NewEtudiantComponent implements OnInit {
   name = 'Angular ' + VERSION.major;
   dataimage:any;
   demandeFile: any = File;
+  demandeFiles: Array<File> = [];
 
    @ViewChild('fileInput') fileInput: ElementRef;
   fileAttr = 'Choose File';
@@ -95,8 +96,14 @@ export class NewEtudiantComponent implements OnInit {
     this.etudiant.tuteur = this.tuteur ;
     const formData = new FormData() ;
 
+
+
     formData.append('etudiant', JSON.stringify(this.etudiant));
     formData.append('file1',this.demandeFile) ;
+    for(let file of this.demandeFiles){
+      formData.append('file2',file) ;
+    }
+
 
     this.etudiantService.saveEtudiant(formData)
     .subscribe(
@@ -136,6 +143,14 @@ export class NewEtudiantComponent implements OnInit {
 
     if (imgFile.target.files && imgFile.target.files[0]) {
 
+
+
+
+     // this.demandeFiles = imgFile.target.files ;
+     // console.log("test Photo ====> " + JSON.stringify(this.demandeFiles));
+     for(let f of imgFile.target.files ){
+       this.demandeFiles.push(f);
+     }
       this.demandeFile = imgFile.target.files[0] ;
 
       this.fileAttr = '';
@@ -151,7 +166,6 @@ export class NewEtudiantComponent implements OnInit {
         image.src = e.target.result;
         image.onload = rs => {
           let imgBase64Path = e.target.result;
-          //console.log(imgBase64Path);
           this.dataimage = imgBase64Path;
         };
       };

@@ -86,9 +86,9 @@
               <!-- Form -->
 
             </mdb-card-body>
-            <mdb-card-footer>
+           <!--  <mdb-card-footer>
               <button mdbBtn type="button" color="primary" mdbWavesEffect>Update</button>
-            </mdb-card-footer>
+            </mdb-card-footer> -->
 
           </mdb-card>
           <!-- Material form subscription -->
@@ -110,7 +110,7 @@
                  <!-- Name -->
                  <div class="md-form mt-3">
                   <input type="text" id="materialSubscriptionFormPasswords" class="form-control" disabled="true" value="{{detailTuteur.typeTuteur}}" mdbInput>
-                  <label for="materialSubscriptionFormPasswords">The reference contact</label>
+                  <strong> <label for="materialSubscriptionFormPasswords"> The reference contact </label></strong>
                 </div>
 
 
@@ -143,9 +143,9 @@
             <!-- Form -->
 
           </mdb-card-body>
-          <mdb-card-footer>
+        <!--   <mdb-card-footer>
             <button mdbBtn type="button" color="primary" mdbWavesEffect>Update</button>
-          </mdb-card-footer>
+          </mdb-card-footer> -->
 
         </mdb-card>
         <!-- Material form subscription -->
@@ -187,12 +187,12 @@
 
           </mdb-card-body>
           <mdb-card-footer>
-            <button mdbBtn type="button" color="primary" (click)="basicModalUpdate.show()" (click)="getInscriptionByStudent(detailEtudiant.id)" mdbWavesEffect>Update</button>
+            <button mdbBtn type="button" color="primary" (click)="basicModalUpdate.show(); updateValInscription()"  mdbWavesEffect>Update</button>
           </mdb-card-footer>
 
         </mdb-card>
 
-        <mdb-card *ngIf="inscrit == null">
+        <mdb-card *ngIf="inscrit == undefined">
           <mdb-card-body>
             <p>{{detailEtudiant.firstName}} {{detailEtudiant.lastName}} is not registered on any program</p>
           </mdb-card-body>
@@ -231,7 +231,7 @@
         <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
           <span aria-hidden="true">×</span>
         </button>
-        <h4 class="modal-title w-100" id="myModalLabel">Registration</h4>
+        <h4 class="modal-title w-100" id="myModalLabel">Registration1</h4>
       </div>
       <div class="modal-body">
 
@@ -307,7 +307,7 @@
         <button type="button" class="close pull-right" aria-label="Close" (click)="basicModalUpdate.hide()">
           <span aria-hidden="true">×</span>
         </button>
-        <h4 class="modal-title w-100" id="myModalLabel">Registration</h4>
+        <h4 class="modal-title w-100" id="myModalLabel">Update Registration</h4>
       </div>
       <div class="modal-body">
 
@@ -325,7 +325,7 @@
             <!-- Material input -->
             <div class="md-form form-group">
               <p>Programme</p>
-              <select class="browser-default custom-select" (click)="getOneProgramme()" [(value)]="selected">
+              <select class="browser-default custom-select" (click)="getOneProgramme()" [(ngModel)]="idProgramme">
 
                 <option  *ngFor="let val of programmes" value="{{val.id}}"> {{val.code_programme}} - {{val.libelle}} </option>
               </select>
@@ -382,7 +382,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModalUpdate.hide()" mdbWavesEffect>Close</button>
-        <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="postInscription()" (click)="basicModal.hide()" mdbWavesEffect>Save</button>
+        <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="updateInscription()" (click)="basicModalUpdate.hide()" mdbWavesEffect>Save</button>
       </div>
     </div>
   </div>

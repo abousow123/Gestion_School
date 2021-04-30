@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="col-md-3 mx-right">
-        <button mdbBtn type="button" color="primary" rounded="true" mdbWavesEffect>Add new classe</button>
+        <button mdbBtn type="button" color="primary" rounded="true" (click)="basicModal.show()" mdbWavesEffect>Add new Programme</button>
       </div>
       <table mdbTable #tableEl="mdbTable" stickyHeader="true" hover="true" striped="true" class="z-depth-1">
         <thead class="sticky-top">
@@ -41,17 +41,43 @@
         <!-- Grid column -->
 
         <div class="col-md-2">
-          <a> <mat-icon svgIcon="edit" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> </a>
+          <a (click)="updateProgrammeForm(el); basicModalUpdate.show()"> <mat-icon svgIcon="edit" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> </a>
         </div>
         <div class="col-md-2">
 
         </div>
 
         <div class="col-md-2">
-          <a> <mat-icon svgIcon="delete" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> </a>
+          <a (click)="frame.show()"> <mat-icon svgIcon="delete" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon> </a>
         </div>
 
        </div>
+
+       <div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+       aria-labelledby="myModalLabel" aria-hidden="true">
+       <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+         <!--Content-->
+         <div class="modal-content text-center">
+           <!--Header-->
+           <div class="modal-header d-flex justify-content-center">
+             <p class="heading">Are you sure?</p>
+           </div>
+
+           <!--Body-->
+           <div class="modal-body">
+             <mdb-icon fas icon="times" size="4x" class="animated rotateIn"></mdb-icon>
+           </div>
+
+           <!--Footer-->
+           <div class="modal-footer justify-content-center">
+             <a (click)="deleteProgramme(el)" mdbBtn color="danger" outline="true" class="waves-effect"
+               mdbWavesEffect>Yes</a>
+             <a type="button" mdbBtn color="danger" class="waves-effect" mdbWavesEffect data-dismiss="modal" (click)="frame.hide()">No</a>
+           </div>
+         </div>
+         <!--/.Content-->
+       </div>
+     </div>
 
 
             <!-- <button mdbBtn color="warning" size="" mdbWavesEffect (click)="editRow(el)">Edit</button>
@@ -74,6 +100,138 @@
   </div>
 
 
+</div>
 
 
+<!--Modal-->
+
+
+<div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">Add Programme</h4>
+      </div>
+      <div class="modal-body">
+
+        <form [formGroup]="programmeForm">
+
+         <div class="form-row">
+          <div class="col-md-12">
+            <div class="md-form form-group">
+              <input mdbInput type="text" class="form-control" id="inputName6" formControlName="code"  placeholder="">
+              <label for="inputEmail4MD">Code</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-12">
+            <div class="md-form form-group">
+              <input mdbInput type="text" class="form-control" id="inputLibelle" formControlName="libelle"  placeholder="">
+              <label for="inputEmail4MD">Libelle</label>
+            </div>
+          </div>
+        </div>
+
+         <div class="form-row">
+          <div class="col-md-12">
+            <div class="md-form form-group">
+              <input mdbInput type="number" class="form-control"  id="inputNbr" formControlName="prix"  placeholder="">
+              <label for="inputNbr">Prix</label>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-12">
+            <div class="md-form form-group">
+              <input mdbInput type="number" class="form-control"  id="inputdro" formControlName="dropOff"  placeholder="">
+              <label for="inputdro">Drop off</label>
+
+            </div>
+          </div>
+        </div>
+
+
+
+      </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Close</button>
+        <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="postProgramme()" (click)="basicModal.hide()" mdbWavesEffect>Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Update Programme-->
+
+<div mdbModal #basicModalUpdate="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModalUpdate.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">Add Programme</h4>
+      </div>
+      <div class="modal-body">
+
+        <form [formGroup]="programmeForm">
+
+         <div class="form-row">
+          <div class="col-md-12">
+            <div class="md-form form-group">
+              <input mdbInput type="text" class="form-control" id="inputName1" formControlName="code"  placeholder="">
+              <label for="inputName1">Code</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-12">
+            <div class="md-form form-group">
+              <input mdbInput type="text" class="form-control" id="inputLibelle1" formControlName="libelle"  placeholder="">
+              <label for="inputLibelle1">Libelle</label>
+            </div>
+          </div>
+        </div>
+
+         <div class="form-row">
+          <div class="col-md-12">
+            <div class="md-form form-group">
+              <input mdbInput type="number" class="form-control"  id="inputNbr1" formControlName="prix"  placeholder="">
+              <label for="inputNbr1">Prix</label>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-12">
+            <div class="md-form form-group">
+              <input mdbInput type="number" class="form-control"  id="inputdro1" formControlName="dropOff"  placeholder="">
+              <label for="inputdro1">Drop off</label>
+
+            </div>
+          </div>
+        </div>
+
+
+
+      </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModalUpdate.hide()" mdbWavesEffect>Close</button>
+        <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="postProgramme()" (click)="basicModalUpdate.hide()" mdbWavesEffect>Save</button>
+      </div>
+    </div>
+  </div>
 </div>

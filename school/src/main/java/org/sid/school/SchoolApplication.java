@@ -14,13 +14,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 
 @SpringBootApplication
 public class SchoolApplication implements CommandLineRunner {
@@ -38,6 +43,8 @@ public class SchoolApplication implements CommandLineRunner {
     @Autowired
     RoleRepository roleRepository;
     @Autowired
+    AgendaRepository agendaRepository;
+    @Autowired
     AccountService accountService;
     @Autowired
     EtudiantService etudiantService;
@@ -49,6 +56,9 @@ public class SchoolApplication implements CommandLineRunner {
 
     @Autowired
     private RepositoryRestConfiguration restConfiguration;
+
+    private static final int IMG_WIDTH = 1100;
+    private static final int IMG_HEIGHT = 800;
 
     public static void main(String[] args) {
         SpringApplication.run(SchoolApplication.class, args);
@@ -188,6 +198,15 @@ public class SchoolApplication implements CommandLineRunner {
         etudiant4.setNumStudent(numEtudiant3);
         etudiantRepository.save(etudiant4);
 
+        Agenda agenda = new Agenda();
+        agenda.setAllDay(false);
+        agenda.setLocation("Dkr");
+        agenda.setSubject("test");
+        agenda.setDescription("test ");
+        agenda.setStartTime(new Date());
+        agenda.setEndTime(new Date());
+        agendaRepository.save(agenda);
+
 /*
         Etudiant etudiant5 = new Etudiant();
         etudiant5.setAddress("New York");
@@ -304,6 +323,7 @@ public class SchoolApplication implements CommandLineRunner {
             user.setLogin(e.getEmail());
             user.setFirstName(e.getFirstName());
             user.setLastName(e.getLastName());
+            user.setTel(e.getTel());
             accountService.saveCompte(user, user.getPassword());
             accountService.addRoleToCompte(user.getLogin(),r3.getAuthority());
 
@@ -332,10 +352,89 @@ public class SchoolApplication implements CommandLineRunner {
 
        // RandomDataGenerator randomDataGenerator = new RandomDataGenerator();
 
+        String filesPath1 = context.getRealPath("/images/test2.jpeg");
+        String filesPath2 = context.getRealPath("/images/");
+     /*   File input = new File(filesPath1);
+        BufferedImage image = ImageIO.read(input);
+
+        BufferedImage resized = resize1(image, 800, 1920);
+
+        String filesPath2 = context.getRealPath("/images/");
+        File output = new File(filesPath2+"12348.jpg");
+        ImageIO.write(resized, "jpg", output);
+*/
+
+        Path source = Paths.get(filesPath1);
+        Path target = Paths.get(filesPath2+"12353.jpeg");
+
+        try (InputStream is = new FileInputStream(source.toFile())) {
+            resize(is, target, IMG_WIDTH, IMG_HEIGHT);
+        }
+
+        System.out.println(" test and ");
 
 
+    }
 
+    private static BufferedImage resize1(BufferedImage img, int height, int width) {
 
+        Image tmp = img.getScaledInstance(width, height, Image.SCALE_AREA_AVERAGING);
+        BufferedImage resized = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = resized.createGraphics();
+        g2d.drawImage(tmp, 0, 0, null);
+        g2d.dispose();
+        return resized;
+    }
+
+    private static void resize(InputStream input, Path target,
+                               int width, int height) throws IOException {
+
+        // read an image to BufferedImage for processing
+        BufferedImage originalImage = ImageIO.read(input);
+
+        // create a new BufferedImage for drawing
+        BufferedImage newResizedImage
+                = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = newResizedImage.createGraphics();
+
+        //g.setBackground(Color.WHITE);
+        //g.setPaint(Color.WHITE);
+
+        // background transparent
+        g.setComposite(AlphaComposite.Src);
+        g.fillRect(0, 0, width, height);
+
+        /* try addRenderingHints()
+        // VALUE_RENDER_DEFAULT = good tradeoff of performance vs quality
+        // VALUE_RENDER_SPEED   = prefer speed
+        // VALUE_RENDER_QUALITY = prefer quality
+        g.setRenderingHint(RenderingHints.KEY_RENDERING,
+                              RenderingHints.VALUE_RENDER_QUALITY);
+
+        // controls how image pixels are filtered or resampled
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                              RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+
+        // antialiasing, on
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                              RenderingHints.VALUE_ANTIALIAS_ON);*/
+
+        Map<RenderingHints.Key,Object> hints = new HashMap<>();
+        hints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        hints.put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        hints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.addRenderingHints(hints);
+
+        // puts the original image into the newResizedImage
+        g.drawImage(originalImage, 0, 0, IMG_WIDTH, IMG_HEIGHT, null);
+        g.dispose();
+
+        // get file extension
+        String s = target.getFileName().toString();
+        String fileExtension = s.substring(s.lastIndexOf(".") + 1);
+
+        // we want image in png format
+        ImageIO.write(newResizedImage, fileExtension, target.toFile());
 
     }
 

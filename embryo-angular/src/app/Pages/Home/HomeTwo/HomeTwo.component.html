@@ -1,0 +1,44 @@
+
+
+  <embryo-HomePageTwoSlider [isRTL]="embryoService.isDirectionRtl"></embryo-HomePageTwoSlider>
+  
+  <!-- <embryo-CtaGroup></embryo-CtaGroup> -->
+ <div class="post-wrapper section-gap">
+   <div class="block-title text-center">
+     <h2>Check our Services</h2>
+   </div>
+   <div class="container" *ngIf="blogList">
+     <embryo-Grid3 [blogList]="blogList"></embryo-Grid3>
+   </div>
+ </div>
+
+ <div class="section-gap pt-0">
+  <div class="container">
+     
+        <div class="block-title text-center">
+        <h3>Top Brands</h3>
+        </div>
+     
+     <embryo-BrandsLogo [isRTL]="embryoService.isDirectionRtl"></embryo-BrandsLogo>
+  </div>
+  </div>
+
+ <div class="post-wrapper section-gap">
+  <div class="block-title text-center">
+    <h2>About Us</h2>
+  </div>
+
+    <div class="about-info bg-grey section-gap" *ngIf="aboutInfo">
+        <embryo-AboutInfo [data]="aboutInfo"></embryo-AboutInfo>
+    </div>
+
+</div>
+
+  <embryo-LighteningDeals *ngIf="lighteningDealsProducts" [lighteningDeals]="lighteningDealsProducts"></embryo-LighteningDeals>
+
+  <embryo-TopProducts *ngIf="topProducts" [products]="topProducts" [currency]="embryoService?.currency" (addToCart)="addToCart($event)"></embryo-TopProducts>
+ 
+   <div class="section-gap pb-0">   
+  <embryo-SubscribeTwo></embryo-SubscribeTwo>
+   
+</div>

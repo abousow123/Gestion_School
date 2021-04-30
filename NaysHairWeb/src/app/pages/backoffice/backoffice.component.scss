@@ -1,0 +1,48 @@
+.vue360-main {
+    background-color: #cdd4e0;
+    // padding-top: 20px;
+}
+
+.top-title {
+    color: black;
+    line-height: 95%;
+}
+.first-row {
+    background-color: #EBEDF2;
+    margin-bottom: 5px;
+}
+
+.black-end-bold {
+    font-size: 18px;
+        font-weight: bold;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #000000;
+}
+
+.theme-column {
+    border-radius: 6px;
+    background-color: white;
+}
+
+.theme-details {
+    color: #000000;
+    font-size: 0.9rem;
+    font-weight: 400 !important;
+}
+
+.view-more {
+    font-size: 0.9rem;
+    color: #FF7700;
+    font-weight: 650;
+    position: absolute;
+    bottom: 10px;
+    // cursor: pointer;
+}
+
+.top-left-picto {
+    position: relative;
+    top: -15px !important;
+}
+

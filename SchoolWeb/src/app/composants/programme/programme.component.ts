@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MdbTableDirective, MdbTablePaginationComponent } from 'angular-bootstrap-md';
@@ -29,30 +29,33 @@ export class ProgrammeComponent implements OnInit {
 
   maxVisibleItems: number = 8;
 
+  programmeForm: FormGroup;
+  programme: Programme = new Programme();
+
   constructor(private cdRef: ChangeDetectorRef, private etudiantService: SchoolService,
-    iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,private _formBuilder: FormBuilder,) {
-    iconRegistry.addSvgIcon(
-      'thumbs-up',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/images/create.svg'));
-      iconRegistry.addSvgIcon(
-        'view',
-        sanitizer.bypassSecurityTrustResourceUrl('assets/images/eye.svg'));
+          iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,private _formBuilder: FormBuilder,) {
+          iconRegistry.addSvgIcon(
+            'thumbs-up',
+            sanitizer.bypassSecurityTrustResourceUrl('assets/images/create.svg'));
+            iconRegistry.addSvgIcon(
+              'view',
+              sanitizer.bypassSecurityTrustResourceUrl('assets/images/eye.svg'));
 
-        iconRegistry.addSvgIcon(
-          'edit',
-          sanitizer.bypassSecurityTrustResourceUrl('assets/images/edit.svg'));
+              iconRegistry.addSvgIcon(
+                'edit',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/edit.svg'));
 
-        iconRegistry.addSvgIcon(
-          'delete',
-          sanitizer.bypassSecurityTrustResourceUrl('assets/images/delete.svg'));
+              iconRegistry.addSvgIcon(
+                'delete',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/delete.svg'));
 
-        iconRegistry.addSvgIcon(
-          'true',
-          sanitizer.bypassSecurityTrustResourceUrl('assets/images/true.svg'));
+              iconRegistry.addSvgIcon(
+                'true',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/true.svg'));
 
-        iconRegistry.addSvgIcon(
-          'no',
-          sanitizer.bypassSecurityTrustResourceUrl('assets/images/no.svg'));
+              iconRegistry.addSvgIcon(
+                'no',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/no.svg'));
   }
 
   @HostListener('input') oninput() {
@@ -60,11 +63,23 @@ export class ProgrammeComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.programmeForm = this._formBuilder.group({
+      code:([this.programme.code_programme, Validators.required]),
+      libelle:([this.programme.libelle, Validators.required]),
+      prix:([this.programme.prix, Validators.required]),
+      dropOff:([this.programme.dropOff, Validators.required])
+    });
+
     for (let i = 1; i <= 25; i++) {
       this.elements.push({id: i.toString(), first: 'Wpis ' + i, last: 'Last ' + i, handle: 'Handle ' + i});
     }
 
+    this.getProgrammes();
 
+  }
+
+  getProgrammes(){
     this.etudiantService.getProgrammes()
     .subscribe(data=>{
       this.tuit = data;
@@ -77,9 +92,59 @@ export class ProgrammeComponent implements OnInit {
       console.log(err);
 
     })
+  }
 
+  deleteProgramme(el){
+
+    this.etudiantService.deleteProgramme(el._links.programme.href)
+    .subscribe(data=>{
+      this.getProgrammes();
+    },err=>{
+      console.log(err);
+
+    })
+  }
+
+
+  postProgramme(){
+    this.programme.code_programme = this.programmeForm.value.code;
+    this.programme.libelle = this.programmeForm.value.libelle;
+    this.programme.prix = this.programmeForm.value.prix;
+    this.programme.dropOff = this.programmeForm.value.dropOff;
+
+    this.etudiantService.saveProgramme(this.programme)
+    .subscribe(data=>{
+      this.getProgrammes();
+    },err=>{
+      console.log(err);
+
+    })
 
   }
+
+  updateProgrammeForm(el){
+    this.programme.id = el.id ;
+    this.programmeForm.setValue({code: el.code_programme,libelle:el.libelle,prix:el.prix, dropOff:el.dropOff})
+  }
+
+
+  updateProgramme(){
+    this.programme.code_programme = this.programmeForm.value.code;
+    this.programme.libelle = this.programmeForm.value.libelle;
+    this.programme.prix = this.programmeForm.value.prix;
+    this.programme.dropOff = this.programmeForm.value.dropOff;
+
+    this.etudiantService.editProgramme(this.programme.id,this.programme)
+    .subscribe(data=>{
+      this.getProgrammes();
+    },err=>{
+      console.log(err);
+
+    })
+
+  }
+
+
 
   ngAfterViewInit() {
 

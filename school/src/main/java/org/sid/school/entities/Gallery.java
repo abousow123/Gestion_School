@@ -1,5 +1,6 @@
 package org.sid.school.entities;
 
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
@@ -10,9 +11,11 @@ public class Gallery implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
     private String description;
     private String photo ;
+   // private List<MultipartFile> images;
 
     @OneToMany(mappedBy = "gallery")
     private Collection<Picture> pictures;
@@ -67,4 +70,6 @@ public class Gallery implements Serializable {
     public void setPictures(Collection<Picture> pictures) {
         this.pictures = pictures;
     }
+
+
 }

@@ -1,15 +1,16 @@
 export class User{
     constructor(){};
 
+    id: string;
     firstName: string;
     lastName: string;
-    tel: string;
+    tel: string = "";
     login: string;
     password: string;
     photo: string;
     username: string;
     userActive: boolean ;
-    roles: Role[] = [] ;
+    roles: Array<Role> ;
 }
 
 

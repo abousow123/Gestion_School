@@ -29,7 +29,7 @@ export class EtudiantComponent implements OnInit {
   previous: string;
 
 
-  maxVisibleItems: number = 10;
+  maxVisibleItems: number = 5;
 
   etudiants: any = [] ;
   programmes: any ;
