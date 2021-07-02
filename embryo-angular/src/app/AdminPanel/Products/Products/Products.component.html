@@ -69,7 +69,7 @@
       </mat-form-field>
    </div>
 </div>
-<ng-container *ngIf="productsGrid && productsGrid.length >= 0; else elseBlock">
+<ng-container *ngIf="etudiants && etudiants.length >= 0; else elseBlock">
    <ng-container *ngIf="showType == 'list';else gridtype">
       <div fxLayout="row wrap">
          <div fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
@@ -77,45 +77,48 @@
                <mat-card class="pt-0">
                   <div class="overflow-hidden">
                      <div class="table-responsive-x product-list-table">         
-                        <table class="w-100 table-scroll-wrap" mat-table [dataSource]="productsList" matSort>
-                           <ng-container matColumnDef="id">
-                              <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
-                              <td class="text-nowrap px-3" mat-cell *matCellDef="let element">{{element.id}}</td>
+                        <table class="w-100 table-scroll-wrap" mat-table [dataSource]="etudiants" matSort>
+                           <ng-container matColumnDef="Num">
+                              <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>numStudent</th>
+                              <td class="text-nowrap px-3" mat-cell *matCellDef="let element">{{element.numStudent}}</td>
                            </ng-container>
                             <ng-container matColumnDef="image">
                               <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef>Image</th>
                               <td class="text-nowrap team-images-wrap py-3 px-3" mat-cell *matCellDef="let element">
-                                 <img class="img-circle inline-block" src="{{element.image}}" width="30" height="30">  
+                                 <img class="img-circle inline-block" src="{{element.photo}}" width="30" height="30">  
                               </td>
                            </ng-container> 
                            <ng-container matColumnDef="name">
                               <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-                              <td class="text-nowrap product-name" mat-cell *matCellDef="let element"><span>{{element.name}}</span></td>
+                              <td class="text-nowrap product-name" mat-cell *matCellDef="let element"><span>{{element.firstName}} {{element.lastName}}</span></td>
                            </ng-container>
-                           <ng-container matColumnDef="brand">
-                              <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>Brand</th>
-                              <td class="text-nowrap px-3" mat-cell *matCellDef="let element">{{element.brand}}</td>
+                           <ng-container matColumnDef="Address">
+                              <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>address</th>
+                              <td class="text-nowrap px-3" mat-cell *matCellDef="let element">{{element.address}}</td>
                            </ng-container>
-                           <ng-container matColumnDef="category">
-                              <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
-                              <td class="text-nowrap px-3" mat-cell *matCellDef="let element">{{element.category}}</td>
+                           <ng-container matColumnDef="Tel">
+                              <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>Tel</th>
+                              <td class="text-nowrap px-3" mat-cell *matCellDef="let element">{{element.tel}}</td>
                            </ng-container>
-                            <ng-container matColumnDef="product_code">
-                              <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>Product Code</th>
-                              <td class="text-nowrap px-3" mat-cell *matCellDef="let element">{{element.product_code}}
+                            <ng-container matColumnDef="Email">
+                              <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+                              <td class="text-nowrap px-3" mat-cell *matCellDef="let element">{{element.email}}
                               </td>
                            </ng-container>
-                           <ng-container matColumnDef="discount_price">
-                              <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>Discount Price</th>
-                              <td class="text-nowrap px-3" mat-cell *matCellDef="let element">${{element.discount_price}}</td>
+                            <ng-container matColumnDef="Fees">
+                              <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>Fees</th>
+                              <td class="text-nowrap px-3" mat-cell *matCellDef="let element">${{element.feesPays}}</td>
                            </ng-container>
-                           <ng-container matColumnDef="price">
+                          <!-- <ng-container matColumnDef="price">
                               <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>Price</th>
                               <td class="text-nowrap px3" mat-cell *matCellDef="let element">{{element.price|currency}}</td>
-                           </ng-container>
+                           </ng-container> -->
                            <ng-container matColumnDef="action">
                               <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef> Action </th>
                               <td class="px-3 text-nowrap" mat-cell *matCellDef="let element;let i = index;">
+                                 <button mat-icon-button (click) ="onSeeDialog()" color="primary">
+                                    <i class="material-icons">remove_red_eye</i>
+                                 </button>
                                  <button mat-icon-button (click) ="onEditProduct(element)" color="primary">
                                     <i class="material-icons">edit</i>
                                  </button> 
@@ -138,22 +141,22 @@
       </div>
    </ng-container>
    <ng-template #gridtype>
-      <div fxLayout="row wrap" fxLayoutAlign="start stretch" *ngIf="productsGrid && productsGrid.length>0">
-         <div fxFlex.gt-md="25" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100" *ngFor="let product of productsGrid; let i=index;">
+      <div fxLayout="row wrap" fxLayoutAlign="start stretch" *ngIf="etudiants && etudiants.length>0">
+         <div fxFlex.gt-md="25" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100" *ngFor="let product of etudiants; let i=index;">
             <mat-card class="product-card">
                <a class="p-link">
-                  <img width="626" height="800" mat-card-image [src] ="product?.image" alt="Photo of a Shiba Inu">
+                  <img width="626" height="800" mat-card-image [src] ="product?.photo" alt="Photo of a Shiba Inu">
                </a>
                <div class="wishlist-icon">
                   <a (click)="deleteProduct(i)"><mat-icon> delete </mat-icon></a>
                </div>
                <!-- wishlist-icon-->
                <mat-card-content class="product-content relative">
-                  <h5><a class="title-link">{{product?.name}}</a> </h5>
-                  <p class="category-wrap mb-2">{{product?.category}}</p>
+                  <h5><a class="title-link">{{product?.firstName}}</a> </h5>
+                  <p class="category-wrap mb-2">{{product?.email}}</p>
                   <div class="product-price">
                      <div fxFlex fxLayoutAlign="space-between">
-                        <h6 class="accent-color">{{product?.price | currency}}</h6>
+                        <h6 class="accent-color">{{product?.numStudent}}</h6>
                      </div>
                   </div>
                   <!--product-price-->

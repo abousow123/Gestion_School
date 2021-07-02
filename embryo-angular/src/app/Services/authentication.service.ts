@@ -35,6 +35,7 @@ export class AuthenticationService {
 
   loadToken(){
     this.jwtToken = localStorage.getItem('token') ;
+    this.jwtToken = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbl9hZG1pbiIsInJvbGVzIjpbIkFkbWluIiwiVXNlciJdLCJpc3MiOiIvbG9naW4iLCJleHAiOjE2MjI0MDQ3ODV9.8-OhYavSP86m2g6QvExLYQGNet_fKtiGj-oFlvc4lU4';
     return this.jwtToken ;
   }
 

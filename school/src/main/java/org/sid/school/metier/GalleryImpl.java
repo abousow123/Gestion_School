@@ -50,14 +50,25 @@ public class GalleryImpl implements GalleryService{
     }
 
     @Override
-    public List<Gallery> listGallery() {
-       /* List<Picture> realPic = new ArrayList<>();
-        for(Picture p: pictureRepository.findAll()){
+    public List<Picture> listGallery() {
+        List<Picture> pictures = pictureRepository.findAll() ;
+        List<Picture> realPic = new ArrayList<>();
+        for (Picture p: pictures){
             p.setPhotoName(utilsService.getPhoto(p.getPhotoName()));
             realPic.add(p);
         }
-        List<Gallery> galleries = galleryRepository.findAll();*/
-        return galleryRepository.findAll();
+        return realPic;
+    }
+
+    @Override
+    public List<Picture> listPicturesByGallery(Long id) {
+        List<Picture> pictures = pictureRepository.findAllPicturesByGallery(id) ;
+        List<Picture> realPic = new ArrayList<>();
+        for (Picture p: pictures){
+            p.setPhotoName(utilsService.getPhoto(p.getPhotoName()));
+            realPic.add(p);
+        }
+        return realPic;
     }
 
     @Override
@@ -65,7 +76,8 @@ public class GalleryImpl implements GalleryService{
         Optional<Gallery> gallery = galleryRepository.findById(id);
         gallery.get().setPhoto(utilsService.getPhoto(gallery.get().getPhoto()));
 
-        List<Picture> pictureList = pictureRepository.findAllPicturesByGallery((long) gallery.get().getId());
+        System.out.println("test ====================================================");
+        /*List<Picture> pictureList = pictureRepository.findAllPicturesByGallery((long) gallery.get().getId());
         if(pictureList!=null){
             List<Picture> realPic = new ArrayList<>();
             for(Picture p: pictureRepository.findAllPicturesByGallery((long) gallery.get().getId())){
@@ -73,7 +85,7 @@ public class GalleryImpl implements GalleryService{
                 realPic.add(p);
             }
             gallery.get().setPictures(realPic);
-        }
+        }*/
 
         return gallery;
     }

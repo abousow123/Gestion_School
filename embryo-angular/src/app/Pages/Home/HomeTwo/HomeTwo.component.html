@@ -12,7 +12,7 @@
    </div>
  </div>
 
- <div class="section-gap pt-0">
+<!--  <div class="section-gap pt-0">
   <div class="container">
      
         <div class="block-title text-center">
@@ -21,7 +21,7 @@
      
      <embryo-BrandsLogo [isRTL]="embryoService.isDirectionRtl"></embryo-BrandsLogo>
   </div>
-  </div>
+  </div> -->
 
  <div class="post-wrapper section-gap">
   <div class="block-title text-center">
@@ -32,6 +32,35 @@
         <embryo-AboutInfo [data]="aboutInfo"></embryo-AboutInfo>
     </div>
 
+</div>
+
+<div  class="shop-card-wrapper section-gap" *ngIf="productsArray">
+  <div class="block-title text-center">
+    <h2>Gallery</h2>
+  </div>
+  <div class="container">
+    <mat-tab-group [(selectedIndex)]="embryoService.newArrivalSelectedTab">
+      <mat-tab label="All"></mat-tab>
+      <mat-tab label="CONROE"></mat-tab>
+      <mat-tab label="BOX BRAIDS"></mat-tab>
+      <mat-tab label="TWIST"></mat-tab>
+      <mat-tab label="CROCHET"></mat-tab>
+      <mat-tab label="SEW IN"></mat-tab>
+      <mat-tab label="DREAD LOCS"></mat-tab>
+    </mat-tab-group>
+    <ng-container *ngIf="onNewArrivalsSelectedTab(embryoService.newArrivalSelectedTab)">
+      <ngx-slick-carousel *ngIf="embryoService.isDirectionRtl" class="carousel" [config]="rtlSlideConfig">
+        <div ngxSlickItem *ngFor="let product of newProductsSliderData; let i=index">
+          <embryo-ProductCard [product]="product" (addToCart)="addToCart($event)" [currency]="embryoService.currency" (addToWishlist)="addToWishlist($event)" [index]="i" type="new"></embryo-ProductCard>
+        </div>
+      </ngx-slick-carousel>
+      <ngx-slick-carousel *ngIf="!embryoService.isDirectionRtl" class="carousel" [config]="slideConfig">
+        <div ngxSlickItem *ngFor="let product of newProductsSliderData; let i=index">
+          <embryo-ProductCard [product]="product" (addToCart)="addToCart($event)" [currency]="embryoService.currency" (addToWishlist)="addToWishlist($event)" [index]="i" type="new"></embryo-ProductCard>
+        </div>
+      </ngx-slick-carousel>
+   </ng-container>
+  </div>
 </div>
 
   <embryo-LighteningDeals *ngIf="lighteningDealsProducts" [lighteningDeals]="lighteningDealsProducts"></embryo-LighteningDeals>

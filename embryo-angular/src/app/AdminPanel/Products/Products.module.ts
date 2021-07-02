@@ -1,3 +1,5 @@
+import { AdminAccountModule } from './Products/AdminAccount/AdminAccount.module';
+import { AuthenticationService } from './../../Services/authentication.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -26,6 +28,8 @@ import { AddProductComponent } from './AddProduct/AddProduct.component';
 import { GlobalModule} from '../../Global/Global.module';
 import { ProductsComponent } from './Products/Products.component';
 import { ProductsRoutes} from './Products.routing';
+import { SchoolService } from 'src/app/Services/school.service';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 @NgModule({
    declarations: [ProductsComponent, EditProductComponent, AddProductComponent],
@@ -52,7 +56,14 @@ import { ProductsRoutes} from './Products.routing';
       MatGridListModule,
       GlobalModule,
       FormsModule,
-      ReactiveFormsModule
-   ]
+      ReactiveFormsModule,
+      AdminAccountModule
+   ],
+   providers: [
+		SchoolService,
+      AuthenticationService,
+      { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+      JwtHelperService
+	]
 })
 export class ProductsModule { }

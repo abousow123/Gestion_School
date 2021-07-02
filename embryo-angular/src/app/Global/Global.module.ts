@@ -72,6 +72,7 @@ import { CTASingleBannerComponent } from './CallToAction/CTA-SingleBanner/CTA-Si
 import { DownloadAppSectionComponent } from './DownloadAppSection/DownloadAppSection.component';
 import { HomePageThreeSliderComponent } from './Slider/HomePageThreeSlider/HomePageThreeSlider.component';
 import { NewProductsCardComponent } from './NewProductsCard/NewProductsCard.component';
+import { JWT_OPTIONS } from '@auth0/angular-jwt';
 
 
 @NgModule({
@@ -198,6 +199,10 @@ import { NewProductsCardComponent } from './NewProductsCard/NewProductsCard.comp
    entryComponents : [
       ReviewPopupComponent,
       ConfirmationPopupComponent
-   ]
+   ],
+   providers: [
+      { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+      
+    ]
 })
 export class GlobalModule {}

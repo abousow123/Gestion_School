@@ -623,13 +623,14 @@
                "Free Shipping and delivery in 4 Days"
             ],
             "id": 1,
-            "image": "assets/images/men/3-item-a.jpg",
+            "image": "assets/images/men/4-item-c.jpg",
             "image_gallery": [
-               "assets/images/men/3-item-a.jpg",
-               "assets/images/men/3-item-b.jpg",
-               "assets/images/men/3-item-c.jpg",
-               "assets/images/men/3-item-d.jpg",
-               "assets/images/men/3-item-e.jpg"
+               "assets/images/gallery/1.jpeg",
+               "assets/images/gallery/2.jpeg",
+               "assets/images/gallery/3.jpeg",
+               "assets/images/gallery/4.jpeg",
+               "assets/images/gallery/5.jpeg",
+               "assets/images/gallery/6.jpeg"
             ],
             "name": "Vintage Jean",
             "popular": false,
@@ -661,11 +662,12 @@
             "id": 2,
             "image": "assets/images/men/2-item-a.jpg",
             "image_gallery": [
-               "assets/images/men/2-item-a.jpg",
-               "assets/images/men/2-item-b.jpg",
-               "assets/images/men/2-item-c.jpg",
-               "assets/images/men/2-item-d.jpg",
-               "assets/images/men/2-item-e.jpg"
+               "assets/images/gallery/1.jpeg",
+               "assets/images/gallery/2.jpeg",
+               "assets/images/gallery/3.jpeg",
+               "assets/images/gallery/4.jpeg",
+               "assets/images/gallery/5.jpeg",
+               "assets/images/gallery/6.jpeg"
             ],
             "name": "Super Jacket",
             "popular": false,
@@ -769,11 +771,11 @@
             "id": 5,
             "image": "assets/images/men/5-item-a.jpg",
             "image_gallery": [
-               "assets/images/men/5-item-a.jpg",
-               "assets/images/men/5-item-b.jpg",
-               "assets/images/men/5-item-c.jpg",
-               "assets/images/men/5-item-d.jpg",
-               "assets/images/men/5-item-e.jpg"
+               "assets/images/men/1-item-a.jpg",
+               "assets/images/men/1-item-b.jpg",
+               "assets/images/men/1-item-c.jpg",
+               "assets/images/men/1-item-d.jpg",
+               "assets/images/men/1-item-e.jpg"
             ],
             "name": "Black T-Shirt",
             "popular": false,
@@ -802,9 +804,9 @@
                "Wipe with a clean, dry cloth to remove dust"
             ],
             "id": 6,
-            "image": "assets/images/men/cat-shoes.jpg",
+            "image": "assets/images/gallery/1.jpeg",
             "image_gallery": [
-               "assets/images/men/cat-shoes.jpg"
+               "assets/images/gallery/1.jpeg"
             ],
             "name": "Men White AIR",
             "popular": true,

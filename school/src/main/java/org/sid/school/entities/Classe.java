@@ -73,12 +73,4 @@ public class Classe implements Serializable {
     public void setDate_created(Date date_created) {
         this.date_created = date_created;
     }
-
-    public AgentUser getUser() {
-        return user;
-    }
-
-    public void setUser(AgentUser user) {
-        this.user = user;
-    }
 }

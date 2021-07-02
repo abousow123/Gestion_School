@@ -1,6 +1,8 @@
 package org.sid.school.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
@@ -10,7 +12,7 @@ public class Gallery implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private String name;
     private String description;
@@ -18,24 +20,25 @@ public class Gallery implements Serializable {
    // private List<MultipartFile> images;
 
     @OneToMany(mappedBy = "gallery")
+    @JsonIgnore
     private Collection<Picture> pictures;
 
 
     public Gallery() {
     }
 
-    public Gallery(int id, String name, String description, String photo) {
+    public Gallery(Long id, String name, String description, String photo) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.photo = photo;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

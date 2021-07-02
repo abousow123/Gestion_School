@@ -1,3 +1,4 @@
+import { SchoolService } from './../../../Services/school.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { MatPaginator } from '@angular/material/paginator';
@@ -17,17 +18,34 @@ export class ProductsComponent implements OnInit {
 	productsList 		      : any;
 	productsGrid 			   : any;
 	popUpDeleteUserResponse : any;
+	etudiants				: any;
+	etu				: any;
 	showType	    				: string = 'grid';
-	displayedProductColumns : string [] = ['id', 'image','name','brand','category', 'product_code', 'discount_price', 'price','action' ];
+	//displayedProductColumns : string [] = ['id', 'image','name','brand','category', 'product_code', 'discount_price', 'price','action' ];
+	displayedProductColumns : string [] = ['Num', 'image','name','Address','Tel', 'Email', 'Fees', 'action' ];
 	@ViewChild(MatPaginator) paginator : MatPaginator;
 	@ViewChild(MatSort) sort           : MatSort;
 
 	constructor(public translate : TranslateService,
 					private router : Router, 
-					private adminPanelService : AdminPanelServiceService) { }
+					private adminPanelService : AdminPanelServiceService,
+					private etudiantService: SchoolService) { }
 
 	ngOnInit() {
 		this.adminPanelService.getProducts().valueChanges().subscribe(res => this.getProductResponse(res));
+		//this.etudiants= this.etudiantService.getEtudiants();
+
+		this.etudiantService.getEtudiants()
+		.subscribe(data=>{
+		  this.etu = data ;
+		  this.etudiants = this.etu._embedded.etudiants  ;
+		  console.log(this.etudiants);
+		  
+		},err=>{
+			console.log("test ===");
+		  	console.log(err);
+	
+		}) ;
 	}
 
 	//getProductResponse method is used to get the response of all products.
@@ -45,7 +63,7 @@ export class ProductsComponent implements OnInit {
 		if(type == 'list'){
 			document.getElementById('list').classList.add("active");
 			document.getElementById('grid').classList.remove('active');
-			this.productsList = new MatTableDataSource(this.productsGrid);
+			this.productsList = new MatTableDataSource(this.etudiants);
 			setTimeout(()=>{
 				this.productsList.paginator = this.paginator;
 				this.productsList.sort = this.sort;
@@ -89,5 +107,11 @@ export class ProductsComponent implements OnInit {
       		this.productsList.paginator = this.paginator;
       	}
       }
+   }
+
+   onSeeDialog(){
+	this.router.navigate(['/count/']);
+	//this.router.navigate([import('./AdminAccount/AdminAccount.module').then (m => m.AdminAccountModule)]);
+	
    }
 }

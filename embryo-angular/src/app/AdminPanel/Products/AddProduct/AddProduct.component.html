@@ -20,7 +20,7 @@
                                           </label>
                                        </button>
                                        <!-- add-btn -->
-                                       <input mat id="fileToUpload" type="file" accept="image/*" style="display:none;">
+                                       <input mat id="fileToUpload" (change)="fileProgress($event)" type="file" accept="image/*" style="display:none;">
                                     </div>
                                  </mat-grid-tile>
                               </mat-grid-list>

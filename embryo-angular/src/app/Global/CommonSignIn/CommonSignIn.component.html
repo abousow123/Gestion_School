@@ -1,18 +1,58 @@
-<form>
+<form *ngIf="codeError == 0">
   <div class="mb-4">
     <mat-form-field class="w-100">
-      <input matInput type="email" placeholder="Email" required>
+      <input matInput type="email" [formControl]="login" placeholder="Email" required>
+      <mat-error *ngIf="login.hasError('email') && !login.hasError('required')">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="login.hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
     </mat-form-field>
   </div>
   <div class="mb-4">
     <mat-form-field class="w-100">
-      <input matInput type="password" placeholder="Password" required>
+      <input matInput type="password" [formControl]="password" placeholder="Password" required>
+      <mat-error *ngIf="password.hasError('required')">
+        Password is <strong>required</strong>
+      </mat-error>
     </mat-form-field>
   </div>
   <div class="mb-3">
     <mat-checkbox>Remember Me</mat-checkbox>
-    <span fxFlex></span> <a [routerLink]="['/session/forgot-password']">Forgot Password?</a>
+    <span fxFlex></span> <a (click)="testButton()" [routerLink]="['/session/forgot-password']">Forgot Password?</a>
   </div>
-  <button color="accent" class="button-lg mb-3" mat-raised-button [routerLink]="['/checkout/payment']">Sign In</button>
+ <!--  <button color="accent" class="button-lg mb-3" mat-raised-button (click)="testButton()" [routerLink]="['/checkout/payment']">Sign In</button> -->
+  <button color="accent" class="button-lg mb-3" mat-raised-button (click)="testButton()" >Sign In</button>
+  <p>Don't have an account? <a [routerLink]="['/session/signup']">Click here to create one</a></p>
+</form>
+
+<form *ngIf="codeError == 1">
+  <p class="text-danger"> E-mail et/ou mot de passe incorrects </p>
+  <div class="mb-4">
+    <mat-form-field class="w-100">
+      <input matInput type="email" [formControl]="login" placeholder="Email" required>
+      <mat-error *ngIf="login.hasError('email') && !login.hasError('required')">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="login.hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="mb-4">
+    <mat-form-field class="w-100">
+      <input matInput type="password" [formControl]="password" placeholder="Password" required>
+      <mat-error *ngIf="password.hasError('required')">
+        Password is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="mb-3">
+    <mat-checkbox>Remember Me</mat-checkbox>
+    <span fxFlex></span> <a (click)="testButton()" [routerLink]="['/session/forgot-password']">Forgot Password?</a>
+  </div>
+ <!--  <button color="accent" class="button-lg mb-3" mat-raised-button (click)="testButton()" [routerLink]="['/checkout/payment']">Sign In</button> -->
+  <button color="accent" class="button-lg mb-3" mat-raised-button (click)="testButton()" >Sign In</button>
   <p>Don't have an account? <a [routerLink]="['/session/signup']">Click here to create one</a></p>
 </form>

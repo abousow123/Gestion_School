@@ -2,6 +2,7 @@ package org.sid.school.metier;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import org.sid.school.entities.Gallery;
+import org.sid.school.entities.Picture;
 import org.springframework.boot.json.JsonParseException;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,6 +13,7 @@ import java.util.Optional;
 public interface GalleryService {
 
     Gallery postGallery(List<MultipartFile> images ,MultipartFile photoGallery, String galery) throws JsonParseException, JsonMappingException, IOException;
-    List<Gallery>  listGallery();
+    List<Picture>  listGallery();
+    List<Picture>  listPicturesByGallery(Long id);
     Optional<Gallery> getGallery(Long id);
 }

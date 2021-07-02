@@ -1,18 +1,25 @@
 package org.sid.school;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.math3.random.RandomDataGenerator;
 import org.sid.school.Account.AccountService;
 import org.sid.school.dao.*;
 import org.sid.school.entities.*;
 import org.sid.school.metier.CoursService;
 import org.sid.school.metier.EtudiantService;
+import org.sid.school.metier.GalleryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
@@ -26,6 +33,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.List;
 
 @SpringBootApplication
 public class SchoolApplication implements CommandLineRunner {
@@ -50,6 +58,8 @@ public class SchoolApplication implements CommandLineRunner {
     EtudiantService etudiantService;
     @Autowired
     CoursService coursService;
+    @Autowired
+    GalleryService galleryService;
 
     @Autowired
     ServletContext context;
@@ -67,7 +77,7 @@ public class SchoolApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        restConfiguration.exposeIdsFor(Etudiant.class,Role.class,Programme.class,Classe.class,AgentUser.class);
+        restConfiguration.exposeIdsFor(Etudiant.class,Role.class,Programme.class,Classe.class,AgentUser.class,Gallery.class);
 
 
         Programme programme = new Programme();
@@ -363,14 +373,50 @@ public class SchoolApplication implements CommandLineRunner {
         File output = new File(filesPath2+"12348.jpg");
         ImageIO.write(resized, "jpg", output);
 */
+        List<MultipartFile> images = new ArrayList<>();
+        for(int i=1;i<19;i++){
+            String files = context.getRealPath("/images/"+i+".jpeg");
+            File file = new File(files);
 
-        Path source = Paths.get(filesPath1);
+            FileInputStream input = new FileInputStream(file);
+            MultipartFile multipartFile = new MockMultipartFile("file", file.getName(), "application/octet-stream", IOUtils.toByteArray(input));
+
+            images.add(multipartFile) ;
+
+        }
+
+        String files1 = context.getRealPath("/images/1.jpg");
+        File file = new File(files1);
+
+        FileInputStream input = new FileInputStream(file);
+        MultipartFile multipartFile1 = new MockMultipartFile("file", file.getName(), "application/octet-stream", IOUtils.toByteArray(input));
+
+        Gallery gallery = new Gallery();
+        gallery.setDescription("Gallery test");
+        gallery.setName("GalleryTest");
+
+        ObjectMapper mapper = new ObjectMapper();
+        String JsonGallery = "";
+        try {
+            // convert user object to json string and return it
+            JsonGallery =  mapper.writeValueAsString(gallery);
+        }
+        catch (JsonGenerationException | JsonMappingException e) {
+            // catch various errors
+            e.printStackTrace();
+        }
+
+        galleryService.postGallery(images,multipartFile1,JsonGallery);
+
+
+
+      /*  Path source = Paths.get(filesPath1);
         Path target = Paths.get(filesPath2+"12353.jpeg");
 
         try (InputStream is = new FileInputStream(source.toFile())) {
             resize(is, target, IMG_WIDTH, IMG_HEIGHT);
         }
-
+*/
         System.out.println(" test and ");
 
 

@@ -1,3 +1,5 @@
+import { AuthenticationService } from './Services/authentication.service';
+import { SchoolService } from './Services/school.service';
 import { BrowserModule} from '@angular/platform-browser';
 import { NgModule} from '@angular/core';
 import { HttpClientModule, HttpClient} from '@angular/common/http';
@@ -160,6 +162,7 @@ export function createTranslateLoader(http: HttpClient) {
 			provide: PERFECT_SCROLLBAR_CONFIG,
 			useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
 		},
+		AuthenticationService,
 		JwtHelperService
 	],
 	exports : [
