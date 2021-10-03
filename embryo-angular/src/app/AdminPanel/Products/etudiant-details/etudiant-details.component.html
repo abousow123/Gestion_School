@@ -1,0 +1,217 @@
+<div class="inner-container">
+    <div class="final-receipt-page section-gap">
+       <div class="account-info">
+          <div class="container">
+             <div class="mb-4 user-info">
+                <div fxLayoutAlign="flex-start">
+                   <div class="login-user-img">
+                      <img src="{{etudiant?.photo}}" width="70" alt="Active User">
+                   </div>
+                   <!-- login-user-img -->
+                   <div class="px-3">
+                      <h4>{{etudiant?.firstName}} {{etudiant?.lastName}}</h4>
+                      <div class="text-muted text-xl">{{etudiant?.numStudent}}</div>
+                   </div>
+                </div>
+             </div>
+             <div fxLayout="row wrap" class="col-gap">
+                <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="30" fxFlex.lg="20" fxFlex.xl="20" class="user-nav-list bg-white">
+                   <mat-list class="py-2" role="list">
+                      <mat-list-item role="listitem"> 
+                       <!--   <a [routerLink]="['/admin-panel/account/profile']" routerLinkActive="tab-active">
+                            <span>
+                               <i class="material-icons">account_circle</i> Profile
+                            </span> 
+                         </a> -->
+
+                         <a (click)="infos()">
+                           <span>
+                              <i class="material-icons">account_circle</i> Profile
+                           </span> 
+                        </a>
+                      </mat-list-item>
+                      <mat-list-item role="listitem">
+                         <!-- <a [routerLink]="['/admin-panel/account/collaboration']" routerLinkActive="tab-active">
+                            <i class="material-icons">location_on</i>
+                            <span>Collaboration</span>
+                         </a> -->
+                         <div>
+                           <a  class="card-link" (click)="ref()">
+                              <i class="material-icons">location_on</i>
+                              <span>Reference contact</span>
+                           </a>
+                         </div>
+                         
+                      </mat-list-item>
+                      <mat-list-item role="listitem"> 
+                         <!-- <a [routerLink]="['/admin-panel/account/settings']" routerLinkActive="tab-active">
+                            <i class="material-icons">credit_card</i> 
+                            <span>Account Settings</span> 
+                         </a> -->
+
+                         <a (click)="register()">
+                           <i class="material-icons">credit_card</i> 
+                           <span>Registered</span> 
+                        </a>
+                      </mat-list-item>
+                   </mat-list>  
+                   <mat-card>
+                    <!--  <mdb-card-body>
+                        <mdb-card-title>
+                          <h5>Registration fees</h5>
+                        </mdb-card-title>
+                        <mdb-card-text *ngIf="etudiant.feesPays == true" class="text-success text-center">
+                          paid
+                        </mdb-card-text>
+                        <mdb-card-text *ngIf="etudiant.feesPays == false" class="text-danger text-center">
+                          impaid
+                        </mdb-card-text>
+                        <div class="flex-row" *ngIf="etudiant.feesPays == false">
+                          <a class="card-link">Edit</a>
+                        </div>
+                      </mdb-card-body> -->
+                   </mat-card> 
+                </div>
+                <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="70" fxFlex.lg="80" fxFlex.xl="80" class="user-content-wrapper my-0">
+                   <div class="tab-container">
+                     <router-outlet></router-outlet>
+
+                     <mat-card *ngIf="choix == 'informations'">
+                        <h4>Profile Information</h4>
+                        <div class="pt-3">
+                           <div class="proflie-field mb-3">
+                              <label>First Name:</label>
+                              <span>{{etudiant.firstName}}</span>
+                           </div>
+                           <div class="proflie-field mb-3">
+                              <label>Last Name:</label>
+                              <span>{{etudiant.lastName}}</span>
+                           </div>
+                           <div class="proflie-field mb-3">
+                              <label>Gender:</label>
+                              <span>{{etudiant.sexe}}</span>
+                           </div>
+                           <div class="proflie-field mb-3">
+                              <label>Date of birth:</label>
+                              <span>{{etudiant.dateNaissance}}</span>
+                           </div>
+                           <div class="proflie-field mb-3">
+                              <label>Mobile Number:</label>
+                              <span>{{etudiant.tel}}</span>
+                           </div>
+                           <div class="proflie-field mb-3">
+                              <label>location:</label>
+                              <span>New York</span>
+                           </div>
+                           <div class="proflie-field mb-3">
+                              <label>E-mail id:</label>
+                              <span class="text-ellipse">johnDoe@doe.com</span>
+                              
+                           </div>
+                           <button mat-raised-button color="accent" [routerLink]="['edit']" [queryParams]="{type:'info'}">Edit</button>
+                        </div>
+                     </mat-card>
+
+                     <mat-card *ngIf="choix == 'reference'">
+                        <!-- <button color="primary" mat-raised-button (click)="addNewUserDialog()">
+                           Add Users
+                        </button> -->
+                        <div class="pt-3">
+                           <div class="proflie-field mb-3">
+                              <label>The reference contact:</label>
+                              <span>{{detailTuteur.typeTuteur}}</span>
+                           </div>
+                           <div class="proflie-field mb-3">
+                              <label>First Name:</label>
+                              <span>{{detailTuteur.prenom}}</span>
+                           </div>
+                           <div class="proflie-field mb-3">
+                              <label>Last Name:</label>
+                              <span>{{detailTuteur.nom}}</span>
+                           </div>
+                           <div class="proflie-field mb-3">
+                              <label>E-mail id:</label>
+                              <span class="text-ellipse">{{detailTuteur.email}}</span>
+                           </div>
+                           <div class="proflie-field mb-3">
+                              <label>Mobile Number:</label>
+                              <span>{{detailTuteur.tel}}</span>
+                           </div>
+                       <!--     <div class="proflie-field mb-3">
+                              <label>Gender:</label>
+                              <span>{{detailTuteur.sexe}}</span>
+                           </div>
+                           <div class="proflie-field mb-3">
+                              <label>Date of birth:</label>
+                              <span>{{etudiant.dateNaissance}}</span>
+                           </div> 
+                           <div class="proflie-field mb-3">
+                              <label>Mobile Number:</label>
+                              <span>{{detailTuteur.tel}}</span>
+                           </div>
+                           <div class="proflie-field mb-3">
+                              <label>location:</label>
+                              <span>New York</span>
+                           </div>
+                           <div class="proflie-field mb-3">
+                              <label>E-mail id:</label>
+                              <span class="text-ellipse">johnDoe@doe.com</span>
+                           </div> -->
+                           <button mat-raised-button color="accent" [routerLink]="['edit']" [queryParams]="{type:'info'}">Edit</button>
+                        </div>
+                        <ng-template #elseBlock>
+                           <h5 class="ml-5">No user found</h5>
+                        </ng-template>
+                     </mat-card>
+
+
+                     <mat-card *ngIf="choix == 'register'">
+                        <h4>register</h4>
+                        <div class="pt-3" *ngIf="inscrit == false">
+                           <p>{{etudiant.firstName}} {{etudiant.lastName}} is not registered on any program</p>
+                           <button mat-raised-button color="accent" [routerLink]="['edit']" [queryParams]="{type:'info'}">register</button>
+                        </div>
+                        <div class="pt-3" *ngIf="inscrit == true">
+                           <div class="proflie-field mb-3">
+                              <label>First Name:</label>
+                              <span>John</span>
+                           </div>
+                           <div class="proflie-field mb-3">
+                              <label>Last Name:</label>
+                              <span>Doe</span>
+                           </div>
+                           <div class="proflie-field mb-3">
+                              <label>Gender:</label>
+                              <span>Male</span>
+                           </div>
+                           <div class="proflie-field mb-3">
+                              <label>Date of birth:</label>
+                              <span>Jan,06,1979</span>
+                           </div>
+                           <div class="proflie-field mb-3">
+                              <label>Mobile Number:</label>
+                              <span>+120 256 254 125</span>
+                           </div>
+                           <div class="proflie-field mb-3">
+                              <label>location:</label>
+                              <span>New York</span>
+                           </div>
+                           <div class="proflie-field mb-3">
+                              <label>E-mail id:</label>
+                              <span class="text-ellipse">johnDoe@doe.com</span>
+                           </div>
+                           <button mat-raised-button color="accent" [routerLink]="['edit']" [queryParams]="{type:'info'}">Edit</button>
+                        </div>
+                     </mat-card>
+
+                   </div>
+                   <!-- tab-container -->
+                </div>
+             </div>
+          </div>
+       </div>
+       <!-- account-info -->
+    </div>
+    <!-- final-receipt-page -->
+ </div>
+ <!-- inner-container -->
