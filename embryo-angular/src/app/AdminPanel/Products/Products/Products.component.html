@@ -107,7 +107,7 @@
                            </ng-container>
                             <ng-container matColumnDef="Fees">
                               <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>Fees</th>
-                              <td class="text-nowrap px-3" mat-cell *matCellDef="let element">${{element.feesPays}}</td>
+                              <td class="text-nowrap px-3" mat-cell *matCellDef="let element">{{element.feesPays}}</td>
                            </ng-container>
                           <!-- <ng-container matColumnDef="price">
                               <th class="text-nowrap px-3" mat-header-cell *matHeaderCellDef mat-sort-header>Price</th>
@@ -115,16 +115,16 @@
                            </ng-container> -->
                            <ng-container matColumnDef="action">
                               <th class="px-3 text-nowrap" mat-header-cell *matHeaderCellDef> Action </th>
-                              <td class="px-3 text-nowrap" mat-cell *matCellDef="let element;let i = index;">
-                                 <button mat-icon-button (click) ="onSeeDialog()" color="primary">
+                              <td class="px-3 text-nowrap" mat-cell *matCellDef="let element">
+                                 <button mat-icon-button (click)="onStudentDetails(element)" color="primary">
                                     <i class="material-icons">remove_red_eye</i>
                                  </button>
-                                 <button mat-icon-button (click) ="onEditProduct(element)" color="primary">
+                              <!--    <button mat-icon-button (click) ="onEditProduct(element)" color="primary">
                                     <i class="material-icons">edit</i>
                                  </button> 
                                  <button color="warn" mat-icon-button (click)="deleteProduct(i)">
                                     <mat-icon class="">delete</mat-icon>
-                                 </button>
+                                 </button> -->
                               </td>
                            </ng-container>     
                            <tr mat-header-row *matHeaderRowDef="displayedProductColumns"></tr>

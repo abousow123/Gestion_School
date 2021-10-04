@@ -1,5 +1,8 @@
+import { getLocaleExtraDayPeriodRules } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import {Galleries} from 'src/app/models/gallery'
+import { SchoolService } from 'src/app/Services/school.service';
 
 @Component({
 	selector: 'app-add-product',
@@ -17,16 +20,20 @@ export class AddProductComponent implements OnInit {
    public imagePath;
    fileToUpload: any;
 
+   gal: Galleries = new Galleries();
+   gal1: Galleries = new Galleries();
    fileData: File = null;
    previewUrl:any = null;
+   ind: number;
+   demandeFile: any = File;
+   demandeFile1: any = File;
+   demandeFiles: Array<File> = [];
+   
 
     "data" : any = [
       {
          "image": "https://via.placeholder.com/625x800",
          "image_gallery": [
-            "https://via.placeholder.com/625x800",
-            "https://via.placeholder.com/625x800",
-            "https://via.placeholder.com/625x800",
             "https://via.placeholder.com/625x800"
          ]
       }
@@ -42,10 +49,10 @@ export class AddProductComponent implements OnInit {
       }
    ]  */
 
-	constructor(public formBuilder : FormBuilder) { }
+	constructor(public formBuilder : FormBuilder, private schoolService: SchoolService) { }
 
 	ngOnInit() {
-
+      this.ind = this.data[0].image_gallery.length ;
       this.mainImgPath = this.data[0].image;
       this.form = this.formBuilder.group({
 			name					: ['Add product Name'],
@@ -69,17 +76,17 @@ export class AddProductComponent implements OnInit {
 
 
 
-  uploadFileEvt(imgFile: any) {
+  uploadFileEvt(imgFile: any,indice: any) {
   
    //this.fileToUpload = imgFile.item(0);
    
    
    let reader = new FileReader();
    reader.onload = (event: any) => {
-      console.log("test ===");
+     // console.log("test ===");
      //this.imageUrl = event.target.result;
      this.data[0].image_gallery.push(event.target.result)
-     console.log("test ==="+ this.data[0].image_gallery );
+     console.log("test ==="+ this.data[0].image_gallery + " ," +indice );
 
    }
    //reader.readAsDataURL(this.fileToUpload);
@@ -123,33 +130,90 @@ export class AddProductComponent implements OnInit {
  }
 
  fileProgress(fileInput: any) {
-   this.fileData = <File>fileInput.target.files[0];
-   this.preview();
+
+  this.demandeFile = fileInput.target.files[0] ;
+
+  console.log("taille File ===>"+fileInput.target.files.length);
+  
+   
+  for (let index in fileInput.target.files) {
+    if(this.data[0].image_gallery.length<=8){
+      this.fileData = <File>fileInput.target.files[index];
+      this.demandeFiles.push(<File>fileInput.target.files[index]) ;
+      this.preview();
+    }
+  };
+ // this.data[0].image_gallery.push("https://via.placeholder.com/625x800")
+
+}
+
+indice(i){
+  console.log("test indice ===>"+ i);
+  
 }
 
 preview() {
- // Show preview 
- var mimeType = this.fileData.type;
- if (mimeType.match(/image\/*/) == null) {
-   return;
- }
 
- console.log("test position: "+ this.data[0].image_gallery.indexOf("https://via.placeholder.com/625x800"));
+    // Show preview 
+    var mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
 
- var reader = new FileReader();      
- reader.readAsDataURL(this.fileData); 
- reader.onload = (_event) => { 
-   this.previewUrl = reader.result; 
-   if(!this.data[0].image_gallery.includes(this.previewUrl)){
-     
-     
-     this.data[0].image_gallery.push(this.previewUrl)
-     console.log("test position: "+ this.data[0].image_gallery.indexOf(this.previewUrl));
-   }
-   
-  
- }
- console.log("test ==="+ this.data[0].image_gallery);
+    var reader = new FileReader();      
+    reader.readAsDataURL(this.fileData); 
+    reader.onload = (_event) => { 
+      this.previewUrl = reader.result; 
+      if(!this.data[0].image_gallery.includes(this.previewUrl) ){
+        
+        this.data[0].image_gallery.push(this.previewUrl);
+        
+      }
+      
+      
+    }
 }
+
+ saveGallery(){
+   this.gal.name = "test1";
+   this.gal.description = "Test 1"
+   //this.gal.photo = this.data[0].image_gallery[1];
+
+   var formData = new FormData() ;
+   formData.append("gallery",JSON.stringify(this.gal));
+   //console.log("test ab ==="+ this.data[0].image_gallery[1]);
+   
+   formData.append("photoGallery",this.demandeFile)
+
+    this.schoolService.saveGallery(formData)
+    .subscribe(
+      response => {
+        this.gal1 = response as Galleries;
+        
+
+        this.demandeFiles.forEach((file) => { 
+          
+            //console.log("test ab ===1111");
+            var formData1= new FormData() ;
+            formData1.append("gallery1",JSON.stringify(this.gal1));
+            //this.demandeFile1 = file;
+            formData1.append("picture", file); 
+            this.schoolService.savePicture(formData1)
+
+            .subscribe(
+              response => {
+                
+              }
+            );
+
+            
+          
+          });
+        
+      }
+    );
+   
+   
+ }
 
 }

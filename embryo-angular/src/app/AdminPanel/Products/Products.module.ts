@@ -30,9 +30,10 @@ import { ProductsComponent } from './Products/Products.component';
 import { ProductsRoutes} from './Products.routing';
 import { SchoolService } from 'src/app/Services/school.service';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { EtudiantDetailsComponent } from './etudiant-details/etudiant-details.component';
 
 @NgModule({
-   declarations: [ProductsComponent, EditProductComponent, AddProductComponent],
+   declarations: [ProductsComponent, EditProductComponent, AddProductComponent, EtudiantDetailsComponent],
    imports: [
       CommonModule,
       FlexLayoutModule,

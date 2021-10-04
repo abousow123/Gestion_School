@@ -129,10 +129,10 @@ export let blogs: Object[] = [{
 
 export let abouInfos = {
         "content": "Over the years, our reputation has grown as our professionalism go on to become knowledgeable in the field. Through engaging and hands-on educational opportunities, Nay's Hair Braiding School wants to cultivates future industry leaders. If this is what you’re looking for, please don’t hesitate to get in touch to learn more and join our growing community.",
-        "heading": "About Committed to Education",
+        "heading": "About us",
         "id": 1,
         "image": "assets/images/about-us.jpg",
-        "sub_heading": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate nihil non quo corrupti, laborum hic,"
+        "sub_heading": "About Committed to Education"
      };
 
 

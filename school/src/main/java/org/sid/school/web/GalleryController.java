@@ -19,9 +19,15 @@ public class GalleryController {
     GalleryService galleryService;
 
     @PostMapping("/saveGallery")
-    public Gallery saveGallery(@RequestParam("photoGallery") MultipartFile photoGallery, @RequestParam("gallery") String gallery, @RequestParam("pictures")List<MultipartFile> pictures)
+    public Gallery saveGallery(@RequestParam("photoGallery") MultipartFile photoGallery, @RequestParam("gallery") String gallery)
             throws IOException {
-        return galleryService.postGallery(pictures,photoGallery,gallery) ;
+        return galleryService.postGallery(photoGallery,gallery) ;
+    }
+
+    @PostMapping("/savePicture")
+    public void savePicture(@RequestParam("picture") MultipartFile picture, @RequestParam("gallery1") String gallery1)
+            throws IOException {
+        galleryService.postPicture(picture, gallery1);
     }
 
     @GetMapping("/listPictures")

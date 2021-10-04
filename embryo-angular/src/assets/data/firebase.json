@@ -1579,5 +1579,113 @@
          "access": "Admin",
          "accessclass": "primary"
       }
-   ]
+   ],
+
+   "etudiants": [
+      {
+    "id": "e0c2f143-d778-4ad8-b624-52a15a7216e8",
+    "numStudent": "202162DD",
+    "firstName": "Amina",
+    "lastName": "SOW",
+    "address": "New York",
+    "nationalite": "SN",
+    "tel": "7789876534",
+    "email": "amina@gmail.com",
+    "photo": "assets/images/2.jpg",
+    "feesPays": false,
+    "fraisInscription": 120,
+      "tuteur": {
+      "id": 1,
+      "nom": "N1",
+      "prenom": "P1",
+      "tel": "123456789",
+      "email": "email1@gmail.com",
+      "typeTuteur": "Father"
+      }
+    },
+      {
+    "id": "f4b9025c-f3b3-4567-9d73-ce047daafa6f",
+    "numStudent": "20218AC8",
+    "firstName": "Fatou",
+    "lastName": "Dia",
+    "address": "New York",
+    "nationalite": "US",
+    "tel": "77765433",
+    "email": "fatou@gmail.com",
+    "photo": "assets/images/2.jpg",
+    "feesPays": false,
+    "fraisInscription": 120,
+      "tuteur": {
+      "id": 1,
+      "nom": "N1",
+      "prenom": "P1",
+      "tel": "123456789",
+      "email": "email1@gmail.com",
+      "typeTuteur": "Father"
+      }
+    },
+      {
+    "id": "17163977-a58b-4402-9f5d-40aa86f73fa1",
+    "numStudent": "2021052C",
+    "firstName": "aida",
+    "lastName": "Diallo",
+    "address": "dakar",
+    "nationalite": "US",
+    "tel": "77765433",
+    "email": "aida@gmail.com",
+    "photo": "assets/images/2.jpg",
+    "feesPays": false,
+    "fraisInscription": 120,
+      "tuteur": {
+      "id": 1,
+      "nom": "N1",
+      "prenom": "P1",
+      "tel": "123456789",
+      "email": "email1@gmail.com",
+      "typeTuteur": "Father"
+      }
+    },
+      {
+    "id": "66315754-6930-4a9d-8207-998b85cd6989",
+    "numStudent": "202187F0",
+    "firstName": "Fatou",
+    "lastName": "Dia",
+    "address": "Guediawaye",
+    "nationalite": "US",
+    "tel": "77765433",
+    "email": "fatou1@gmail.com",
+    "photo": "assets/images/2.jpg",
+    "feesPays": true,
+    "fraisInscription": 120,
+    "tuteur": {
+    "id": 1,
+    "nom": "N1",
+    "prenom": "P1",
+    "tel": "123456789",
+    "email": "email1@gmail.com",
+    "typeTuteur": "Father"
+    }
+    },
+      {
+    "id": "8e8d30bb-3be2-4610-82a9-b07c61550625",
+    "numStudent": "2021094F",
+    "firstName": "Fatou",
+    "lastName": "Fall",
+    "address": "thiaroye",
+    "nationalite": "US",
+    "tel": "77765433",
+    "email": "fatou2@gmail.com",
+    "photo": "assets/images/2.jpg",
+    "feesPays": false,
+    "fraisInscription": 120,
+      "tuteur": {
+      "id": 1,
+      "nom": "N1",
+      "prenom": "P1",
+      "tel": "123456789",
+      "email": "email1@gmail.com",
+      "typeTuteur": "Father"
+      }
+    }
+    ]
 }

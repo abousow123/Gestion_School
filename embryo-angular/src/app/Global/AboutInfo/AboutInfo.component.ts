@@ -11,7 +11,7 @@ export class AboutInfoComponent implements OnInit {
    @Input() isRTL : any;
    slideConfig : any;
    data1 = {
-      img: "assets/images/hair.jpg",
+      img: "assets/images/about-us.jpg",
       content:"<h4>New Arrival</h4><h1 class='text-main'>Biggest Sale</h1><h1 class='text-bold mb-4'>50% <sup class='bold-sup'>Flat Off</sup></h1>"
    } ;
 
@@ -33,7 +33,7 @@ export class AboutInfoComponent implements OnInit {
    constructor() { }
 
    ngOnInit() {
-     console.log("testdfd" + JSON.stringify(this.slides));
+    // console.log("testdfd" + JSON.stringify(this.slides));
      
    }
    ngOnChanges() {

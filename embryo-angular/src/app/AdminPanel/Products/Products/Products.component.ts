@@ -6,6 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { AdminPanelServiceService } from '../../Service/AdminPanelService.service';
+import { JsonpClientBackend } from '@angular/common/http';
 
 @Component({
 	selector: 'app-products',
@@ -20,7 +21,7 @@ export class ProductsComponent implements OnInit {
 	popUpDeleteUserResponse : any;
 	etudiants				: any;
 	etu				: any;
-	showType	    				: string = 'grid';
+	showType	    				: string = 'list';
 	//displayedProductColumns : string [] = ['id', 'image','name','brand','category', 'product_code', 'discount_price', 'price','action' ];
 	displayedProductColumns : string [] = ['Num', 'image','name','Address','Tel', 'Email', 'Fees', 'action' ];
 	@ViewChild(MatPaginator) paginator : MatPaginator;
@@ -33,27 +34,36 @@ export class ProductsComponent implements OnInit {
 
 	ngOnInit() {
 		this.adminPanelService.getProducts().valueChanges().subscribe(res => this.getProductResponse(res));
+		//this.adminPanelService.getEtudians().valueChanges().subscribe(res => this.getEtudiantResponse(res));
 		//this.etudiants= this.etudiantService.getEtudiants();
 
-		this.etudiantService.getEtudiants()
+	 	this.etudiantService.getEtudiants()
 		.subscribe(data=>{
 		  this.etu = data ;
-		  this.etudiants = this.etu._embedded.etudiants  ;
+		  this.etudiants = this.etu  ;
 		  console.log(this.etudiants);
 		  
 		},err=>{
 			console.log("test ===");
 		  	console.log(err);
 	
-		}) ;
+		}) ; 
 	}
 
 	//getProductResponse method is used to get the response of all products.
  	public getProductResponse(response) {
+		console.log(" test ==> "+response);
       this.productsGrid = null;
       let products = ((response.men.concat(response.women)).concat(response.gadgets)).concat(response.accessories);
       this.productsGrid = products;
    }
+
+   	//getProductResponse method is used to get the response of all products.
+ 	public getEtudiantResponse(response) {
+		
+		 
+		this.etudiants = response ;
+	 }
 
   	/**
 	  * productShowType method is used to select the show type of product.
@@ -111,7 +121,13 @@ export class ProductsComponent implements OnInit {
 
    onSeeDialog(){
 	this.router.navigate(['/count/']);
-	//this.router.navigate([import('./AdminAccount/AdminAccount.module').then (m => m.AdminAccountModule)]);
+	this.router.navigate([import('./AdminAccount/AdminAccount.module').then (m => m.AdminAccountModule)]);
 	
+   }
+
+   onStudentDetails(element){
+	this.router.navigate(['admin-panel/student-detail',element.id]);
+	//this.adminPanelService.editProductData = data;
+	   
    }
 }

@@ -29,24 +29,37 @@ public class GalleryImpl implements GalleryService{
 
     
     @Override
-    public Gallery postGallery(List<MultipartFile> images, MultipartFile photoGallery, String galery) throws JsonParseException, JsonMappingException, IOException {
+    public Gallery postGallery( MultipartFile photoGallery, String galery) throws JsonParseException, JsonMappingException, IOException {
 
-        Gallery gallery = new ObjectMapper().readValue(galery, Gallery.class) ;
-        if(photoGallery != null){
-             gallery.setPhoto(utilsService.modifyFileName(photoGallery));
+        Gallery gallery1 = new ObjectMapper().readValue(galery, Gallery.class) ;
+      /*  if(photoGallery != null){
+             gallery1.setPhoto(utilsService.modifyFileName(photoGallery));
         }
+        System.out.println("========================>"+gallery1.toString());*/
+        return galleryRepository.save(gallery1);
 
-        Gallery gallery1 = galleryRepository.save(gallery);
-
-        if(images != null && images.size() > 0){
+      /*  if(images != null && images.size() > 0){
             for(MultipartFile file: images){
                 Picture picture = new Picture();
                 picture.setGallery(gallery1);
                 picture.setPhotoName(utilsService.modifyFileName(file));
                 pictureRepository.save(picture);
             }
+        }*/
+        //return gallery1;
+    }
+
+    @Override
+    public void postPicture(MultipartFile picture, String galery) throws JsonParseException, JsonMappingException, IOException {
+        Gallery gallery1 = new ObjectMapper().readValue(galery, Gallery.class) ;
+        Picture picture1 = new Picture();
+        picture1.setGallery(gallery1);
+        picture1.setPhotoName(utilsService.modifyFileName(picture));
+        pictureRepository.save(picture1);
+        if(gallery1.getPhoto() != null){
+            gallery1.setPhoto(utilsService.modifyFileName(picture));
+            updateGallery(gallery1.getId(), gallery1) ;
         }
-        return gallery1;
     }
 
     @Override
@@ -88,5 +101,11 @@ public class GalleryImpl implements GalleryService{
         }*/
 
         return gallery;
+    }
+
+    @Override
+    public Gallery updateGallery(Long id, Gallery gallery) {
+        gallery.setId(id);
+        return galleryRepository.saveAndFlush(gallery);
     }
 }

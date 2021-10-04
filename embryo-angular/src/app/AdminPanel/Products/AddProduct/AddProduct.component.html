@@ -9,7 +9,7 @@
                         <div fxFlex.xs="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.lg="15" fxFlex.xl="15">
                            <div class="product-detail-image-gallery pr-4">
                               <mat-grid-list cols="1" rowHeight="1:1" gutterSize="20px">
-                                 <mat-grid-tile *ngFor="let img of detailData.image_gallery; let i=index">
+                                 <mat-grid-tile *ngFor="let img of detailData.image_gallery; let i=index;let d=ind">
                                     <div class="product-image-gallery-item add-icon">
                                        <a id="{{i}}_img" class="p-link" [ngClass]="{ 'border-active': i === 0 }" href="javascript:void(0)" (mouseenter)="getImagePath(img, i)">
                                        <img [src]="img" alt="" width="100" height="100">
@@ -20,7 +20,7 @@
                                           </label>
                                        </button>
                                        <!-- add-btn -->
-                                       <input mat id="fileToUpload" (change)="fileProgress($event)" type="file" accept="image/*" style="display:none;">
+                                       <input mat id="fileToUpload" (change)="fileProgress($event)"  type="file" multiple accept="image/*" style="display:none;">
                                     </div>
                                  </mat-grid-tile>
                               </mat-grid-list>
@@ -44,7 +44,7 @@
                   <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md=50 fxFlex.lg="50" fxFlex.xl="50">
                      <div class="product-detail-content ml-3">
                         <a class="primary-color font-medium" href="javascript:void(0)" routerLink="/admin-panel/products">Back to Product</a>
-                        <h3 class="add-text"><input matInput formControlName="name" type="text" value="Add product Name"></h3>
+                        <h3 class="add-text"><input matInput formControlName="name" type="text" value="Gallery Name"></h3>
                         <div class="product-detail-price">
                            <h4 class="accent-color add-text"><input matInput  formControlName="price" type="text" value="Add Price"></h4>
                         </div>
@@ -92,7 +92,7 @@
                            </mat-form-field>
                         </div>
                         <div class="mb-5 detail-btns">
-                           <button mat-raised-button color="accent" class="button-lg mr-3">Create</button>
+                           <button mat-raised-button color="accent" class="button-lg mr-3" (click)="saveGallery()">Create</button>
                            <button class="button-lg" mat-raised-button>Discard</button>
                         </div>
                         <div fxLayoutAlign="start center">

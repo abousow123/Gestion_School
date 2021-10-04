@@ -11,6 +11,7 @@ import org.sid.school.entities.*;
 import org.sid.school.metier.CoursService;
 import org.sid.school.metier.EtudiantService;
 import org.sid.school.metier.GalleryService;
+import org.sid.school.metier.UtilsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -54,6 +55,8 @@ public class SchoolApplication implements CommandLineRunner {
     AgendaRepository agendaRepository;
     @Autowired
     AccountService accountService;
+    @Autowired
+    private UtilsService utilsService ;
     @Autowired
     EtudiantService etudiantService;
     @Autowired
@@ -138,10 +141,36 @@ public class SchoolApplication implements CommandLineRunner {
         etudiant.setNationalite("SN");
         etudiant.setSexe("Femme");
         etudiant.setTuteur(tuteur);
+
+
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
         String numEtudiant0 = formatter.format(new Date()) + UUID.randomUUID().toString().substring(0,4).toUpperCase();
         etudiant.setNumStudent(numEtudiant0);
         etudiantRepository.save(etudiant);
+
+        String files0 = context.getRealPath("/images/1.jpeg");
+        File file0 = new File(files0);
+        FileInputStream input = new FileInputStream(file0);
+        MultipartFile multipartFile1 = new MockMultipartFile("file",
+                file0.getName(), "application/octet-stream", IOUtils.toByteArray(input));
+
+        String files2 = context.getRealPath("/images/2.jpeg");
+        File file2 = new File(files2);
+        FileInputStream input1 = new FileInputStream(file2);
+        MultipartFile multipartFile2 = new MockMultipartFile("file",
+                file2.getName(), "application/octet-stream", IOUtils.toByteArray(input1));
+
+        String files3 = context.getRealPath("/images/3.jpeg");
+        File file3 = new File(files3);
+        FileInputStream input2 = new FileInputStream(file3);
+        MultipartFile multipartFile3 = new MockMultipartFile("file",
+                file3.getName(), "application/octet-stream", IOUtils.toByteArray(input2));
+
+        String files4 = context.getRealPath("/images/4.jpeg");
+        File file4 = new File(files4);
+        FileInputStream input3 = new FileInputStream(file4);
+        MultipartFile multipartFile4 = new MockMultipartFile("file",
+                file4.getName(), "application/octet-stream", IOUtils.toByteArray(input3));
 
         Etudiant etudiant1 = new Etudiant();
         etudiant1.setAddress("New York");
@@ -154,6 +183,7 @@ public class SchoolApplication implements CommandLineRunner {
         etudiant1.setNationalite("US");
         etudiant1.setSexe("Femme");
         etudiant1.setTuteur(tuteur);
+        etudiant1.setPhoto(utilsService.modifyFileName(multipartFile1));
         SimpleDateFormat formatter0 = new SimpleDateFormat("yyyy");
         String numEtudiant = formatter0.format(new Date()) + UUID.randomUUID().toString().substring(0,4).toUpperCase();
         etudiant1.setNumStudent(numEtudiant);
@@ -170,6 +200,7 @@ public class SchoolApplication implements CommandLineRunner {
         etudiant2.setNationalite("US");
         etudiant2.setSexe("Femme");
         etudiant2.setTuteur(tuteur);
+        etudiant2.setPhoto(utilsService.modifyFileName(multipartFile2));
         SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy");
         String numEtudiant1 = formatter.format(new Date()) + UUID.randomUUID().toString().substring(0,4).toUpperCase();
         etudiant2.setNumStudent(numEtudiant1);
@@ -187,6 +218,7 @@ public class SchoolApplication implements CommandLineRunner {
         etudiant3.setNationalite("US");
         etudiant3.setSexe("Femme");
         etudiant3.setTuteur(tuteur);
+        etudiant3.setPhoto(utilsService.modifyFileName(multipartFile3));
         SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy");
         String numEtudiant2 = formatter.format(new Date()) + UUID.randomUUID().toString().substring(0,4).toUpperCase();
         etudiant3.setNumStudent(numEtudiant2);
@@ -203,6 +235,7 @@ public class SchoolApplication implements CommandLineRunner {
         etudiant4.setNationalite("US");
         etudiant4.setSexe("Femme");
         etudiant4.setTuteur(tuteur);
+        etudiant4.setPhoto(utilsService.modifyFileName(multipartFile4));
         SimpleDateFormat formatter3 = new SimpleDateFormat("yyyy");
         String numEtudiant3 = formatter.format(new Date()) + UUID.randomUUID().toString().substring(0,4).toUpperCase();
         etudiant4.setNumStudent(numEtudiant3);
@@ -372,7 +405,7 @@ public class SchoolApplication implements CommandLineRunner {
         String filesPath2 = context.getRealPath("/images/");
         File output = new File(filesPath2+"12348.jpg");
         ImageIO.write(resized, "jpg", output);
-*/
+
         List<MultipartFile> images = new ArrayList<>();
         for(int i=1;i<19;i++){
             String files = context.getRealPath("/images/"+i+".jpeg");
@@ -384,12 +417,12 @@ public class SchoolApplication implements CommandLineRunner {
             images.add(multipartFile) ;
 
         }
-
+*/
         String files1 = context.getRealPath("/images/1.jpg");
         File file = new File(files1);
 
-        FileInputStream input = new FileInputStream(file);
-        MultipartFile multipartFile1 = new MockMultipartFile("file", file.getName(), "application/octet-stream", IOUtils.toByteArray(input));
+        FileInputStream input5 = new FileInputStream(file);
+        MultipartFile multipartFile7 = new MockMultipartFile("file", file.getName(), "application/octet-stream", IOUtils.toByteArray(input));
 
         Gallery gallery = new Gallery();
         gallery.setDescription("Gallery test");
@@ -406,7 +439,7 @@ public class SchoolApplication implements CommandLineRunner {
             e.printStackTrace();
         }
 
-        galleryService.postGallery(images,multipartFile1,JsonGallery);
+        galleryService.postGallery(multipartFile1,JsonGallery);
 
 
 

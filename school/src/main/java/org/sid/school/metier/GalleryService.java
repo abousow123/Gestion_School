@@ -12,8 +12,10 @@ import java.util.Optional;
 
 public interface GalleryService {
 
-    Gallery postGallery(List<MultipartFile> images ,MultipartFile photoGallery, String galery) throws JsonParseException, JsonMappingException, IOException;
+    Gallery postGallery(MultipartFile photoGallery, String galery) throws JsonParseException, JsonMappingException, IOException;
+    void postPicture(MultipartFile picture, String galery) throws JsonParseException, JsonMappingException, IOException;
     List<Picture>  listGallery();
     List<Picture>  listPicturesByGallery(Long id);
     Optional<Gallery> getGallery(Long id);
+    Gallery updateGallery(Long id, Gallery gallery);
 }

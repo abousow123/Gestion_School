@@ -17,7 +17,7 @@ export class SchoolService {
 
   getEtudiants(){
     if(this.jwtToken == null) this.jwtToken = this.autService.loadToken() ;
-    return this.http.get(this.host+ "etudiants", {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
+    return this.http.get(this.host+ "listEtudiants", {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
   }
 
   getOneStudent(idStudient){
@@ -203,6 +203,11 @@ export class SchoolService {
   saveGallery(gallery){
     if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
     return this.http.post(this.host+ "saveGallery",gallery, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
+  }
+
+  savePicture(picture){
+    if(this.jwtToken == null) this.jwtToken = this.autService.loadToken()  ;
+    return this.http.post(this.host+ "savePicture",picture, {headers: new HttpHeaders({'Authorization': this.jwtToken})}) ;
   }
 
 }

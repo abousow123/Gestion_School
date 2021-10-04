@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, JsonpClientBackend } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import * as screenfull from 'screenfull';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
@@ -19,6 +19,7 @@ export class AdminPanelServiceService {
 	chatSideBarOpen : boolean = true;
 	editProductData : any;
 	products  : AngularFireObject<any>;
+	etudiants  : AngularFireObject<any>;
 
 	constructor(private http:HttpClient,
 					private dialog: MatDialog,
@@ -42,6 +43,14 @@ export class AdminPanelServiceService {
       this.products = this.db.object("products");
       return this.products;
    }
+
+   	//getEtudians method is used to get the etudiants.
+	public getEtudians() {
+	 this.etudiants = this.db.object("etudiants");
+	 //console.log(" test ==> "+JSON.stringify(this.etudiants) );
+	 return this.etudiants;
+	}
+
 
 	//getTableTabContent method is used to get the transcation table data.
 	getTableTabContent() {
